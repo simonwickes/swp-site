@@ -1,7 +1,7 @@
 # Requirements: Simon Wickes Photography
 
 **Defined:** 2026-02-09
-**Core Value:** Potential clients can see Simon's work across all service categories and easily get in touch — first impressions matter.
+**Core Value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
 
 ## v1 Requirements
 
@@ -97,45 +97,45 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LAND-01 | TBD | Pending |
-| LAND-02 | TBD | Pending |
-| LAND-03 | TBD | Pending |
-| LAND-04 | TBD | Pending |
-| SERV-01 | TBD | Pending |
-| SERV-02 | TBD | Pending |
-| SERV-03 | TBD | Pending |
-| SERV-04 | TBD | Pending |
-| SERV-05 | TBD | Pending |
-| CONT-01 | TBD | Pending |
-| CONT-02 | TBD | Pending |
-| CONT-03 | TBD | Pending |
-| CONT-04 | TBD | Pending |
-| CONT-05 | TBD | Pending |
-| CONT-06 | TBD | Pending |
-| BLOG-01 | TBD | Pending |
-| BLOG-02 | TBD | Pending |
-| BLOG-03 | TBD | Pending |
-| BLOG-04 | TBD | Pending |
-| BLOG-05 | TBD | Pending |
-| BLOG-06 | TBD | Pending |
-| BLOG-07 | TBD | Pending |
-| GALL-01 | TBD | Pending |
-| GALL-02 | TBD | Pending |
-| DSGN-01 | TBD | Pending |
-| DSGN-02 | TBD | Pending |
-| DSGN-03 | TBD | Pending |
-| DSGN-04 | TBD | Pending |
-| DSGN-05 | TBD | Pending |
-| SEO-01 | TBD | Pending |
-| SEO-02 | TBD | Pending |
-| SEO-03 | TBD | Pending |
-| SEO-04 | TBD | Pending |
+| LAND-01 | Phase 2: Landing Page | Pending |
+| LAND-02 | Phase 1: Foundation & Design System | Pending |
+| LAND-03 | Phase 2: Landing Page | Pending |
+| LAND-04 | Phase 8: SEO, Transitions & Launch Readiness | Pending |
+| SERV-01 | Phase 3: Service Pages & Lightbox | Pending |
+| SERV-02 | Phase 3: Service Pages & Lightbox | Pending |
+| SERV-03 | Phase 3: Service Pages & Lightbox | Pending |
+| SERV-04 | Phase 3: Service Pages & Lightbox | Pending |
+| SERV-05 | Phase 3: Service Pages & Lightbox | Pending |
+| CONT-01 | Phase 4: Contact & Conversion | Pending |
+| CONT-02 | Phase 4: Contact & Conversion | Pending |
+| CONT-03 | Phase 4: Contact & Conversion | Pending |
+| CONT-04 | Phase 4: Contact & Conversion | Pending |
+| CONT-05 | Phase 4: Contact & Conversion | Pending |
+| CONT-06 | Phase 4: Contact & Conversion | Pending |
+| BLOG-01 | Phase 6: Blog Engine | Pending |
+| BLOG-02 | Phase 6: Blog Engine | Pending |
+| BLOG-03 | Phase 6: Blog Engine | Pending |
+| BLOG-04 | Phase 6: Blog Engine | Pending |
+| BLOG-05 | Phase 7: Blog Discovery & Sharing | Pending |
+| BLOG-06 | Phase 7: Blog Discovery & Sharing | Pending |
+| BLOG-07 | Phase 7: Blog Discovery & Sharing | Pending |
+| GALL-01 | Phase 5: Client Galleries | Pending |
+| GALL-02 | Phase 5: Client Galleries | Pending |
+| DSGN-01 | Phase 1: Foundation & Design System | Pending |
+| DSGN-02 | Phase 1: Foundation & Design System | Pending |
+| DSGN-03 | Phase 1: Foundation & Design System | Pending |
+| DSGN-04 | Phase 2: Landing Page | Pending |
+| DSGN-05 | Phase 1: Foundation & Design System | Pending |
+| SEO-01 | Phase 8: SEO, Transitions & Launch Readiness | Pending |
+| SEO-02 | Phase 8: SEO, Transitions & Launch Readiness | Pending |
+| SEO-03 | Phase 8: SEO, Transitions & Launch Readiness | Pending |
+| SEO-04 | Phase 8: SEO, Transitions & Launch Readiness | Pending |
 
 **Coverage:**
 - v1 requirements: 33 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 33
+- Mapped to phases: 33
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-09*
-*Last updated: 2026-02-09 after initial definition*
+*Last updated: 2026-02-09 after roadmap creation*
