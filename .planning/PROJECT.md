@@ -55,11 +55,12 @@ Potential clients can see Simon's work across all service categories and easily 
 **Design direction:**
 Modern, bold, warm aesthetic with pops of color. The vibe should be approachable, friendly, and professional — not stuffy or corporate. Photography should be front and center with minimal UI getting in the way.
 
-**Third-party gallery requirements:**
+**Third-party gallery (Pic-Time):**
 - Password-protected client galleries
 - Full-resolution download capability
 - Proofing/selection tools for clients to pick favorites
 - No print sales needed
+- Integration: link-out from site to Pic-Time galleries
 
 ## Constraints
 
@@ -76,6 +77,7 @@ Modern, bold, warm aesthetic with pops of color. The vibe should be approachable
 | Markdown over Strapi CMS | Shared hosting can't run Node.js; simpler workflow | — Pending |
 | Third-party gallery service | Purpose-built for photographers, saves massive dev time | — Pending |
 | Static site on shared hosting | Uses existing InMotion hosting, no additional server costs | — Pending |
+| Pic-Time for client galleries | Full-featured proofing, password protection, downloads; clean UX | — Pending |
 
 ---
-*Last updated: 2026-02-09 after initialization*
+*Last updated: 2026-02-09 after gallery service selection*
