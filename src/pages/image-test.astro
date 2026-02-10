@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image, Picture } from "astro:assets";
+import testImage from "../assets/images/test/sample.jpg";
+---
+
+<BaseLayout title="Image Pipeline Test">
+  <main class="mx-auto max-w-4xl px-4 py-12">
+    <h1 class="mb-8 font-display text-3xl font-bold">Image Pipeline Test</h1>
+
+    <section class="mb-12">
+      <h2 class="mb-4 font-display text-xl font-semibold">
+        Image Component (Constrained)
+      </h2>
+      <p class="mb-4 text-surface-500">
+        Should generate responsive srcset, constrained to 800px max width.
+      </p>
+      <Image
+        src={testImage}
+        alt="Test image - constrained layout"
+        width={800}
+        quality={80}
+      />
+    </section>
+
+    <section class="mb-12">
+      <h2 class="mb-4 font-display text-xl font-semibold">
+        Picture Component (Multi-format)
+      </h2>
+      <p class="mb-4 text-surface-500">
+        Should generate avif + webp + jpeg fallback sources.
+      </p>
+      <Picture
+        src={testImage}
+        formats={["avif", "webp"]}
+        alt="Test image - multi-format"
+        width={1200}
+        quality={85}
+      />
+    </section>
+
+    <section class="mb-12">
+      <h2 class="mb-4 font-display text-xl font-semibold">Small Thumbnail</h2>
+      <p class="mb-4 text-surface-500">
+        Should generate a small optimized thumbnail.
+      </p>
+      <Image
+        src={testImage}
+        alt="Test image - thumbnail"
+        width={300}
+        quality={75}
+        class="rounded-lg"
+      />
+    </section>
+  </main>
+</BaseLayout>
