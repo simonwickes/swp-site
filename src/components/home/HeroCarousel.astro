@@ -1,0 +1,244 @@
+---
+import {
+  Swiper,
+  SwiperWrapper,
+  SwiperSlide,
+  SwiperButtonNext,
+  SwiperButtonPrev,
+  SwiperPagination,
+} from "astro-swiper";
+import { Image } from "astro:assets";
+
+import heroSlide1 from "@/assets/images/hero/slide-1.jpg";
+import heroSlide2 from "@/assets/images/hero/slide-2.jpg";
+import heroSlide3 from "@/assets/images/hero/slide-3.jpg";
+import heroSlide4 from "@/assets/images/hero/slide-4.jpg";
+
+const slides = [
+  {
+    src: heroSlide1,
+    alt: "Portrait session in golden hour light",
+  },
+  {
+    src: heroSlide2,
+    alt: "Dramatic landscape at sunset with rolling hills",
+  },
+  {
+    src: heroSlide3,
+    alt: "Candid moment captured during a wedding celebration",
+  },
+  {
+    src: heroSlide4,
+    alt: "Classic car detail shot with warm tones",
+  },
+];
+---
+
+<section
+  class="hero-carousel relative w-full bg-surface-900"
+  style="height: 100vh; height: 100dvh;"
+  aria-label="Hero image carousel"
+>
+  <Swiper
+    uniqueClass="hero-swiper"
+    class="h-full w-full"
+    options={{
+      autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      loop: true,
+      effect: "slide",
+      speed: 800,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    }}
+  >
+    <SwiperWrapper>
+      {slides.map((slide, index) => (
+        <SwiperSlide class="!h-full">
+          <div class="relative h-full w-full bg-surface-900">
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              widths={[640, 1024, 1920]}
+              sizes="100vw"
+              class="h-full w-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          </div>
+        </SwiperSlide>
+      ))}
+    </SwiperWrapper>
+
+    <SwiperButtonPrev />
+    <SwiperButtonNext />
+    <SwiperPagination />
+  </Swiper>
+
+  <!-- Name and tagline overlay -->
+  <div class="absolute bottom-8 left-8 z-10 md:bottom-12 md:left-12">
+    <h1
+      class="font-display text-3xl font-bold text-surface-50 drop-shadow-lg md:text-5xl"
+    >
+      Simon Wickes Photography
+    </h1>
+    <p class="mt-2 text-lg text-surface-100 drop-shadow-md md:text-xl">
+      Capturing authentic moments
+    </p>
+  </div>
+
+  <!-- Pause/Play button -->
+  <button
+    id="hero-pause-btn"
+    type="button"
+    class="absolute bottom-8 right-8 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-surface-900/50 text-surface-50 transition-colors hover:bg-surface-900/70 md:bottom-12 md:right-12"
+    aria-label="Pause carousel"
+  >
+    <svg
+      id="hero-pause-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <rect x="6" y="4" width="4" height="16"></rect>
+      <rect x="14" y="4" width="4" height="16"></rect>
+    </svg>
+    <svg
+      id="hero-play-icon"
+      class="hidden"
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <polygon points="5,3 19,12 5,21"></polygon>
+    </svg>
+  </button>
+</section>
+
+<script>
+  import { getSwiperFromUniqueSelector } from "astro-swiper";
+
+  function initHeroCarousel() {
+    const pauseBtn = document.getElementById("hero-pause-btn");
+    const pauseIcon = document.getElementById("hero-pause-icon");
+    const playIcon = document.getElementById("hero-play-icon");
+
+    if (!pauseBtn || !pauseIcon || !playIcon) return;
+
+    let isPaused = false;
+
+    // Check reduced motion preference
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    function getSwiper() {
+      return getSwiperFromUniqueSelector(".hero-swiper");
+    }
+
+    function pauseCarousel() {
+      const swiper = getSwiper();
+      if (swiper?.autoplay) {
+        swiper.autoplay.stop();
+      }
+      isPaused = true;
+      pauseIcon.classList.add("hidden");
+      playIcon.classList.remove("hidden");
+      pauseBtn.setAttribute("aria-label", "Play carousel");
+    }
+
+    function playCarousel() {
+      const swiper = getSwiper();
+      if (swiper?.autoplay) {
+        swiper.autoplay.start();
+      }
+      isPaused = false;
+      playIcon.classList.add("hidden");
+      pauseIcon.classList.remove("hidden");
+      pauseBtn.setAttribute("aria-label", "Pause carousel");
+    }
+
+    // Respect prefers-reduced-motion
+    function handleReducedMotion(mq: MediaQueryList | MediaQueryListEvent) {
+      if (mq.matches) {
+        pauseCarousel();
+      } else if (isPaused) {
+        // Only auto-resume if it was paused by reduced-motion, not user action
+      }
+    }
+
+    // Initial check -- use a short delay to let the Swiper custom element initialize
+    setTimeout(() => {
+      handleReducedMotion(reducedMotion);
+    }, 100);
+
+    // Listen for preference changes
+    reducedMotion.addEventListener("change", handleReducedMotion);
+
+    // Toggle button
+    pauseBtn.addEventListener("click", () => {
+      if (isPaused) {
+        playCarousel();
+      } else {
+        pauseCarousel();
+      }
+    });
+  }
+
+  // Run on initial load
+  initHeroCarousel();
+
+  // Re-run on Astro view transitions
+  document.addEventListener("astro:after-swap", initHeroCarousel);
+</script>
+
+<style>
+  /* Navigation arrow styling */
+  .hero-carousel :global(.swiper-button-next),
+  .hero-carousel :global(.swiper-button-prev) {
+    color: white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  }
+
+  .hero-carousel :global(.swiper-button-next::after),
+  .hero-carousel :global(.swiper-button-prev::after) {
+    font-size: 1.5rem;
+  }
+
+  /* Pagination styling */
+  .hero-carousel :global(.swiper-pagination) {
+    bottom: 5rem !important;
+  }
+
+  .hero-carousel :global(.swiper-pagination-bullet) {
+    background: white;
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+  }
+
+  .hero-carousel :global(.swiper-pagination-bullet-active) {
+    opacity: 1;
+  }
+
+  /* Respect reduced motion for CSS transitions */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-carousel :global(.swiper-wrapper) {
+      transition-duration: 0ms !important;
+    }
+  }
+</style>
