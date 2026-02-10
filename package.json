@@ -13,7 +13,10 @@
     "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
+    "astro-masonry": "^1.2.2",
     "astro-navbar": "^2.4.0",
+    "astro-swiper": "^1.4.0",
+    "swiper": "^12.1.0",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
