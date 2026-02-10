@@ -43,8 +43,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Client Galleries
 
-- [ ] **GALL-01**: User can access bridging page explaining client gallery access
-- [ ] **GALL-02**: User can navigate to third-party gallery service via links
+- [x] **GALL-01**: User can access bridging page explaining client gallery access
+- [x] **GALL-02**: User can navigate to third-party gallery service via links
 
 ### Design & UX
 
@@ -119,8 +119,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BLOG-05 | Phase 7: Blog Discovery & Sharing | Pending |
 | BLOG-06 | Phase 7: Blog Discovery & Sharing | Pending |
 | BLOG-07 | Phase 7: Blog Discovery & Sharing | Pending |
-| GALL-01 | Phase 5: Client Galleries | Pending |
-| GALL-02 | Phase 5: Client Galleries | Pending |
+| GALL-01 | Phase 5: Client Galleries | Complete |
+| GALL-02 | Phase 5: Client Galleries | Complete |
 | DSGN-01 | Phase 1: Foundation & Design System | Pending |
 | DSGN-02 | Phase 1: Foundation & Design System | Pending |
 | DSGN-03 | Phase 1: Foundation & Design System | Pending |
@@ -138,4 +138,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-09*
-*Last updated: 2026-02-10 after Phase 4 completion*
+*Last updated: 2026-02-10 after Phase 5 completion*
