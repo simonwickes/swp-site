@@ -127,10 +127,13 @@ Plans:
   2. User can click through to read a full individual blog post
   3. Blog posts render markdown formatting correctly including inline images
   4. User sees post metadata (publication date, category/tags) on each post
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 06-01: TBD
+- [ ] 06-01-PLAN.md -- Content infrastructure, author data, date utility, sample posts
+- [ ] 06-02-PLAN.md -- Blog listing components and paginated listing page
+- [ ] 06-03-PLAN.md -- Individual post components and post pages
+- [ ] 06-04-PLAN.md -- Navigation updates and visual verification
 
 ---
 
@@ -177,10 +180,10 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | 3. Service Pages & Lightbox | 3/3 | ✓ Complete | 2026-02-10 |
 | 4. Contact & Conversion | 4/4 | ✓ Complete | 2026-02-10 |
 | 5. Client Galleries | 2/2 | ✓ Complete | 2026-02-10 |
-| 6. Blog Engine | 0/TBD | Not started | - |
+| 6. Blog Engine | 0/4 | Not started | - |
 | 7. Blog Discovery & Sharing | 0/TBD | Not started | - |
 | 8. SEO, Transitions & Launch Readiness | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-09*
-*Last updated: 2026-02-10 (Phase 5 complete)*
+*Last updated: 2026-02-10 (Phase 6 planned)*
