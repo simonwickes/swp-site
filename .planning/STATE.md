@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 4 in progress -- FAQ page complete, contact form next
+**Current focus:** Phase 4 in progress -- server action and FAQ complete, contact form UI next
 
 ## Current Position
 
 Phase: 4 of 8 (Contact & Conversion)
-Plan: 2 of 4 in current phase (04-02 complete)
+Plan: 2 of 4 in current phase (04-01, 04-02 complete)
 Status: In progress
-Last activity: 2026-02-10 -- Completed 04-02-PLAN.md (FAQ Data and Page)
+Last activity: 2026-02-10 -- Completed 04-01-PLAN.md (Astro Action + Resend Integration)
 
-Progress: [█████████████░░░░░░░] ~39% (13 of ~33 total plans)
+Progress: [██████████████░░░░░░] ~42% (14 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 14
 - Average duration: 4 minutes
-- Total execution time: 0.88 hours
+- Total execution time: 0.92 hours
 
 **By Phase:**
 
@@ -30,11 +30,11 @@ Progress: [█████████████░░░░░░░] ~39% (1
 | 01 | 4 | 21 min | 5 min |
 | 02 | 3 | 9 min | 3 min |
 | 03 | 3 | 20 min | 7 min |
-| 04 | 1 | 3 min | 3 min |
+| 04 | 2 | 6 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (2m), 03-02 (3m), 03-03 (15m), 04-02 (3m)
-- Trend: FAQ plan executed quickly with no deviations
+- Last 5 plans: 03-02 (3m), 03-03 (15m), 04-02 (3m), 04-01 (3m)
+- Trend: Phase 4 plans executing quickly with no deviations
 
 *Updated after each plan completion*
 
@@ -74,6 +74,9 @@ Recent decisions affecting current work:
 - [03-03]: Scripts without View Transitions must use DOMContentLoaded + immediate execution pattern, not astro:page-load alone
 - [03-03]: Components rendered multiple times must use class selectors, not IDs (e.g., ThemeToggle)
 - [03-03]: bgClickAction changed to "close" per user preference (allows background click to close lightbox)
+- [04-01]: Use onboarding@resend.dev as dev sender until DNS verification
+- [04-01]: Confirmation email failure doesn't fail action (notification is critical path)
+- [04-01]: Astro Actions: accept:form for FormData, Zod validation, ActionError for user-facing errors
 - [04-02]: FAQ data module pattern (src/data/faq.ts) following services.ts structure
 - [04-02]: All FAQ questions visible (no accordion) for easy scanning/searching
 
@@ -82,6 +85,7 @@ Recent decisions affecting current work:
 - Replace placeholder hero images with real photography when available
 - Replace placeholder featured images with real photography when available
 - Replace placeholder service gallery images with real photography when available
+- Configure Resend API key and CONTACT_EMAIL for production deployment
 
 ### Blockers/Concerns
 
@@ -92,5 +96,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 04-02-PLAN.md (FAQ Data and Page)
+Stopped at: Completed 04-01-PLAN.md (Astro Action + Resend Integration)
 Resume file: None
