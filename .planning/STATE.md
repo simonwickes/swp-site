@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 3 in progress -- gallery integration complete, visual verification next
+**Current focus:** Phase 3 complete -- ready to begin Phase 4 (Contact & Conversion)
 
 ## Current Position
 
-Phase: 3 of 8 (Service Pages & Lightbox)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-10 -- Completed 03-02-PLAN.md (Service Gallery & Lightbox Integration)
+Phase: 3 of 8 (Service Pages & Lightbox) - COMPLETE
+Plan: 3 of 3 in current phase
+Status: Complete
+Last activity: 2026-02-10 -- Completed 03-03-PLAN.md (Visual Verification) with bug fixes
 
-Progress: [█████████░░░░░░░░░░░] ~27% (9 of ~33 total plans)
+Progress: [████████████░░░░░░░░] ~36% (12 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
+- Total plans completed: 12
 - Average duration: 4 minutes
-- Total execution time: 0.58 hours
+- Total execution time: 0.83 hours
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [█████████░░░░░░░░░░░] ~27% (9
 |-------|-------|-------|----------|
 | 01 | 4 | 21 min | 5 min |
 | 02 | 3 | 9 min | 3 min |
-| 03 | 2 | 5 min | 2.5 min |
+| 03 | 3 | 20 min | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (4m), 02-03 (2m), 03-01 (2m), 03-02 (3m)
-- Trend: Consistent fast execution
+- Last 5 plans: 02-03 (2m), 03-01 (2m), 03-02 (3m), 03-03 (15m)
+- Trend: Verification plan took longer due to debugging (PhotoSwipe init, theme toggle)
 
 *Updated after each plan completion*
 
@@ -69,8 +69,10 @@ Recent decisions affecting current work:
 - [03-01]: ServiceNav uses pill-shaped links with overflow-x-auto hidden scrollbar pattern
 - [03-01]: Placeholder images use per-category unique base colors with varied aspect ratios for masonry testing
 - [03-02]: ServiceGallery wraps astro-masonry + PhotoSwipe with View Transitions-safe initialization
-- [03-02]: bgClickAction: false (not "none") for PhotoSwipe TS type compatibility
 - [03-02]: Counter hidden via CSS in global.css rather than PhotoSwipe uiRegister JS API
+- [03-03]: Scripts without View Transitions must use DOMContentLoaded + immediate execution pattern, not astro:page-load alone
+- [03-03]: Components rendered multiple times must use class selectors, not IDs (e.g., ThemeToggle)
+- [03-03]: bgClickAction changed to "close" per user preference (allows background click to close lightbox)
 
 ### Pending Todos
 
@@ -87,5 +89,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 03-02-PLAN.md -- all service pages built with gallery and lightbox, proceed to visual verification (03-03)
+Stopped at: Phase 3 complete -- ready to begin Phase 4 (Contact & Conversion)
 Resume file: None

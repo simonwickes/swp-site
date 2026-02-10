@@ -52,9 +52,11 @@ const { images, galleryId } = Astro.props;
 
 <script>
   import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import PhotoSwipe from "photoswipe";
   import "photoswipe/style.css";
 
   let currentLightbox: PhotoSwipeLightbox | null = null;
+  let escapeHandler: ((e: KeyboardEvent) => void) | null = null;
 
   function initServiceGallery() {
     // Destroy previous instance if exists (View Transitions safety)
@@ -63,13 +65,20 @@ const { images, galleryId } = Astro.props;
       currentLightbox = null;
     }
 
+    // Remove previous escape handler
+    if (escapeHandler) {
+      document.removeEventListener("keydown", escapeHandler, true);
+      escapeHandler = null;
+    }
+
     const galleryEl = document.querySelector(".pswp-gallery");
     if (!galleryEl) return;
 
     currentLightbox = new PhotoSwipeLightbox({
       gallery: ".pswp-gallery",
       children: "a",
-      pswpModule: () => import("photoswipe"),
+      // Static import instead of dynamic - ensures module is loaded
+      pswpModule: PhotoSwipe,
 
       // Solid black background for immersive experience
       bgOpacity: 1,
@@ -96,21 +105,38 @@ const { images, galleryId } = Astro.props;
       preload: [1, 2],
     });
 
-    // Counter is hidden via CSS in global.css (.pswp__counter { display: none })
-
     currentLightbox.init();
 
-    // Add explicit keyboard handler for Escape key as fallback
-    function handleEscape(e: KeyboardEvent) {
+    // Explicit keyboard handler for Escape key as fallback
+    escapeHandler = (e: KeyboardEvent) => {
       if (e.key === "Escape" && currentLightbox?.pswp) {
         e.preventDefault();
         e.stopPropagation();
         currentLightbox.pswp.close();
       }
-    }
-    document.addEventListener("keydown", handleEscape, true);
+    };
+    document.addEventListener("keydown", escapeHandler, true);
+
+    // Add click handler on background as fallback
+    currentLightbox.on("openingAnimationEnd", () => {
+      const pswpBg = document.querySelector(".pswp__bg");
+      if (pswpBg) {
+        pswpBg.addEventListener("click", () => {
+          currentLightbox?.pswp?.close();
+        });
+      }
+    });
   }
 
-  // Initialize on page load (supports View Transitions)
+  // Initialize on page load
+  // Use DOMContentLoaded for regular navigation, astro:page-load for View Transitions
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initServiceGallery);
+  } else {
+    // DOM already ready, initialize immediately
+    initServiceGallery();
+  }
+
+  // Also listen for astro:page-load (View Transitions support)
   document.addEventListener("astro:page-load", initServiceGallery);
 </script>

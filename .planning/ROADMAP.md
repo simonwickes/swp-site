@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Design System** - Project scaffolding, image pipeline, layout, dark mode, responsive framework, navigation
 - [x] **Phase 2: Landing Page** - Hero imagery, featured work showcase, loading states
-- [ ] **Phase 3: Service Pages & Lightbox** - 8 category pages with gallery grids and full-size viewer
+- [x] **Phase 3: Service Pages & Lightbox** - 8 category pages with gallery grids and full-size viewer
 - [ ] **Phase 4: Contact & Conversion** - Contact form, email notifications, FAQ, response time
 - [ ] **Phase 5: Client Galleries** - Bridging page for third-party gallery access
 - [ ] **Phase 6: Blog Engine** - Content collections, listing page, individual posts with metadata
@@ -170,7 +170,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 |-------|---------------|--------|-----------|
 | 1. Foundation & Design System | 4/4 | ✓ Complete | 2026-02-09 |
 | 2. Landing Page | 3/3 | ✓ Complete | 2026-02-10 |
-| 3. Service Pages & Lightbox | 0/3 | Not started | - |
+| 3. Service Pages & Lightbox | 3/3 | ✓ Complete | 2026-02-10 |
 | 4. Contact & Conversion | 0/TBD | Not started | - |
 | 5. Client Galleries | 0/TBD | Not started | - |
 | 6. Blog Engine | 0/TBD | Not started | - |
@@ -179,4 +179,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 
 ---
 *Roadmap created: 2026-02-09*
-*Last updated: 2026-02-10 (Phase 2 complete)*
+*Last updated: 2026-02-10 (Phase 3 complete)*

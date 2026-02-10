@@ -76,8 +76,18 @@ html.theme-ready *::after {
   display: none !important;
 }
 
+/* Force close button and top bar to be always visible */
+.pswp__top-bar {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.pswp__button--close {
+  opacity: 1 !important;
+  cursor: pointer !important;
+}
+
 /* Controls fade transition */
-.pswp__ui .pswp__top-bar,
 .pswp__ui .pswp__button--arrow--prev,
 .pswp__ui .pswp__button--arrow--next {
   transition: opacity 0.3s ease;

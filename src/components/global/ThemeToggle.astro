@@ -4,10 +4,9 @@
 ---
 
 <button
-  id="theme-toggle"
   type="button"
   aria-label="Toggle dark mode"
-  class="rounded-lg p-2 transition-colors hover:bg-surface-200 dark:hover:bg-surface-800"
+  class="theme-toggle rounded-lg p-2 transition-colors hover:bg-surface-200 dark:hover:bg-surface-800"
 >
   <!-- Sun icon (shown in dark mode - click to switch to light) -->
   <svg
@@ -33,19 +32,22 @@
 
 <script>
   function initThemeToggle() {
-    const toggle = document.getElementById("theme-toggle");
-    if (!toggle) return;
+    // Find ALL theme toggles (desktop and mobile)
+    const toggles = document.querySelectorAll(".theme-toggle");
+    if (!toggles.length) return;
 
-    // Remove previous listener to avoid duplicates on page transitions
-    const newToggle = toggle.cloneNode(true) as HTMLElement;
-    toggle.parentNode?.replaceChild(newToggle, toggle);
+    toggles.forEach((toggle) => {
+      // Remove previous listener to avoid duplicates on page transitions
+      const newToggle = toggle.cloneNode(true) as HTMLElement;
+      toggle.parentNode?.replaceChild(newToggle, toggle);
 
-    newToggle.addEventListener("click", () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      const newTheme = isDark ? "light" : "dark";
-      document.documentElement.classList.toggle("dark", newTheme === "dark");
-      document.documentElement.style.colorScheme = newTheme;
-      localStorage.setItem("theme", newTheme);
+      newToggle.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.contains("dark");
+        const newTheme = isDark ? "light" : "dark";
+        document.documentElement.classList.toggle("dark", newTheme === "dark");
+        document.documentElement.style.colorScheme = newTheme;
+        localStorage.setItem("theme", newTheme);
+      });
     });
   }
 
