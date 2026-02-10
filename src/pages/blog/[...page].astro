@@ -1,0 +1,73 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPathsOptions, Page } from "astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import PostCard from "@components/blog/PostCard.astro";
+import PostListRow from "@components/blog/PostListRow.astro";
+import Pagination from "@components/blog/Pagination.astro";
+import type { CollectionEntry } from "astro:content";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  );
+  return paginate(posts, { pageSize: 20 });
+}
+
+interface Props {
+  page: Page<CollectionEntry<"blog">>;
+}
+
+const { page } = Astro.props;
+
+// Split posts: first 6 for grid, rest for list
+const gridPosts = page.data.slice(0, 6);
+const listPosts = page.data.slice(6);
+---
+
+<PageLayout
+  title="Blog"
+  description="Stories, tips, and behind-the-scenes from Simon Wickes Photography."
+>
+  <section class="mx-auto max-w-6xl px-6 py-16">
+    <h1
+      class="mb-4 font-display text-4xl font-bold tracking-tight text-surface-900 dark:text-surface-100"
+    >
+      Blog
+    </h1>
+    <p class="mb-12 text-lg text-surface-600 dark:text-surface-400">
+      Stories, tips, and behind-the-scenes from my photography sessions.
+    </p>
+
+    {
+      page.data.length === 0 ? (
+        <p class="text-surface-500 dark:text-surface-400">
+          No blog posts yet. Check back soon!
+        </p>
+      ) : (
+        <>
+          {/* Grid section: first 6 posts */}
+          <div class="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {gridPosts.map((post) => (
+              <PostCard post={post} />
+            ))}
+          </div>
+
+          {/* List section: remaining posts */}
+          {listPosts.length > 0 && (
+            <div class="mb-12 divide-y divide-surface-200 dark:divide-surface-700">
+              {listPosts.map((post) => (
+                <PostListRow post={post} />
+              ))}
+            </div>
+          )}
+
+          {/* Pagination */}
+          <div class="mt-8">
+            <Pagination page={page} />
+          </div>
+        </>
+      )
+    }
+  </section>
+</PageLayout>
