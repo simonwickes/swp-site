@@ -145,10 +145,12 @@ Plans:
   1. User can search across blog content and see relevant results
   2. User can filter the blog listing by category or tag to narrow down posts
   3. User can share any blog post via social media share buttons
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 07-01: TBD
+- [ ] 07-01-PLAN.md -- Search index endpoint, Fuse.js install, BlogDiscoveryBar component
+- [ ] 07-02-PLAN.md -- ShareButtons component and blog post page integration
+- [ ] 07-03-PLAN.md -- Client-side search/filter engine wired into listing page
 
 ---
 
@@ -181,9 +183,9 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | 4. Contact & Conversion | 4/4 | ✓ Complete | 2026-02-10 |
 | 5. Client Galleries | 2/2 | ✓ Complete | 2026-02-10 |
 | 6. Blog Engine | 4/4 | ✓ Complete | 2026-02-10 |
-| 7. Blog Discovery & Sharing | 0/TBD | Not started | - |
+| 7. Blog Discovery & Sharing | 0/3 | Not started | - |
 | 8. SEO, Transitions & Launch Readiness | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-09*
-*Last updated: 2026-02-10 (Phase 6 complete)*
+*Last updated: 2026-02-10 (Phase 7 planned)*
