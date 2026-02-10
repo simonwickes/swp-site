@@ -1,0 +1,263 @@
+---
+import { services } from "@/data/services";
+---
+
+<form id="contact-form" class="space-y-6">
+  <!-- Name + Email: Two-column on desktop -->
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <!-- Name field -->
+    <div>
+      <label
+        for="name"
+        class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300"
+      >
+        Name <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
+        placeholder="Your name"
+      />
+      <p data-error="name" class="field-error mt-1 text-sm text-red-500"></p>
+    </div>
+
+    <!-- Email field -->
+    <div>
+      <label
+        for="email"
+        class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300"
+      >
+        Email <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
+        placeholder="your@email.com"
+      />
+      <p data-error="email" class="field-error mt-1 text-sm text-red-500"></p>
+    </div>
+  </div>
+
+  <!-- Event Type dropdown -->
+  <div>
+    <label
+      for="eventType"
+      class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300"
+    >
+      Event Type
+    </label>
+    <select
+      id="eventType"
+      name="eventType"
+      class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
+    >
+      <option value="">Select an event type...</option>
+      {services.map((service) => <option value={service.title}>{service.title}</option>)}
+      <option value="other">Other</option>
+    </select>
+    <p data-error="eventType" class="field-error mt-1 text-sm text-red-500"></p>
+  </div>
+
+  <!-- Event Type Other (hidden by default) -->
+  <div id="other-type-wrapper" class="hidden">
+    <label
+      for="eventTypeOther"
+      class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300"
+    >
+      Please specify
+    </label>
+    <input
+      type="text"
+      id="eventTypeOther"
+      name="eventTypeOther"
+      class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
+      placeholder="What type of event?"
+    />
+    <p
+      data-error="eventTypeOther"
+      class="field-error mt-1 text-sm text-red-500"
+    >
+    </p>
+  </div>
+
+  <!-- Event Date -->
+  <div>
+    <label
+      for="eventDate"
+      class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300"
+    >
+      Event Date
+    </label>
+    <input
+      type="text"
+      id="eventDate"
+      name="eventDate"
+      class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
+      placeholder="e.g., March 15, 2026"
+    />
+    <p data-error="eventDate" class="field-error mt-1 text-sm text-red-500"></p>
+  </div>
+
+  <!-- Message -->
+  <div>
+    <label
+      for="message"
+      class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300"
+    >
+      Message <span class="text-red-500">*</span>
+    </label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      rows="5"
+      minlength="10"
+      class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
+      placeholder="Tell me about your project or event..."></textarea>
+    <p data-error="message" class="field-error mt-1 text-sm text-red-500"></p>
+  </div>
+
+  <!-- General error message -->
+  <div
+    id="error-message"
+    class="hidden rounded-lg border border-red-200 bg-red-50 p-4 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300"
+  >
+    <p id="error-text">Something went wrong. Please try again.</p>
+  </div>
+
+  <!-- Submit button -->
+  <button
+    type="submit"
+    id="submit-btn"
+    class="inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-8 py-3 font-semibold text-white transition-colors hover:bg-accent-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-accent-400 dark:text-surface-950 dark:hover:bg-accent-300"
+  >
+    <span id="btn-text">Send Message</span>
+    <svg
+      id="btn-spinner"
+      class="hidden h-5 w-5 animate-spin"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        class="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        stroke-width="4"></circle>
+      <path
+        class="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+      ></path>
+    </svg>
+  </button>
+</form>
+
+<!-- Success message (replaces form on success) -->
+<div
+  id="success-message"
+  class="hidden rounded-lg border border-green-200 bg-green-50 p-8 text-center dark:border-green-800 dark:bg-green-950"
+>
+  <svg
+    class="mx-auto mb-4 h-12 w-12 text-green-500"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+  </svg>
+  <h3
+    class="mb-2 font-display text-xl font-bold text-surface-900 dark:text-surface-100"
+  >
+    Message Sent!
+  </h3>
+  <p class="text-surface-600 dark:text-surface-400">
+    Thanks for reaching out. I'll get back to you within 24-48 hours.
+  </p>
+</div>
+
+<script>
+  import { actions, isInputError } from "astro:actions";
+
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
+  const btnText = document.getElementById("btn-text")!;
+  const btnSpinner = document.getElementById("btn-spinner")!;
+  const successMsg = document.getElementById("success-message")!;
+  const errorMsg = document.getElementById("error-message")!;
+  const errorText = document.getElementById("error-text")!;
+  const eventTypeSelect = document.getElementById(
+    "eventType"
+  ) as HTMLSelectElement;
+  const otherWrapper = document.getElementById("other-type-wrapper")!;
+
+  // Toggle "Other" text input visibility
+  eventTypeSelect.addEventListener("change", () => {
+    if (eventTypeSelect.value === "other") {
+      otherWrapper.classList.remove("hidden");
+    } else {
+      otherWrapper.classList.add("hidden");
+    }
+  });
+
+  // Handle form submission
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Clear all field errors
+    document.querySelectorAll(".field-error").forEach((el) => {
+      el.textContent = "";
+    });
+
+    // Hide general error message
+    errorMsg.classList.add("hidden");
+
+    // Disable submit button, show spinner
+    submitBtn.disabled = true;
+    btnText.classList.add("hidden");
+    btnSpinner.classList.remove("hidden");
+
+    // Submit to action
+    const formData = new FormData(form);
+    const { data, error } = await actions.submitContact(formData);
+
+    // Re-enable button
+    submitBtn.disabled = false;
+    btnText.classList.remove("hidden");
+    btnSpinner.classList.add("hidden");
+
+    if (error) {
+      if (isInputError(error)) {
+        // Show field-level errors
+        for (const [fieldName, messages] of Object.entries(error.fields)) {
+          const errorEl = document.querySelector(`[data-error="${fieldName}"]`);
+          if (errorEl && messages && messages.length > 0) {
+            errorEl.textContent = messages[0];
+          }
+        }
+      } else {
+        // Show general error message
+        errorText.textContent =
+          error.message || "Something went wrong. Please try again.";
+        errorMsg.classList.remove("hidden");
+      }
+    } else {
+      // Success - hide form, show success message
+      form.classList.add("hidden");
+      successMsg.classList.remove("hidden");
+    }
+  });
+</script>
