@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 4 in progress -- server action and FAQ complete, contact form UI next
+**Current focus:** Phase 4 in progress -- server action, FAQ, and contact form UI complete, visual verification next
 
 ## Current Position
 
 Phase: 4 of 8 (Contact & Conversion)
-Plan: 2 of 4 in current phase (04-01, 04-02 complete)
+Plan: 3 of 4 in current phase (04-01, 04-02, 04-03 complete)
 Status: In progress
-Last activity: 2026-02-10 -- Completed 04-01-PLAN.md (Astro Action + Resend Integration)
+Last activity: 2026-02-10 -- Completed 04-03-PLAN.md (Contact Form UI Component)
 
-Progress: [██████████████░░░░░░] ~42% (14 of ~33 total plans)
+Progress: [███████████████░░░░░] ~45% (15 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
+- Total plans completed: 15
 - Average duration: 4 minutes
-- Total execution time: 0.92 hours
+- Total execution time: 0.95 hours
 
 **By Phase:**
 
@@ -30,10 +30,10 @@ Progress: [██████████████░░░░░░] ~42% (1
 | 01 | 4 | 21 min | 5 min |
 | 02 | 3 | 9 min | 3 min |
 | 03 | 3 | 20 min | 7 min |
-| 04 | 2 | 6 min | 3 min |
+| 04 | 3 | 8 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-02 (3m), 03-03 (15m), 04-02 (3m), 04-01 (3m)
+- Last 5 plans: 03-03 (15m), 04-02 (3m), 04-01 (3m), 04-03 (2m)
 - Trend: Phase 4 plans executing quickly with no deviations
 
 *Updated after each plan completion*
@@ -79,6 +79,9 @@ Recent decisions affecting current work:
 - [04-01]: Astro Actions: accept:form for FormData, Zod validation, ActionError for user-facing errors
 - [04-02]: FAQ data module pattern (src/data/faq.ts) following services.ts structure
 - [04-02]: All FAQ questions visible (no accordion) for easy scanning/searching
+- [04-03]: Event type dropdown dynamically generated from services.ts data
+- [04-03]: Client-side action submission via import { actions, isInputError } from 'astro:actions'
+- [04-03]: Inline field errors with data-error attribute pattern
 
 ### Pending Todos
 
@@ -96,5 +99,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 04-01-PLAN.md (Astro Action + Resend Integration)
+Stopped at: Completed 04-03-PLAN.md (Contact Form UI Component)
 Resume file: None
