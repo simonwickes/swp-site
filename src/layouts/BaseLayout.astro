@@ -6,11 +6,13 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  preloadImage?: string;
 }
 
 const {
   title,
   description = "Professional photography by Simon Wickes",
+  preloadImage,
 } = Astro.props;
 ---
 
@@ -22,6 +24,10 @@ const {
     <meta name="description" content={description} />
     <title>{title} | Simon Wickes Photography</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage} />
+    )}
 
     <!-- Theme initialization - MUST be inline, MUST be first script -->
     <script is:inline>

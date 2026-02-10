@@ -1,24 +1,57 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
+import HeroCarousel from "../components/home/HeroCarousel.astro";
+import FeaturedGrid from "../components/home/FeaturedGrid.astro";
+import Button from "../components/ui/Button.astro";
+
+import heroSlide1 from "@/assets/images/hero/slide-1.jpg";
 ---
 
-<PageLayout title="Home">
-  <section class="mx-auto max-w-4xl px-6 py-16 text-center">
-    <h1 class="mb-4 font-display text-5xl font-bold tracking-tight">
-      Simon Wickes Photography
-    </h1>
-    <p class="mb-8 text-xl text-accent-500 dark:text-accent-400">
-      Professional photography across people, places, and things.
-    </p>
+<PageLayout title="Home" preloadImage={heroSlide1.src}>
+  <!-- Hero carousel: full-viewport -->
+  <HeroCarousel />
+
+  <!-- Intro section -->
+  <section class="mx-auto max-w-4xl px-6 py-16 text-center md:py-24">
     <p
-      class="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-surface-600 dark:text-surface-400"
+      class="text-lg leading-relaxed text-surface-600 dark:text-surface-400 md:text-xl"
     >
-      Capturing authentic moments and compelling visuals. From outdoor portraits
-      and weddings to landscape, commercial, and automotive photography -- every
-      frame tells a story.
+      From intimate portraits to sweeping landscapes, every frame tells a story.
+      Browse featured work across weddings, outdoor portraits, landscape,
+      commercial, automotive, and live performance photography.
     </p>
-    <p class="text-sm text-surface-500">
-      Full site coming soon. Browse the menu above to explore service categories.
+  </section>
+
+  <!-- Featured work section -->
+  <section class="mx-auto max-w-7xl px-4 pb-16 md:px-6 md:pb-24">
+    <h2
+      class="mb-12 text-center font-display text-3xl font-bold md:text-4xl"
+    >
+      Featured Work
+    </h2>
+    <FeaturedGrid />
+  </section>
+
+  <!-- Final CTA section -->
+  <section class="py-16 text-center md:py-24">
+    <h2
+      class="mb-6 font-display text-2xl font-bold md:text-3xl"
+    >
+      Ready to create something beautiful?
+    </h2>
+    <p
+      class="mx-auto mb-8 max-w-xl text-surface-600 dark:text-surface-400"
+    >
+      Whether it is a wedding, portrait session, or commercial project, let us
+      make it happen.
     </p>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <Button href="/services/outdoor-portraits/" variant="primary">
+        Explore Services
+      </Button>
+      <Button href="/contact/" variant="secondary">
+        Get in Touch
+      </Button>
+    </div>
   </section>
 </PageLayout>
