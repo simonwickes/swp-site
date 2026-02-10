@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 5 in progress -- client galleries page created, visual verification next.
+**Current focus:** Phase 5 complete -- ready for Phase 6 (Blog Engine).
 
 ## Current Position
 
-Phase: 5 of 8 (Client Galleries)
-Plan: 1 of 2 in Phase 5
-Status: In progress
-Last activity: 2026-02-10 -- Completed 05-01-PLAN.md (Galleries Page & Data)
+Phase: 5 of 8 (Client Galleries) -- COMPLETE
+Plan: 2 of 2 in Phase 5
+Status: Phase complete
+Last activity: 2026-02-10 -- Completed 05-02-PLAN.md (Navigation Updates & Visual Verification)
 
-Progress: [█████████████████████░] ~52% (17 of ~33 total plans)
+Progress: [██████████████████████░░] ~55% (18 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 18
 - Average duration: 4 minutes
-- Total execution time: 0.98 hours
+- Total execution time: 1.03 hours
 
 **By Phase:**
 
@@ -31,11 +31,11 @@ Progress: [█████████████████████░] ~
 | 02 | 3 | 9 min | 3 min |
 | 03 | 3 | 20 min | 7 min |
 | 04 | 4 | 23 min | 6 min |
-| 05 | 1 | 2 min | 2 min |
+| 05 | 2 | 5 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-02 (3m), 04-03 (2m), 04-04 (15m), 05-01 (2m)
-- Trend: Fast execution on straightforward page creation.
+- Last 5 plans: 04-03 (2m), 04-04 (15m), 05-01 (2m), 05-02 (3m)
+- Trend: Consistently fast on page creation and navigation updates.
 
 *Updated after each plan completion*
 
@@ -88,6 +88,9 @@ Recent decisions affecting current work:
 - [04-04]: Service Type label (renamed from Event Type) for clearer form UX
 - [05-01]: Gallery data module pattern (src/data/gallery.ts) with centralized GALLERY_URL constant
 - [05-01]: Button external prop for target="_blank" + rel="noopener noreferrer" via spread syntax
+- [05-02]: Client Galleries placed between Services and Contact in desktop nav
+- [05-02]: Mobile nav uses separate bordered section for Client Galleries link
+- [05-02]: Footer uses shorter "Galleries" label for brevity consistency
 
 ### Pending Todos
 
@@ -107,5 +110,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 05-01-PLAN.md (Galleries Page & Data)
+Stopped at: Completed 05-02-PLAN.md (Navigation Updates & Visual Verification) -- Phase 5 complete
 Resume file: None
