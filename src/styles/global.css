@@ -83,8 +83,7 @@ html.theme-ready *::after {
   transition: opacity 0.3s ease;
 }
 
-/* Auto-hide controls on idle (~4s inactivity) */
-.pswp__ui--idle .pswp__top-bar,
+/* Auto-hide arrow controls on idle (~4s inactivity) - keep close button visible */
 .pswp__ui--idle .pswp__button--arrow--prev,
 .pswp__ui--idle .pswp__button--arrow--next {
   opacity: 0 !important;

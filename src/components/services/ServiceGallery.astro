@@ -74,9 +74,9 @@ const { images, galleryId } = Astro.props;
       // Solid black background for immersive experience
       bgOpacity: 1,
 
-      // Click actions: no accidental close
-      bgClickAction: false,
-      tapAction: "toggle-controls",
+      // Click actions
+      bgClickAction: "close",
+      tapAction: "close",
       imageClickAction: "zoom-or-close",
       doubleTapAction: "zoom",
 
@@ -84,8 +84,8 @@ const { images, galleryId } = Astro.props;
       escKey: true,
       arrowKeys: true,
 
-      // Prevent accidental close
-      closeOnVerticalDrag: false,
+      // Swipe gestures
+      closeOnVerticalDrag: true,
       pinchToClose: false,
 
       // Smooth animations
@@ -98,16 +98,17 @@ const { images, galleryId } = Astro.props;
 
     // Counter is hidden via CSS in global.css (.pswp__counter { display: none })
 
-    // Add explicit keyboard handler for Escape key as fallback
-    currentLightbox.on("bindEvents", () => {
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && currentLightbox?.pswp) {
-          currentLightbox.pswp.close();
-        }
-      });
-    });
-
     currentLightbox.init();
+
+    // Add explicit keyboard handler for Escape key as fallback
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape" && currentLightbox?.pswp) {
+        e.preventDefault();
+        e.stopPropagation();
+        currentLightbox.pswp.close();
+      }
+    }
+    document.addEventListener("keydown", handleEscape, true);
   }
 
   // Initialize on page load (supports View Transitions)
