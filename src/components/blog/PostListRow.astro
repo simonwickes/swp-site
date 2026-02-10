@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatPostDate } from "@/utils/formatDate";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { title, date } = post.data;
+---
+
+<div class="flex items-center justify-between py-3">
+  <a
+    href={`/blog/${post.id}/`}
+    class="text-accent-600 hover:underline dark:text-accent-400"
+  >
+    {title}
+  </a>
+  <time class="ml-4 shrink-0 text-sm text-surface-500 dark:text-surface-400">
+    {formatPostDate(date)}
+  </time>
+</div>
