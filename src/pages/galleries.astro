@@ -1,0 +1,188 @@
+---
+import PageLayout from "@layouts/PageLayout.astro";
+import Button from "@components/ui/Button.astro";
+import { GALLERY_URL } from "@/data/gallery";
+---
+
+<PageLayout
+  title="Client Galleries"
+  description="Access your password-protected photo gallery to view, download, and share your images from Simon Wickes Photography."
+>
+  <!-- Hero / Intro -->
+  <section class="mx-auto max-w-4xl px-6 py-16">
+    <h1
+      class="mb-4 font-display text-4xl font-bold tracking-tight text-surface-900 dark:text-surface-100"
+    >
+      Client Galleries
+    </h1>
+    <p class="text-lg leading-relaxed text-surface-600 dark:text-surface-400">
+      Your photos are delivered through a password-protected online gallery
+      where you can view, share, and download your images at full resolution.
+      After your session, you will receive an email invitation with everything
+      you need to access your gallery.
+    </p>
+  </section>
+
+  <!-- How It Works -->
+  <section class="mx-auto max-w-4xl px-6 pb-16">
+    <h2
+      class="mb-6 font-display text-2xl font-bold text-surface-900 dark:text-surface-100"
+    >
+      How It Works
+    </h2>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+      <!-- View & Share -->
+      <div class="text-center">
+        <div class="mb-4 flex justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-10 w-10 text-accent-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.573-3.007-9.963-7.178z"
+            ></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+        </div>
+        <h3
+          class="mb-2 font-display text-lg font-semibold text-surface-900 dark:text-surface-100"
+        >
+          View and Share
+        </h3>
+        <p class="text-surface-600 dark:text-surface-400">
+          Browse your full gallery and share favourites with family and friends.
+        </p>
+      </div>
+
+      <!-- Download -->
+      <div class="text-center">
+        <div class="mb-4 flex justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-10 w-10 text-accent-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+            ></path>
+          </svg>
+        </div>
+        <h3
+          class="mb-2 font-display text-lg font-semibold text-surface-900 dark:text-surface-100"
+        >
+          Download
+        </h3>
+        <p class="text-surface-600 dark:text-surface-400">
+          Download your edited photos at full resolution, ready for printing or
+          sharing.
+        </p>
+      </div>
+
+      <!-- Select Favourites -->
+      <div class="text-center">
+        <div class="mb-4 flex justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-10 w-10 text-accent-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+            ></path>
+          </svg>
+        </div>
+        <h3
+          class="mb-2 font-display text-lg font-semibold text-surface-900 dark:text-surface-100"
+        >
+          Select Favourites
+        </h3>
+        <p class="text-surface-600 dark:text-surface-400">
+          Mark your favourite images and submit selections for albums or prints.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accessing Your Gallery -->
+  <section class="mx-auto max-w-4xl px-6 pb-16">
+    <h2
+      class="mb-6 font-display text-2xl font-bold text-surface-900 dark:text-surface-100"
+    >
+      Accessing Your Gallery
+    </h2>
+    <ol class="space-y-4 text-surface-600 dark:text-surface-400">
+      <li class="flex gap-4">
+        <span
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-500 font-display font-semibold text-surface-50"
+          >1</span
+        >
+        <span class="pt-1"
+          >After your session, you will receive an email invitation with a link
+          to your gallery.</span
+        >
+      </li>
+      <li class="flex gap-4">
+        <span
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-500 font-display font-semibold text-surface-50"
+          >2</span
+        >
+        <span class="pt-1"
+          >Create your account using the email address the invitation was sent
+          to.</span
+        >
+      </li>
+      <li class="flex gap-4">
+        <span
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-500 font-display font-semibold text-surface-50"
+          >3</span
+        >
+        <span class="pt-1"
+          >Log in anytime to view, download, and share your photos.</span
+        >
+      </li>
+    </ol>
+  </section>
+
+  <!-- CTA -->
+  <section
+    class="mx-auto max-w-4xl border-t border-surface-200 px-6 py-16 text-center dark:border-surface-800"
+  >
+    <h2
+      class="mb-4 font-display text-2xl font-bold text-surface-900 dark:text-surface-100"
+    >
+      Ready to view your photos?
+    </h2>
+    <p class="mb-8 text-surface-600 dark:text-surface-400">
+      Click below to access your gallery. You will need the email address and
+      password from your gallery invitation.
+    </p>
+    <Button href={GALLERY_URL} external={true}>Access Your Gallery</Button>
+    <p class="mt-6 text-sm text-surface-500 dark:text-surface-500">
+      New client?
+      <a
+        href="/contact/"
+        class="text-accent-500 underline hover:text-accent-600 dark:text-accent-400 dark:hover:text-accent-300"
+        >Contact me to book your session</a
+      >.
+    </p>
+  </section>
+</PageLayout>
