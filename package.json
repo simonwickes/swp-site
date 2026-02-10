@@ -16,6 +16,7 @@
     "astro-masonry": "^1.2.2",
     "astro-navbar": "^2.4.0",
     "astro-swiper": "^1.4.0",
+    "photoswipe": "^5.4.4",
     "swiper": "^12.1.0",
     "tailwindcss": "^4.1.18"
   },
