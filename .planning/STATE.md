@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 6 in progress -- Blog Engine.
+**Current focus:** Phase 6 complete -- Blog Engine. Ready for Phase 7.
 
 ## Current Position
 
-Phase: 6 of 8 (Blog Engine)
-Plan: 3 of 4 in Phase 6
-Status: In progress
-Last activity: 2026-02-10 -- Completed 06-03-PLAN.md (Blog Post Detail Pages)
+Phase: 6 of 8 (Blog Engine) - COMPLETE
+Plan: 4 of 4 in Phase 6
+Status: Phase complete
+Last activity: 2026-02-10 -- Completed 06-04-PLAN.md (Blog Navigation and Verification)
 
-Progress: [█████████████████████████░] ~64% (21 of ~33 total plans)
+Progress: [██████████████████████████░] ~67% (22 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 21
+- Total plans completed: 22
 - Average duration: 4 minutes
-- Total execution time: 1.13 hours
+- Total execution time: 1.18 hours
 
 **By Phase:**
 
@@ -32,11 +32,11 @@ Progress: [███████████████████████
 | 03 | 3 | 20 min | 7 min |
 | 04 | 4 | 23 min | 6 min |
 | 05 | 2 | 5 min | 3 min |
-| 06 | 3 | 6 min | 2 min |
+| 06 | 4 | 9 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 05-02 (3m), 06-01 (2m), 06-02 (2m), 06-03 (2m)
-- Trend: Fast execution on component-focused plans.
+- Last 5 plans: 06-01 (2m), 06-02 (2m), 06-03 (2m), 06-04 (3m)
+- Trend: Fast execution on component-focused plans. Phase 6 complete.
 
 *Updated after each plan completion*
 
@@ -103,6 +103,8 @@ Recent decisions affecting current work:
 - [06-03]: Sidebar sticky pattern: lg:sticky lg:top-8
 - [06-03]: Related posts filtered by same category, max 6
 - [06-03]: Category link uses query param pattern (/blog?category=...)
+- [06-04]: Blog link positioned between Services and Client Galleries in desktop nav
+- [06-04]: Mobile nav uses bordered section for Blog link similar to Client Galleries
 
 ### Pending Todos
 
@@ -122,5 +124,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 06-03-PLAN.md (Blog Post Detail Pages) -- Phase 6 plan 3 of 4
+Stopped at: Completed 06-04-PLAN.md (Blog Navigation and Verification) -- Phase 6 complete
 Resume file: None
