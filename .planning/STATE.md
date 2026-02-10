@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-09)
 ## Current Position
 
 Phase: 1 of 8 (Foundation & Design System)
-Plan: 1 of 4 in current phase
+Plan: 2 of 4 in current phase
 Status: In progress
-Last activity: 2026-02-09 -- Completed 01-01-PLAN.md (Project Scaffold + Design Tokens + Theme System)
+Last activity: 2026-02-09 -- Completed 01-02-PLAN.md (Navigation, Layout, and Pages)
 
-Progress: [█░░░░░░░░░] ~3% (1 of ~33 total plans)
+Progress: [██░░░░░░░░] ~6% (2 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 14 minutes
-- Total execution time: 0.23 hours
+- Total plans completed: 2
+- Average duration: 9 minutes
+- Total execution time: 0.28 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01 | 1 | 14 min | 14 min |
+| 01 | 2 | 17 min | 9 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (14m)
-- Trend: baseline established
+- Last 5 plans: 01-01 (14m), 01-02 (3m)
+- Trend: accelerating (01-02 had Task 1 pre-committed)
 
 *Updated after each plan completion*
 
@@ -50,6 +50,10 @@ Recent decisions affecting current work:
 - [01-01]: Selector-based dark mode with @custom-variant dark and .dark class
 - [01-01]: theme-ready class defers transitions to prevent initial flash
 - [01-01]: TypeScript path aliases (@/*, @components/*, @layouts/*, @styles/*)
+- [01-02]: astro-navbar for desktop nav, custom implementation for mobile slide-in panel
+- [01-02]: lg (1024px) breakpoint for mobile-to-desktop nav transition
+- [01-02]: flex flex-col + flex-grow pattern for sticky footer
+- [01-02]: Mobile ThemeToggle inside slide-in panel only (not header bar)
 
 ### Pending Todos
 
@@ -63,5 +67,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-09
-Stopped at: Completed 01-01-PLAN.md
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None
