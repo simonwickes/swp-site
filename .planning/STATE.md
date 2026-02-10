@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-09)
 ## Current Position
 
 Phase: 2 of 8 (Landing Page)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-02-10 -- Completed 02-01-PLAN.md (Hero Carousel & UI Primitives)
+Last activity: 2026-02-10 -- Completed 02-02-PLAN.md (Featured Grid & Landing Page Composition)
 
-Progress: [█████░░░░░] ~15% (5 of ~33 total plans)
+Progress: [██████░░░░] ~18% (6 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 5 minutes
-- Total execution time: 0.40 hours
+- Total plans completed: 6
+- Average duration: 4 minutes
+- Total execution time: 0.47 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 | 4 | 21 min | 5 min |
-| 02 | 1 | 3 min | 3 min |
+| 02 | 2 | 7 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (3m), 01-03 (1m), 01-04 (3m), 02-01 (3m)
+- Last 5 plans: 01-03 (1m), 01-04 (3m), 02-01 (3m), 02-02 (4m)
 - Trend: Consistent fast execution
 
 *Updated after each plan completion*
@@ -61,10 +61,14 @@ Recent decisions affecting current work:
 - [02-01]: astro-swiper uses custom element pattern -- no client:load needed, self-initializing web component
 - [02-01]: getSwiperFromUniqueSelector with uniqueClass prop for programmatic swiper control
 - [02-01]: Solid-color placeholder hero images generated via sharp using surface palette colors
+- [02-02]: astro-masonry Masonry with flex gap-4 and breakpointCols for responsive columns
+- [02-02]: CSS-only group-hover overlay pattern for FeaturedImage (zero JS)
+- [02-02]: BaseLayout preloadImage prop for LCP optimization via link rel=preload
 
 ### Pending Todos
 
 - Replace placeholder hero images with real photography when available
+- Replace placeholder featured images with real photography when available
 
 ### Blockers/Concerns
 
@@ -74,5 +78,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 02-01-PLAN.md, ready for 02-02-PLAN.md
+Stopped at: Completed 02-02-PLAN.md, ready for 02-03-PLAN.md
 Resume file: None
