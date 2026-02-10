@@ -98,6 +98,15 @@ const { images, galleryId } = Astro.props;
 
     // Counter is hidden via CSS in global.css (.pswp__counter { display: none })
 
+    // Add explicit keyboard handler for Escape key as fallback
+    currentLightbox.on("bindEvents", () => {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && currentLightbox?.pswp) {
+          currentLightbox.pswp.close();
+        }
+      });
+    });
+
     currentLightbox.init();
   }
 
