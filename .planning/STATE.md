@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 7 in progress -- Blog Discovery & Sharing. Plan 1 of 3 complete.
+**Current focus:** Phase 7 in progress -- Blog Discovery & Sharing. Plan 2 of 3 complete.
 
 ## Current Position
 
 Phase: 7 of 8 (Blog Discovery & Sharing)
-Plan: 1 of 3 in Phase 7
+Plan: 2 of 3 in Phase 7
 Status: In progress
-Last activity: 2026-02-10 -- Completed 07-01-PLAN.md (Search Index and Discovery Bar)
+Last activity: 2026-02-10 -- Completed 07-02-PLAN.md (Social Share Buttons)
 
-Progress: [███████████████████████████░░] ~70% (23 of ~33 total plans)
+Progress: [████████████████████████████░░] ~73% (24 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 23
+- Total plans completed: 24
 - Average duration: 4 minutes
-- Total execution time: 1.21 hours
+- Total execution time: 1.24 hours
 
 **By Phase:**
 
@@ -33,10 +33,10 @@ Progress: [███████████████████████
 | 04 | 4 | 23 min | 6 min |
 | 05 | 2 | 5 min | 3 min |
 | 06 | 4 | 9 min | 2 min |
-| 07 | 1 | 2 min | 2 min |
+| 07 | 2 | 4 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 06-02 (2m), 06-03 (2m), 06-04 (3m), 07-01 (2m)
+- Last 5 plans: 06-03 (2m), 06-04 (3m), 07-01 (2m), 07-02 (2m)
 - Trend: Consistent fast execution on component-focused plans.
 
 *Updated after each plan completion*
@@ -108,6 +108,9 @@ Recent decisions affecting current work:
 - [06-04]: Mobile nav uses bordered section for Blog link similar to Client Galleries
 - [07-01]: BlogDiscoveryBar imports services directly for default category pills, with optional prop override
 - [07-01]: Tag pills use # prefix and border styling to distinguish from category pills
+- [07-02]: Share buttons use intent URLs for X/Facebook, clipboard API for Instagram/Copy Link
+- [07-02]: Clone-node pattern prevents duplicate event listeners on View Transitions re-navigation
+- [07-02]: data-share-url attribute on buttons for per-instance URL passing
 
 ### Pending Todos
 
@@ -127,5 +130,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 07-01-PLAN.md (Search Index and Discovery Bar)
+Stopped at: Completed 07-02-PLAN.md (Social Share Buttons)
 Resume file: None
