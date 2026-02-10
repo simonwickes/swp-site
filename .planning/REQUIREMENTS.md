@@ -33,10 +33,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Blog
 
-- [ ] **BLOG-01**: User can view blog listing page with all posts
-- [ ] **BLOG-02**: User can read individual blog post pages
-- [ ] **BLOG-03**: Blog posts support markdown formatting with images
-- [ ] **BLOG-04**: User sees post metadata (date, category) on each post
+- [x] **BLOG-01**: User can view blog listing page with all posts
+- [x] **BLOG-02**: User can read individual blog post pages
+- [x] **BLOG-03**: Blog posts support markdown formatting with images
+- [x] **BLOG-04**: User sees post metadata (date, category) on each post
 - [ ] **BLOG-05**: User can search across blog content
 - [ ] **BLOG-06**: User can filter posts by category/tag
 - [ ] **BLOG-07**: User can share blog posts via social share buttons
@@ -112,10 +112,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONT-04 | Phase 4: Contact & Conversion | Complete |
 | CONT-05 | Phase 4: Contact & Conversion | Complete |
 | CONT-06 | Phase 4: Contact & Conversion | Complete |
-| BLOG-01 | Phase 6: Blog Engine | Pending |
-| BLOG-02 | Phase 6: Blog Engine | Pending |
-| BLOG-03 | Phase 6: Blog Engine | Pending |
-| BLOG-04 | Phase 6: Blog Engine | Pending |
+| BLOG-01 | Phase 6: Blog Engine | Complete |
+| BLOG-02 | Phase 6: Blog Engine | Complete |
+| BLOG-03 | Phase 6: Blog Engine | Complete |
+| BLOG-04 | Phase 6: Blog Engine | Complete |
 | BLOG-05 | Phase 7: Blog Discovery & Sharing | Pending |
 | BLOG-06 | Phase 7: Blog Discovery & Sharing | Pending |
 | BLOG-07 | Phase 7: Blog Discovery & Sharing | Pending |
@@ -138,4 +138,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-09*
-*Last updated: 2026-02-10 after Phase 5 completion*
+*Last updated: 2026-02-10 after Phase 6 completion*
