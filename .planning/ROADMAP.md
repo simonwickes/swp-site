@@ -93,10 +93,13 @@ Plans:
   3. Simon receives an email notification containing the form submission details
   4. User can read an FAQ section with answers to common photography questions
   5. User sees an expected response time indication (e.g., "I'll get back to you within 24 hours")
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 04-01: TBD
+- [ ] 04-01-PLAN.md -- Netlify adapter + Resend SDK + Astro Action for contact form email delivery
+- [ ] 04-02-PLAN.md -- FAQ data module and standalone FAQ page
+- [ ] 04-03-PLAN.md -- Contact form UI component and contact page composition
+- [ ] 04-04-PLAN.md -- Visual and functional verification checkpoint
 
 ---
 
@@ -171,7 +174,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | 1. Foundation & Design System | 4/4 | ✓ Complete | 2026-02-09 |
 | 2. Landing Page | 3/3 | ✓ Complete | 2026-02-10 |
 | 3. Service Pages & Lightbox | 3/3 | ✓ Complete | 2026-02-10 |
-| 4. Contact & Conversion | 0/TBD | Not started | - |
+| 4. Contact & Conversion | 0/4 | Not started | - |
 | 5. Client Galleries | 0/TBD | Not started | - |
 | 6. Blog Engine | 0/TBD | Not started | - |
 | 7. Blog Discovery & Sharing | 0/TBD | Not started | - |
@@ -179,4 +182,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 
 ---
 *Roadmap created: 2026-02-09*
-*Last updated: 2026-02-10 (Phase 3 complete)*
+*Last updated: 2026-02-10 (Phase 4 planned)*
