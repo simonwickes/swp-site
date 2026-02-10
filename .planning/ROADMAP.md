@@ -33,11 +33,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can navigate to all 8 service categories from the main menu on both desktop and mobile
   4. User sees a footer with contact info and social media profile links on every page
   5. Site is fully responsive -- layout adapts correctly from mobile (375px) through tablet to desktop
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md -- Scaffold Astro project + design tokens + dark mode system
+- [ ] 01-02-PLAN.md -- Navigation (header/dropdown/mobile) + footer + all placeholder pages
+- [ ] 01-03-PLAN.md -- Image optimization pipeline proof
+- [ ] 01-04-PLAN.md -- Visual verification checkpoint
 
 **Note**: Start content preparation as a parallel track during this phase. Curate images, write alt text, and organize by service category. This work is independent of code and must begin now to avoid becoming the critical path bottleneck.
 
@@ -163,7 +165,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
-| 1. Foundation & Design System | 0/TBD | Not started | - |
+| 1. Foundation & Design System | 0/4 | Planning complete | - |
 | 2. Landing Page | 0/TBD | Not started | - |
 | 3. Service Pages & Lightbox | 0/TBD | Not started | - |
 | 4. Contact & Conversion | 0/TBD | Not started | - |
