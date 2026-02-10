@@ -1,0 +1,119 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import PageLayout from "@layouts/PageLayout.astro";
+import Prose from "@components/blog/Prose.astro";
+import Sidebar from "@components/blog/Sidebar.astro";
+import Button from "@components/ui/Button.astro";
+import { formatPostDate } from "@/utils/formatDate";
+import { getServiceBySlug } from "@/data/services";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Get related posts (same category, excluding current, sorted by date)
+const allPosts = await getCollection("blog");
+const relatedPosts = allPosts
+  .filter((p) => p.data.category === post.data.category && p.id !== post.id)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 6);
+
+// Get category display title
+const categoryService = getServiceBySlug(post.data.category);
+const categoryTitle = categoryService?.title ?? post.data.category;
+
+// Generate description from title or use a default
+const description = `${post.data.title} - Photography by Simon Wickes`;
+---
+
+<PageLayout title={post.data.title} description={description}>
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+    <article class="flex flex-col gap-8 lg:flex-row lg:gap-12">
+      {/* Main content */}
+      <div class="flex-1 min-w-0">
+        {/* Header */}
+        <header class="mb-8">
+          {/* Featured image */}
+          {
+            post.data.featuredImage && (
+              <Image
+                src={post.data.featuredImage}
+                alt={post.data.featuredImageAlt ?? post.data.title}
+                class="rounded-lg mb-6 w-full"
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 66vw, 800px"
+              />
+            )
+          }
+
+          {/* Title */}
+          <h1
+            class="font-display text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-100 mb-4"
+          >
+            {post.data.title}
+          </h1>
+
+          {/* Meta: date, category, tags */}
+          <div
+            class="flex flex-wrap items-center gap-3 text-sm text-surface-500 dark:text-surface-400"
+          >
+            <time datetime={post.data.date.toISOString()}>
+              {formatPostDate(post.data.date)}
+            </time>
+            <span class="text-surface-300 dark:text-surface-600">|</span>
+            <a
+              href={`/blog?category=${post.data.category}`}
+              class="bg-surface-100 dark:bg-surface-700 px-2 py-1 rounded hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors"
+            >
+              {categoryTitle}
+            </a>
+            {
+              post.data.tags &&
+                post.data.tags.map((tag) => (
+                  <span class="text-surface-400 dark:text-surface-500">
+                    #{tag}
+                  </span>
+                ))
+            }
+          </div>
+        </header>
+
+        {/* Content */}
+        <Prose>
+          <Content />
+        </Prose>
+
+        {/* Gallery CTA */}
+        {
+          post.data.galleryUrl && (
+            <div class="mt-8 p-6 bg-surface-100 dark:bg-surface-800 rounded-lg">
+              <p class="mb-4 text-surface-700 dark:text-surface-300">
+                View the full gallery from this session:
+              </p>
+              <Button href={post.data.galleryUrl} external>
+                View Gallery
+              </Button>
+            </div>
+          )
+        }
+      </div>
+
+      {/* Sidebar */}
+      <div class="lg:w-72 shrink-0 order-first lg:order-last">
+        <Sidebar
+          authorId={post.data.author}
+          relatedPosts={relatedPosts}
+          currentCategory={post.data.category}
+        />
+      </div>
+    </article>
+  </div>
+</PageLayout>
