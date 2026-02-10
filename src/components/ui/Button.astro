@@ -2,10 +2,11 @@
 interface Props {
   href: string;
   variant?: "primary" | "secondary";
+  external?: boolean;
   class?: string;
 }
 
-const { href, variant = "primary", class: className } = Astro.props;
+const { href, variant = "primary", external = false, class: className } = Astro.props;
 
 const baseClasses =
   "inline-block rounded-full px-8 py-3 font-display font-semibold transition-colors duration-200";
@@ -20,6 +21,7 @@ const variantClasses = {
 <a
   href={href}
   class:list={[baseClasses, variantClasses[variant], className]}
+  {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
 >
   <slot />
 </a>
