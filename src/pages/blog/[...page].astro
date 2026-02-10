@@ -5,6 +5,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import PostCard from "@components/blog/PostCard.astro";
 import PostListRow from "@components/blog/PostListRow.astro";
 import Pagination from "@components/blog/Pagination.astro";
+import BlogDiscoveryBar from "@components/blog/BlogDiscoveryBar.astro";
 import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
@@ -23,6 +24,10 @@ const { page } = Astro.props;
 // Split posts: first 6 for grid, rest for list
 const gridPosts = page.data.slice(0, 6);
 const listPosts = page.data.slice(6);
+
+// Collect unique tags from all posts for the discovery bar
+const allPosts = await getCollection("blog");
+const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
 ---
 
 <PageLayout
@@ -39,13 +44,15 @@ const listPosts = page.data.slice(6);
       Stories, tips, and behind-the-scenes from my photography sessions.
     </p>
 
+    <BlogDiscoveryBar tags={allTags} />
+
     {
       page.data.length === 0 ? (
         <p class="text-surface-500 dark:text-surface-400">
           No blog posts yet. Check back soon!
         </p>
       ) : (
-        <>
+        <div class="blog-server-content">
           {/* Grid section: first 6 posts */}
           <div class="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {gridPosts.map((post) => (
@@ -63,11 +70,402 @@ const listPosts = page.data.slice(6);
           )}
 
           {/* Pagination */}
-          <div class="mt-8">
+          <div class="blog-pagination mt-8">
             <Pagination page={page} />
           </div>
-        </>
+        </div>
       )
     }
+
+    {/* Client-rendered search/filter results (hidden by default) */}
+    <div class="blog-client-results hidden">
+      <div
+        class="blog-results-grid mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+      >
+      </div>
+      <div class="no-results hidden py-12 text-center">
+        <p class="mb-4 text-surface-500 dark:text-surface-400">
+          No posts found matching your search.
+        </p>
+        <button
+          class="clear-filters-btn rounded-full bg-accent-500 px-6 py-2 text-sm font-medium text-surface-50 transition-colors hover:bg-accent-600"
+        >
+          Clear filters
+        </button>
+      </div>
+    </div>
   </section>
 </PageLayout>
+
+<script>
+  import Fuse from "fuse.js";
+
+  interface PostIndex {
+    id: string;
+    title: string;
+    category: string;
+    categoryTitle: string;
+    tags: string[];
+    date: string;
+    excerpt: string;
+  }
+
+  function debounce(fn: Function, ms: number) {
+    let timer: ReturnType<typeof setTimeout>;
+    return (...args: any[]) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), ms);
+    };
+  }
+
+  let fuse: Fuse<PostIndex>;
+  let allPosts: PostIndex[] = [];
+  let categorySlugs: Set<string> = new Set();
+
+  function init() {
+    const searchInput = document.querySelector<HTMLInputElement>(
+      "[data-search-input]"
+    );
+    const filterPills =
+      document.querySelectorAll<HTMLButtonElement>(".filter-pill");
+    const serverContent = document.querySelector<HTMLElement>(
+      ".blog-server-content"
+    );
+    const clientResults =
+      document.querySelector<HTMLElement>(".blog-client-results");
+    const resultsGrid = document.querySelector<HTMLElement>(
+      ".blog-results-grid"
+    );
+    const noResults = document.querySelector<HTMLElement>(".no-results");
+    const resultsCount =
+      document.querySelector<HTMLElement>(".results-count");
+    const clearFiltersBtn =
+      document.querySelector<HTMLButtonElement>(".clear-filters-btn");
+
+    if (!searchInput || !serverContent || !clientResults || !resultsGrid || !noResults || !resultsCount) {
+      return;
+    }
+
+    // Fetch search index and initialize Fuse.js
+    fetch("/api/posts.json")
+      .then((res) => res.json())
+      .then((posts: PostIndex[]) => {
+        allPosts = posts;
+
+        // Build set of known category slugs for URL state classification
+        categorySlugs = new Set(posts.map((p) => p.category));
+
+        fuse = new Fuse(allPosts, {
+          keys: [
+            { name: "title", weight: 2 },
+            { name: "excerpt", weight: 1 },
+            { name: "tags", weight: 1.5 },
+          ],
+          threshold: 0.3,
+          includeMatches: true,
+          minMatchCharLength: 2,
+        });
+
+        // Restore state from URL after index is loaded
+        restoreStateFromUrl();
+      });
+
+    // Search input handler with 250ms debounce
+    const debouncedFilter = debounce(() => applyFilters(), 250);
+    searchInput.addEventListener("input", debouncedFilter);
+
+    // Filter pill click handlers
+    filterPills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        const filter = pill.getAttribute("data-filter");
+
+        if (filter === "all") {
+          // Reset all filters and search
+          resetAll();
+          return;
+        }
+
+        // Toggle active state on this pill
+        const isActive = pill.classList.contains("bg-accent-500");
+        if (isActive) {
+          deactivatePill(pill);
+        } else {
+          activatePill(pill);
+        }
+
+        // Deactivate "All" pill when any specific pill is active
+        const allPill = document.querySelector<HTMLButtonElement>(
+          '[data-filter="all"]'
+        );
+        if (allPill) {
+          deactivatePill(allPill);
+        }
+
+        // If no pills active, re-activate "All"
+        const anyActive = document.querySelector<HTMLButtonElement>(
+          ".filter-pill.bg-accent-500:not([data-filter='all'])"
+        );
+        if (!anyActive && allPill) {
+          activatePill(allPill);
+        }
+
+        applyFilters();
+      });
+    });
+
+    // Clear filters button in no-results message
+    if (clearFiltersBtn) {
+      clearFiltersBtn.addEventListener("click", () => {
+        resetAll();
+      });
+    }
+
+    function activatePill(pill: HTMLButtonElement) {
+      const filterType = pill.getAttribute("data-filter-type");
+      // Add active classes
+      pill.classList.add("bg-accent-500", "text-surface-50");
+      // Remove inactive classes based on pill type
+      if (filterType === "tag") {
+        pill.classList.remove(
+          "text-surface-500",
+          "hover:border-accent-300",
+          "hover:text-accent-500",
+          "dark:text-surface-500",
+          "dark:hover:border-accent-600",
+          "dark:hover:text-accent-400"
+        );
+      } else {
+        pill.classList.remove(
+          "text-surface-600",
+          "hover:bg-surface-100",
+          "hover:text-accent-500",
+          "dark:text-surface-400",
+          "dark:hover:bg-surface-800",
+          "dark:hover:text-accent-400"
+        );
+      }
+    }
+
+    function deactivatePill(pill: HTMLButtonElement) {
+      const filterType = pill.getAttribute("data-filter-type");
+      // Remove active classes
+      pill.classList.remove("bg-accent-500", "text-surface-50");
+      // Restore inactive classes based on pill type
+      if (filterType === "tag") {
+        pill.classList.add(
+          "text-surface-500",
+          "hover:border-accent-300",
+          "hover:text-accent-500",
+          "dark:text-surface-500",
+          "dark:hover:border-accent-600",
+          "dark:hover:text-accent-400"
+        );
+      } else if (pill.getAttribute("data-filter") !== "all") {
+        pill.classList.add(
+          "text-surface-600",
+          "hover:bg-surface-100",
+          "hover:text-accent-500",
+          "dark:text-surface-400",
+          "dark:hover:bg-surface-800",
+          "dark:hover:text-accent-400"
+        );
+      }
+    }
+
+    function resetAll() {
+      // Clear search input
+      searchInput.value = "";
+
+      // Deactivate all pills, re-activate "All"
+      filterPills.forEach((pill) => {
+        if (pill.getAttribute("data-filter") === "all") {
+          activatePill(pill);
+        } else {
+          deactivatePill(pill);
+        }
+      });
+
+      // Show server content, hide client results
+      serverContent.classList.remove("hidden");
+      clientResults.classList.add("hidden");
+      resultsCount.textContent = "";
+
+      // Clear URL state
+      const url = new URL(window.location.href);
+      url.searchParams.delete("q");
+      url.searchParams.delete("category");
+      url.searchParams.delete("tag");
+      history.replaceState({}, "", url.toString());
+    }
+
+    function applyFilters() {
+      const query = searchInput.value;
+      const activeFilters: string[] = [];
+
+      document
+        .querySelectorAll<HTMLButtonElement>(
+          ".filter-pill.bg-accent-500:not([data-filter='all'])"
+        )
+        .forEach((pill) => {
+          const filter = pill.getAttribute("data-filter");
+          if (filter) activeFilters.push(filter);
+        });
+
+      const isFiltering = query.trim() !== "" || activeFilters.length > 0;
+
+      if (!isFiltering) {
+        // No filters active -- show server-rendered paginated content
+        serverContent.classList.remove("hidden");
+        clientResults.classList.add("hidden");
+        resultsCount.textContent = "";
+
+        // Reactivate "All" pill if needed
+        const allPill = document.querySelector<HTMLButtonElement>(
+          '[data-filter="all"]'
+        );
+        if (allPill && !allPill.classList.contains("bg-accent-500")) {
+          activatePill(allPill);
+        }
+
+        updateUrlState(query, activeFilters);
+        return;
+      }
+
+      // Filtering active -- hide server content, show client results
+      serverContent.classList.add("hidden");
+      clientResults.classList.remove("hidden");
+
+      // Get search results
+      let results: PostIndex[];
+      if (query.trim()) {
+        results = fuse.search(query).map((r) => r.item);
+      } else {
+        results = [...allPosts];
+      }
+
+      // Apply AND filter logic
+      if (activeFilters.length > 0) {
+        results = results.filter((post) => {
+          return activeFilters.every((filter) => {
+            return post.category === filter || post.tags.includes(filter);
+          });
+        });
+      }
+
+      // Render results
+      resultsGrid.innerHTML = results
+        .map((post) => renderPostCard(post, query))
+        .join("");
+
+      // Update results count
+      resultsCount.textContent = `Showing ${results.length} post${results.length !== 1 ? "s" : ""}`;
+
+      // Toggle no-results visibility
+      noResults.classList.toggle("hidden", results.length > 0);
+      resultsGrid.classList.toggle("hidden", results.length === 0);
+
+      updateUrlState(query, activeFilters);
+    }
+
+    function updateUrlState(query: string, activeFilters: string[]) {
+      const url = new URL(window.location.href);
+
+      // Set or delete search query
+      if (query.trim()) {
+        url.searchParams.set("q", query.trim());
+      } else {
+        url.searchParams.delete("q");
+      }
+
+      // Clear old filter params
+      url.searchParams.delete("category");
+      url.searchParams.delete("tag");
+
+      // Set active filters
+      activeFilters.forEach((f) => {
+        if (categorySlugs.has(f)) {
+          url.searchParams.append("category", f);
+        } else {
+          url.searchParams.append("tag", f);
+        }
+      });
+
+      history.replaceState({}, "", url.toString());
+    }
+
+    function restoreStateFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get("q") ?? "";
+      const categories = params.getAll("category");
+      const tags = params.getAll("tag");
+
+      if (!query && categories.length === 0 && tags.length === 0) {
+        return;
+      }
+
+      // Set search input value
+      if (query) {
+        searchInput.value = query;
+      }
+
+      // Activate matching pills
+      const filtersToActivate = [...categories, ...tags];
+      if (filtersToActivate.length > 0) {
+        // Deactivate "All" pill
+        const allPill = document.querySelector<HTMLButtonElement>(
+          '[data-filter="all"]'
+        );
+        if (allPill) deactivatePill(allPill);
+
+        filtersToActivate.forEach((filter) => {
+          const pill = document.querySelector<HTMLButtonElement>(
+            `.filter-pill[data-filter="${filter}"]`
+          );
+          if (pill) activatePill(pill);
+        });
+      }
+
+      applyFilters();
+    }
+
+    function highlightMatch(text: string, query: string): string {
+      if (!query.trim()) return escapeHtml(text);
+      const escaped = query
+        .trim()
+        .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(`(${escaped})`, "gi");
+      return escapeHtml(text).replace(
+        regex,
+        '<mark class="bg-accent-100 dark:bg-accent-800/50 px-0.5 rounded">$1</mark>'
+      );
+    }
+
+    function escapeHtml(text: string): string {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function renderPostCard(post: PostIndex, query: string): string {
+      const dateStr = new Date(post.date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      const categoryDisplay = post.categoryTitle || post.category.replace(/-/g, " ");
+      const titleHtml = highlightMatch(post.title, query);
+
+      return `<a href="/blog/${post.id}/" class="group block overflow-hidden rounded-lg border border-surface-200 bg-surface-50 transition-all duration-200 hover:border-2 hover:border-accent-500 dark:border-surface-700 dark:bg-surface-800">
+        <div class="p-4">
+          <span class="mb-2 inline-block rounded-full bg-surface-200 px-2.5 py-0.5 text-xs font-medium text-surface-700 dark:bg-surface-700 dark:text-surface-300">${escapeHtml(categoryDisplay)}</span>
+          <h3 class="mb-2 font-display text-lg font-bold text-surface-900 dark:text-surface-100">${titleHtml}</h3>
+          <time class="text-sm text-surface-500 dark:text-surface-400">${dateStr}</time>
+        </div>
+      </a>`;
+    }
+  }
+
+  // Initialize on both DOMContentLoaded and astro:page-load for View Transitions safety
+  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("astro:page-load", init);
+</script>
