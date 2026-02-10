@@ -39,6 +39,15 @@
   --color-text-dark: #f5f0eb;
 }
 
+/* Force color scheme at document level for native form controls */
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
 /* Smooth theme transitions (applied after initial load to prevent flash) */
 html.theme-ready,
 html.theme-ready *,

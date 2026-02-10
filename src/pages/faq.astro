@@ -1,6 +1,6 @@
 ---
 import PageLayout from "@layouts/PageLayout.astro";
-import { faqItems, getFAQByCategory } from "@/data/faq";
+import { getFAQByCategory } from "@/data/faq";
 
 const bookingFAQs = getFAQByCategory("booking");
 const processFAQs = getFAQByCategory("process");
@@ -28,7 +28,7 @@ const processFAQs = getFAQByCategory("process");
 
     <div>
       <h2
-        class="mb-6 mt-12 font-display text-2xl font-bold text-surface-900 dark:text-surface-100"
+        class="mb-6 mt-12 font-display text-2xl font-bold text-amber-600 dark:text-amber-400"
       >
         Booking & Pricing
       </h2>
@@ -48,7 +48,7 @@ const processFAQs = getFAQByCategory("process");
 
     <div>
       <h2
-        class="mb-6 mt-12 font-display text-2xl font-bold text-surface-900 dark:text-surface-100"
+        class="mb-6 mt-12 font-display text-2xl font-bold text-amber-600 dark:text-amber-400"
       >
         Process & Deliverables
       </h2>
