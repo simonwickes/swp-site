@@ -1,86 +1,24 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import ThemeToggle from "../components/global/ThemeToggle.astro";
+import PageLayout from "../layouts/PageLayout.astro";
 ---
 
-<BaseLayout title="Home">
-  <div class="mx-auto max-w-4xl px-6 py-16">
-    <!-- Theme toggle in top right -->
-    <div class="mb-12 flex justify-end">
-      <ThemeToggle />
-    </div>
-
-    <!-- Heading with display font (Nunito) -->
+<PageLayout title="Home">
+  <section class="mx-auto max-w-4xl px-6 py-16 text-center">
     <h1 class="mb-4 font-display text-5xl font-bold tracking-tight">
       Simon Wickes Photography
     </h1>
-
-    <!-- Subheading with accent color -->
     <p class="mb-8 text-xl text-accent-500 dark:text-accent-400">
       Professional photography across people, places, and things.
     </p>
-
-    <!-- Body text with body font (Plus Jakarta Sans) -->
-    <p class="mb-12 max-w-2xl text-lg leading-relaxed text-surface-600 dark:text-surface-400">
+    <p
+      class="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-surface-600 dark:text-surface-400"
+    >
       Capturing authentic moments and compelling visuals. From outdoor portraits
       and weddings to landscape, commercial, and automotive photography -- every
       frame tells a story.
     </p>
-
-    <!-- Design token test section -->
-    <div class="grid gap-8 sm:grid-cols-2">
-      <!-- Accent palette swatch -->
-      <div class="rounded-xl border border-surface-200 p-6 dark:border-surface-800">
-        <h2 class="mb-4 font-display text-lg font-semibold">Accent Palette</h2>
-        <div class="flex gap-2">
-          <div class="h-10 w-10 rounded-lg bg-accent-100" title="accent-100"></div>
-          <div class="h-10 w-10 rounded-lg bg-accent-200" title="accent-200"></div>
-          <div class="h-10 w-10 rounded-lg bg-accent-300" title="accent-300"></div>
-          <div class="h-10 w-10 rounded-lg bg-accent-400" title="accent-400"></div>
-          <div class="h-10 w-10 rounded-lg bg-accent-500" title="accent-500"></div>
-          <div class="h-10 w-10 rounded-lg bg-accent-600" title="accent-600"></div>
-          <div class="h-10 w-10 rounded-lg bg-accent-700" title="accent-700"></div>
-          <div class="h-10 w-10 rounded-lg bg-accent-800" title="accent-800"></div>
-          <div class="h-10 w-10 rounded-lg bg-accent-900" title="accent-900"></div>
-        </div>
-      </div>
-
-      <!-- Surface palette swatch -->
-      <div class="rounded-xl border border-surface-200 p-6 dark:border-surface-800">
-        <h2 class="mb-4 font-display text-lg font-semibold">Surface Palette</h2>
-        <div class="flex gap-2">
-          <div class="h-10 w-10 rounded-lg bg-surface-100" title="surface-100"></div>
-          <div class="h-10 w-10 rounded-lg bg-surface-200" title="surface-200"></div>
-          <div class="h-10 w-10 rounded-lg bg-surface-300" title="surface-300"></div>
-          <div class="h-10 w-10 rounded-lg bg-surface-400" title="surface-400"></div>
-          <div class="h-10 w-10 rounded-lg bg-surface-500" title="surface-500"></div>
-          <div class="h-10 w-10 rounded-lg bg-surface-600" title="surface-600"></div>
-          <div class="h-10 w-10 rounded-lg bg-surface-700" title="surface-700"></div>
-          <div class="h-10 w-10 rounded-lg bg-surface-800" title="surface-800"></div>
-          <div class="h-10 w-10 rounded-lg bg-surface-900" title="surface-900"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dark mode test card -->
-    <div class="mt-8 rounded-xl bg-surface-100 p-6 dark:bg-surface-900">
-      <h2 class="mb-2 font-display text-lg font-semibold">
-        Theme Test
-      </h2>
-      <p class="text-surface-600 dark:text-surface-400">
-        This card uses <code class="rounded bg-surface-200 px-1.5 py-0.5 text-sm dark:bg-surface-800">surface-100</code>
-        in light mode and <code class="rounded bg-surface-200 px-1.5 py-0.5 text-sm dark:bg-surface-800">surface-900</code>
-        in dark mode. The toggle above should switch between themes with a smooth transition and persist across page reloads.
-      </p>
-    </div>
-
-    <!-- Accent button test -->
-    <div class="mt-8">
-      <button
-        class="rounded-lg bg-accent-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-accent-600 dark:bg-accent-400 dark:text-surface-950 dark:hover:bg-accent-300"
-      >
-        Get in Touch
-      </button>
-    </div>
-  </div>
-</BaseLayout>
+    <p class="text-sm text-surface-500">
+      Full site coming soon. Browse the menu above to explore service categories.
+    </p>
+  </section>
+</PageLayout>
