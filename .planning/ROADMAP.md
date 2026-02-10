@@ -72,11 +72,12 @@ Plans:
   3. User can click any gallery image to view it full-size in a lightbox with keyboard navigation and touch swipe support
   4. User reads a description of each service offering and what to expect
   5. User can click a CTA button on any service page to navigate directly to the contact form
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md -- Install PhotoSwipe, service data module, ServiceHero/ServiceNav components, placeholder images
+- [ ] 03-02-PLAN.md -- ServiceGallery component (masonry + lightbox), all 8 service pages, services index update
+- [ ] 03-03-PLAN.md -- Visual and functional verification checkpoint
 
 **Note**: This phase requires content prep to be substantially complete -- curated images, alt text, service descriptions, and image ordering for all 8 categories.
 
@@ -169,7 +170,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 |-------|---------------|--------|-----------|
 | 1. Foundation & Design System | 4/4 | ✓ Complete | 2026-02-09 |
 | 2. Landing Page | 3/3 | ✓ Complete | 2026-02-10 |
-| 3. Service Pages & Lightbox | 0/TBD | Not started | - |
+| 3. Service Pages & Lightbox | 0/3 | Not started | - |
 | 4. Contact & Conversion | 0/TBD | Not started | - |
 | 5. Client Galleries | 0/TBD | Not started | - |
 | 6. Blog Engine | 0/TBD | Not started | - |
