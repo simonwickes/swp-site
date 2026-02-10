@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 4 complete -- contact form, FAQ, and email notifications verified. Phase 5 next.
+**Current focus:** Phase 5 in progress -- client galleries page created, visual verification next.
 
 ## Current Position
 
-Phase: 4 of 8 complete (Contact & Conversion)
-Plan: 4 of 4 in Phase 4 (all complete)
-Status: Phase 4 complete, Phase 5 not started
-Last activity: 2026-02-10 -- Completed 04-04-PLAN.md (Visual Verification)
+Phase: 5 of 8 (Client Galleries)
+Plan: 1 of 2 in Phase 5
+Status: In progress
+Last activity: 2026-02-10 -- Completed 05-01-PLAN.md (Galleries Page & Data)
 
-Progress: [████████████████████░] ~50% (16 of ~33 total plans)
+Progress: [█████████████████████░] ~52% (17 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
+- Total plans completed: 16
 - Average duration: 4 minutes
-- Total execution time: 0.95 hours
+- Total execution time: 0.98 hours
 
 **By Phase:**
 
@@ -31,10 +31,11 @@ Progress: [████████████████████░] ~50%
 | 02 | 3 | 9 min | 3 min |
 | 03 | 3 | 20 min | 7 min |
 | 04 | 4 | 23 min | 6 min |
+| 05 | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-01 (3m), 04-02 (3m), 04-03 (2m), 04-04 (15m)
-- Trend: Phase 4 complete. Verification took longer due to human feedback and fixes.
+- Last 5 plans: 04-02 (3m), 04-03 (2m), 04-04 (15m), 05-01 (2m)
+- Trend: Fast execution on straightforward page creation.
 
 *Updated after each plan completion*
 
@@ -85,6 +86,8 @@ Recent decisions affecting current work:
 - [04-04]: Document-level color-scheme CSS (html.dark { color-scheme: dark }) for native form controls
 - [04-04]: FAQ section titles use amber/gold color (text-amber-600) for visual distinction
 - [04-04]: Service Type label (renamed from Event Type) for clearer form UX
+- [05-01]: Gallery data module pattern (src/data/gallery.ts) with centralized GALLERY_URL constant
+- [05-01]: Button external prop for target="_blank" + rel="noopener noreferrer" via spread syntax
 
 ### Pending Todos
 
@@ -92,16 +95,17 @@ Recent decisions affecting current work:
 - Replace placeholder featured images with real photography when available
 - Replace placeholder service gallery images with real photography when available
 - Configure Resend API key and CONTACT_EMAIL for production deployment
+- Confirm Pic-Time subdomain URL (currently placeholder: simonwickes.pic-time.com)
 
 ### Blockers/Concerns
 
 - Content preparation (96-160 curated images + alt text for 8 categories) is the primary timeline risk -- must start during Phase 1
-- Gallery service selection (Pixieset vs Pic-Time) decision needed before Phase 5
+- Gallery service selection resolved: Pic-Time selected, URL placeholder in src/data/gallery.ts
 - Pre-existing type error in astro.config.mjs (Vite plugin type mismatch) -- does not affect builds
 - Native browser dropdown popup on Chrome Mac has light background in dark mode (OS-level rendering limitation, not fixable via CSS)
 
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed Phase 4 (Contact & Conversion)
+Stopped at: Completed 05-01-PLAN.md (Galleries Page & Data)
 Resume file: None
