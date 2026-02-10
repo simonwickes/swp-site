@@ -53,10 +53,12 @@ Plans:
   1. User sees a hero section with impactful photography that fills the viewport on landing
   2. User sees a featured work section highlighting curated images from across service categories
   3. User sees elegant loading states (placeholder, blur-up, or skeleton) while images load rather than layout shift or blank space
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD
+- [ ] 02-01-PLAN.md -- Install deps, hero images, build HeroCarousel + UI primitives
+- [ ] 02-02-PLAN.md -- Featured grid, landing page composition, LCP optimization
+- [ ] 02-03-PLAN.md -- Visual verification checkpoint
 
 ---
 
@@ -166,7 +168,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
 | 1. Foundation & Design System | 4/4 | ✓ Complete | 2026-02-09 |
-| 2. Landing Page | 0/TBD | Not started | - |
+| 2. Landing Page | 0/3 | Not started | - |
 | 3. Service Pages & Lightbox | 0/TBD | Not started | - |
 | 4. Contact & Conversion | 0/TBD | Not started | - |
 | 5. Client Galleries | 0/TBD | Not started | - |
