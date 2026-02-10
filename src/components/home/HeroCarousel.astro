@@ -1,12 +1,4 @@
 ---
-import {
-  Swiper,
-  SwiperWrapper,
-  SwiperSlide,
-  SwiperButtonNext,
-  SwiperButtonPrev,
-  SwiperPagination,
-} from "astro-swiper";
 import { Image } from "astro:assets";
 
 import heroSlide1 from "@/assets/images/hero/slide-1.jpg";
@@ -39,49 +31,33 @@ const slides = [
   style="height: 100vh; height: 100dvh;"
   aria-label="Hero image carousel"
 >
-  <Swiper
-    uniqueClass="hero-swiper"
+  <swiper-container
+    id="hero-swiper"
     class="h-full w-full"
-    options={{
-      autoplay: {
-        delay: 4500,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      loop: true,
-      effect: "slide",
-      speed: 800,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-    }}
+    loop="true"
+    autoplay-delay="4500"
+    autoplay-disable-on-interaction="false"
+    autoplay-pause-on-mouse-enter="true"
+    speed="800"
+    navigation="true"
+    pagination="true"
+    pagination-clickable="true"
   >
-    <SwiperWrapper>
-      {slides.map((slide, index) => (
-        <SwiperSlide class="!h-full">
-          <div class="relative h-full w-full bg-surface-900">
-            <Image
-              src={slide.src}
-              alt={slide.alt}
-              widths={[640, 1024, 1920]}
-              sizes="100vw"
-              class="h-full w-full object-cover"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-          </div>
-        </SwiperSlide>
-      ))}
-    </SwiperWrapper>
-
-    <SwiperButtonPrev />
-    <SwiperButtonNext />
-    <SwiperPagination />
-  </Swiper>
+    {slides.map((slide, index) => (
+      <swiper-slide class="!h-full">
+        <div class="relative h-full w-full bg-surface-900">
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            widths={[640, 1024, 1920]}
+            sizes="100vw"
+            class="h-full w-full object-cover"
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+        </div>
+      </swiper-slide>
+    ))}
+  </swiper-container>
 
   <!-- Name and tagline overlay -->
   <div class="absolute bottom-8 left-8 z-10 md:bottom-12 md:left-12">
@@ -130,14 +106,18 @@ const slides = [
 </section>
 
 <script>
-  import { getSwiperFromUniqueSelector } from "astro-swiper";
+  import { register } from "swiper/element/bundle";
+
+  // Register Swiper web components
+  register();
 
   function initHeroCarousel() {
+    const swiperEl = document.getElementById("hero-swiper") as any;
     const pauseBtn = document.getElementById("hero-pause-btn");
     const pauseIcon = document.getElementById("hero-pause-icon");
     const playIcon = document.getElementById("hero-play-icon");
 
-    if (!pauseBtn || !pauseIcon || !playIcon) return;
+    if (!swiperEl || !pauseBtn || !pauseIcon || !playIcon) return;
 
     let isPaused = false;
 
@@ -146,42 +126,34 @@ const slides = [
       "(prefers-reduced-motion: reduce)"
     );
 
-    function getSwiper() {
-      return getSwiperFromUniqueSelector(".hero-swiper");
-    }
-
     function pauseCarousel() {
-      const swiper = getSwiper();
-      if (swiper?.autoplay) {
-        swiper.autoplay.stop();
+      if (swiperEl.swiper?.autoplay) {
+        swiperEl.swiper.autoplay.stop();
       }
       isPaused = true;
-      pauseIcon.classList.add("hidden");
-      playIcon.classList.remove("hidden");
-      pauseBtn.setAttribute("aria-label", "Play carousel");
+      pauseIcon!.classList.add("hidden");
+      playIcon!.classList.remove("hidden");
+      pauseBtn!.setAttribute("aria-label", "Play carousel");
     }
 
     function playCarousel() {
-      const swiper = getSwiper();
-      if (swiper?.autoplay) {
-        swiper.autoplay.start();
+      if (swiperEl.swiper?.autoplay) {
+        swiperEl.swiper.autoplay.start();
       }
       isPaused = false;
-      playIcon.classList.add("hidden");
-      pauseIcon.classList.remove("hidden");
-      pauseBtn.setAttribute("aria-label", "Pause carousel");
+      playIcon!.classList.add("hidden");
+      pauseIcon!.classList.remove("hidden");
+      pauseBtn!.setAttribute("aria-label", "Pause carousel");
     }
 
     // Respect prefers-reduced-motion
     function handleReducedMotion(mq: MediaQueryList | MediaQueryListEvent) {
       if (mq.matches) {
         pauseCarousel();
-      } else if (isPaused) {
-        // Only auto-resume if it was paused by reduced-motion, not user action
       }
     }
 
-    // Initial check -- use a short delay to let the Swiper custom element initialize
+    // Initial check -- use a short delay to let Swiper initialize
     setTimeout(() => {
       handleReducedMotion(reducedMotion);
     }, 100);
@@ -207,38 +179,32 @@ const slides = [
 </script>
 
 <style>
-  /* Navigation arrow styling */
-  .hero-carousel :global(.swiper-button-next),
-  .hero-carousel :global(.swiper-button-prev) {
-    color: white;
+  /* Swiper web component styling */
+  #hero-swiper {
+    --swiper-navigation-color: white;
+    --swiper-pagination-color: white;
+    --swiper-pagination-bullet-inactive-color: white;
+    --swiper-pagination-bullet-inactive-opacity: 0.5;
+  }
+
+  #hero-swiper::part(button-prev),
+  #hero-swiper::part(button-next) {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
   }
 
-  .hero-carousel :global(.swiper-button-next::after),
-  .hero-carousel :global(.swiper-button-prev::after) {
-    font-size: 1.5rem;
-  }
-
-  /* Pagination styling */
-  .hero-carousel :global(.swiper-pagination) {
+  #hero-swiper::part(pagination) {
     bottom: 5rem !important;
   }
 
-  .hero-carousel :global(.swiper-pagination-bullet) {
-    background: white;
-    opacity: 0.5;
-    width: 10px;
-    height: 10px;
-  }
-
-  .hero-carousel :global(.swiper-pagination-bullet-active) {
-    opacity: 1;
+  /* Ensure slides fill container */
+  .hero-carousel swiper-slide {
+    height: 100% !important;
   }
 
   /* Respect reduced motion for CSS transitions */
   @media (prefers-reduced-motion: reduce) {
-    .hero-carousel :global(.swiper-wrapper) {
-      transition-duration: 0ms !important;
+    #hero-swiper {
+      --swiper-transition-duration: 0ms;
     }
   }
 </style>
