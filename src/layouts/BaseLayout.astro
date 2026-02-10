@@ -1,0 +1,58 @@
+---
+import "@fontsource-variable/plus-jakarta-sans";
+import "@fontsource-variable/nunito";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Professional photography by Simon Wickes",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | Simon Wickes Photography</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Theme initialization - MUST be inline, MUST be first script -->
+    <script is:inline>
+      (function () {
+        var stored =
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme");
+        var theme;
+        if (stored === "dark" || stored === "light") {
+          theme = stored;
+        } else if (
+          window.matchMedia("(prefers-color-scheme: light)").matches
+        ) {
+          theme = "light";
+        } else {
+          theme = "dark";
+        }
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+  </head>
+  <body
+    class="min-h-screen bg-bg-light font-body text-text-light dark:bg-bg-dark dark:text-text-dark"
+  >
+    <slot />
+    <!-- Enable smooth transitions after initial paint to avoid flash -->
+    <script is:inline>
+      requestAnimationFrame(function () {
+        document.documentElement.classList.add("theme-ready");
+      });
+    </script>
+  </body>
+</html>

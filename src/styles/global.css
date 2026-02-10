@@ -1,1 +1,51 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Typography */
+  --font-body: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Nunito Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Terracotta/Rust Accent Palette */
+  --color-accent-50: #fdf3ef;
+  --color-accent-100: #fbe4d9;
+  --color-accent-200: #f6c5b2;
+  --color-accent-300: #f0a080;
+  --color-accent-400: #e87b52;
+  --color-accent-500: #c2633e;
+  --color-accent-600: #a64e30;
+  --color-accent-700: #8a3d27;
+  --color-accent-800: #6e3121;
+  --color-accent-900: #5a291c;
+
+  /* Warm Neutral Surface Palette */
+  --color-surface-50: #faf8f6;
+  --color-surface-100: #f5f0eb;
+  --color-surface-200: #ebe3da;
+  --color-surface-300: #d6cabe;
+  --color-surface-400: #b5a596;
+  --color-surface-500: #978775;
+  --color-surface-600: #7a6b5b;
+  --color-surface-700: #5c504a;
+  --color-surface-800: #3a322e;
+  --color-surface-900: #262120;
+  --color-surface-950: #1a1614;
+
+  /* Semantic Colors */
+  --color-bg-light: #faf8f5;
+  --color-bg-dark: #1a1614;
+  --color-text-light: #262120;
+  --color-text-dark: #f5f0eb;
+}
+
+/* Smooth theme transitions (applied after initial load to prevent flash) */
+html.theme-ready,
+html.theme-ready *,
+html.theme-ready *::before,
+html.theme-ready *::after {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
