@@ -5,6 +5,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import Prose from "@components/blog/Prose.astro";
 import Sidebar from "@components/blog/Sidebar.astro";
 import Button from "@components/ui/Button.astro";
+import ShareButtons from "@components/blog/ShareButtons.astro";
 import { formatPostDate } from "@/utils/formatDate";
 import { getServiceBySlug } from "@/data/services";
 
@@ -32,6 +33,9 @@ const categoryTitle = categoryService?.title ?? post.data.category;
 
 // Generate description from title or use a default
 const description = `${post.data.title} - Photography by Simon Wickes`;
+
+// Canonical URL for share buttons
+const canonicalUrl = `${Astro.site ?? "https://simonwickes.com"}/blog/${post.id}/`;
 ---
 
 <PageLayout title={post.data.title} description={description}>
@@ -104,6 +108,11 @@ const description = `${post.data.title} - Photography by Simon Wickes`;
             </div>
           )
         }
+
+        {/* Share buttons */}
+        <div class="mt-8 pt-6 border-t border-surface-200 dark:border-surface-700">
+          <ShareButtons url={canonicalUrl} title={post.data.title} />
+        </div>
       </div>
 
       {/* Sidebar */}
