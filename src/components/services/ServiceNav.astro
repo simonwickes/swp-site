@@ -1,0 +1,32 @@
+---
+import { services } from "@/data/services";
+
+interface Props {
+  currentSlug: string;
+}
+
+const { currentSlug } = Astro.props;
+---
+
+<nav
+  class="overflow-x-auto border-b border-surface-200 dark:border-surface-800 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  aria-label="Service categories"
+>
+  <div class="mx-auto flex max-w-7xl items-center gap-1 px-4 py-2">
+    {
+      services.map((service) => (
+        <a
+          href={`/services/${service.slug}/`}
+          class:list={[
+            "whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors",
+            currentSlug === service.slug
+              ? "bg-accent-500 text-surface-50"
+              : "text-surface-600 hover:bg-surface-100 hover:text-accent-500 dark:text-surface-400 dark:hover:bg-surface-800 dark:hover:text-accent-400",
+          ]}
+        >
+          {service.title}
+        </a>
+      ))
+    }
+  </div>
+</nav>

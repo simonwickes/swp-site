@@ -1,0 +1,24 @@
+---
+import Button from "@components/ui/Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<section class="mx-auto max-w-4xl px-6 py-16 text-center md:py-24">
+  <h1
+    class="mb-4 font-display text-4xl font-bold tracking-tight md:text-5xl"
+  >
+    {title}
+  </h1>
+  <p
+    class="mx-auto mb-8 max-w-2xl text-lg text-surface-600 dark:text-surface-400"
+  >
+    {description}
+  </p>
+  <Button href="/contact/" variant="primary">Contact me</Button>
+</section>
