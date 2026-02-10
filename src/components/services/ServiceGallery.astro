@@ -1,0 +1,106 @@
+---
+import { Masonry } from "astro-masonry";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface GalleryImage {
+  image: ImageMetadata;
+  alt: string;
+}
+
+interface Props {
+  images: GalleryImage[];
+  galleryId: string;
+}
+
+const { images, galleryId } = Astro.props;
+---
+
+<div id={galleryId} class="pswp-gallery">
+  <Masonry
+    breakpointCols={{
+      default: 4,
+      1024: 3,
+      768: 2,
+      480: 1,
+    }}
+    class="flex gap-4"
+    columnClass=""
+  >
+    {
+      images.map((item) => (
+        <div class="mb-4">
+          <a
+            href={item.image.src}
+            data-pswp-width={item.image.width}
+            data-pswp-height={item.image.height}
+            class="group block overflow-hidden rounded-lg"
+          >
+            <Image
+              src={item.image}
+              alt={item.alt}
+              class="w-full transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              width={600}
+            />
+          </a>
+        </div>
+      ))
+    }
+  </Masonry>
+</div>
+
+<script>
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import "photoswipe/style.css";
+
+  let currentLightbox: PhotoSwipeLightbox | null = null;
+
+  function initServiceGallery() {
+    // Destroy previous instance if exists (View Transitions safety)
+    if (currentLightbox) {
+      currentLightbox.destroy();
+      currentLightbox = null;
+    }
+
+    const galleryEl = document.querySelector(".pswp-gallery");
+    if (!galleryEl) return;
+
+    currentLightbox = new PhotoSwipeLightbox({
+      gallery: ".pswp-gallery",
+      children: "a",
+      pswpModule: () => import("photoswipe"),
+
+      // Solid black background for immersive experience
+      bgOpacity: 1,
+
+      // Click actions: no accidental close
+      bgClickAction: false,
+      tapAction: "toggle-controls",
+      imageClickAction: "zoom-or-close",
+      doubleTapAction: "zoom",
+
+      // Keyboard navigation
+      escKey: true,
+      arrowKeys: true,
+
+      // Prevent accidental close
+      closeOnVerticalDrag: false,
+      pinchToClose: false,
+
+      // Smooth animations
+      showAnimationDuration: 250,
+      hideAnimationDuration: 250,
+
+      // Preload adjacent slides
+      preload: [1, 2],
+    });
+
+    // Counter is hidden via CSS in global.css (.pswp__counter { display: none })
+
+    currentLightbox.init();
+  }
+
+  // Initialize on page load (supports View Transitions)
+  document.addEventListener("astro:page-load", initServiceGallery);
+</script>
