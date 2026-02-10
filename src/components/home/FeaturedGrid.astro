@@ -1,0 +1,116 @@
+---
+import { Masonry } from "astro-masonry";
+import FeaturedImage from "./FeaturedImage.astro";
+
+import wedding1 from "@/assets/images/featured/wedding-1.jpg";
+import wedding2 from "@/assets/images/featured/wedding-2.jpg";
+import portrait1 from "@/assets/images/featured/portrait-1.jpg";
+import portrait2 from "@/assets/images/featured/portrait-2.jpg";
+import landscape1 from "@/assets/images/featured/landscape-1.jpg";
+import landscape2 from "@/assets/images/featured/landscape-2.jpg";
+import commercial1 from "@/assets/images/featured/commercial-1.jpg";
+import event1 from "@/assets/images/featured/event-1.jpg";
+import car1 from "@/assets/images/featured/car-1.jpg";
+import car2 from "@/assets/images/featured/car-2.jpg";
+import performance1 from "@/assets/images/featured/performance-1.jpg";
+import assignment1 from "@/assets/images/featured/assignment-1.jpg";
+
+const featuredItems = [
+  {
+    image: wedding1,
+    alt: "Bride and groom during golden hour ceremony",
+    category: "Weddings",
+    href: "/services/weddings/",
+  },
+  {
+    image: portrait1,
+    alt: "Natural light portrait in a sunlit meadow",
+    category: "Outdoor Portraits",
+    href: "/services/outdoor-portraits/",
+  },
+  {
+    image: landscape1,
+    alt: "Sweeping mountain vista at dawn",
+    category: "Landscape",
+    href: "/services/landscape/",
+  },
+  {
+    image: car1,
+    alt: "Classic car in warm afternoon light",
+    category: "Cars",
+    href: "/services/cars/",
+  },
+  {
+    image: commercial1,
+    alt: "Professional product photography setup",
+    category: "Commercial",
+    href: "/services/commercial/",
+  },
+  {
+    image: event1,
+    alt: "Candid moment at a corporate gathering",
+    category: "Events",
+    href: "/services/events/",
+  },
+  {
+    image: performance1,
+    alt: "Musician captured mid-performance on stage",
+    category: "Live Performances",
+    href: "/services/live-performances/",
+  },
+  {
+    image: assignment1,
+    alt: "Editorial assignment for a local publication",
+    category: "Assignments",
+    href: "/services/assignments/",
+  },
+  {
+    image: wedding2,
+    alt: "Intimate couple portrait at a vineyard wedding",
+    category: "Weddings",
+    href: "/services/weddings/",
+  },
+  {
+    image: portrait2,
+    alt: "Expressive portrait against autumn foliage",
+    category: "Outdoor Portraits",
+    href: "/services/outdoor-portraits/",
+  },
+  {
+    image: landscape2,
+    alt: "Rolling hills bathed in golden hour light",
+    category: "Landscape",
+    href: "/services/landscape/",
+  },
+  {
+    image: car2,
+    alt: "Detail shot of a vintage sports car",
+    category: "Cars",
+    href: "/services/cars/",
+  },
+];
+---
+
+<Masonry
+  breakpointCols={{
+    default: 4,
+    1100: 3,
+    700: 2,
+    500: 1,
+  }}
+  class="flex gap-4"
+  columnClass=""
+>
+  {
+    featuredItems.map((item) => (
+      <div class="mb-4">
+        <FeaturedImage
+          image={item.image}
+          alt={item.alt}
+          category={item.category}
+          href={item.href}
+        />
+      </div>
+    ))
+  }
+</Masonry>
