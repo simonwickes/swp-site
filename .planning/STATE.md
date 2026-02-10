@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 3 in progress -- service pages foundation complete, gallery integration next
+**Current focus:** Phase 3 in progress -- gallery integration complete, visual verification next
 
 ## Current Position
 
 Phase: 3 of 8 (Service Pages & Lightbox)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-02-10 -- Completed 03-01-PLAN.md (Service Foundation)
+Last activity: 2026-02-10 -- Completed 03-02-PLAN.md (Service Gallery & Lightbox Integration)
 
-Progress: [████████░░░░░░░░░░░░] ~24% (8 of ~33 total plans)
+Progress: [█████████░░░░░░░░░░░] ~27% (9 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
+- Total plans completed: 9
 - Average duration: 4 minutes
-- Total execution time: 0.53 hours
+- Total execution time: 0.58 hours
 
 **By Phase:**
 
@@ -29,10 +29,10 @@ Progress: [████████░░░░░░░░░░░░] ~24% (8
 |-------|-------|-------|----------|
 | 01 | 4 | 21 min | 5 min |
 | 02 | 3 | 9 min | 3 min |
-| 03 | 1 | 2 min | 2 min |
+| 03 | 2 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (3m), 02-02 (4m), 02-03 (2m), 03-01 (2m)
+- Last 5 plans: 02-02 (4m), 02-03 (2m), 03-01 (2m), 03-02 (3m)
 - Trend: Consistent fast execution
 
 *Updated after each plan completion*
@@ -68,6 +68,9 @@ Recent decisions affecting current work:
 - [03-01]: Shared data module pattern (src/data/services.ts) for DRY service metadata across pages and components
 - [03-01]: ServiceNav uses pill-shaped links with overflow-x-auto hidden scrollbar pattern
 - [03-01]: Placeholder images use per-category unique base colors with varied aspect ratios for masonry testing
+- [03-02]: ServiceGallery wraps astro-masonry + PhotoSwipe with View Transitions-safe initialization
+- [03-02]: bgClickAction: false (not "none") for PhotoSwipe TS type compatibility
+- [03-02]: Counter hidden via CSS in global.css rather than PhotoSwipe uiRegister JS API
 
 ### Pending Todos
 
@@ -84,5 +87,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 03-01-PLAN.md -- service foundation ready, proceed to gallery integration (03-02)
+Stopped at: Completed 03-02-PLAN.md -- all service pages built with gallery and lightbox, proceed to visual verification (03-03)
 Resume file: None
