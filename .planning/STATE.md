@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 5 complete -- ready for Phase 6 (Blog Engine).
+**Current focus:** Phase 6 in progress -- Blog Engine.
 
 ## Current Position
 
-Phase: 5 of 8 (Client Galleries) -- COMPLETE
-Plan: 2 of 2 in Phase 5
-Status: Phase complete
-Last activity: 2026-02-10 -- Completed 05-02-PLAN.md (Navigation Updates & Visual Verification)
+Phase: 6 of 8 (Blog Engine)
+Plan: 1 of 4 in Phase 6
+Status: In progress
+Last activity: 2026-02-10 -- Completed 06-01-PLAN.md (Blog Content Infrastructure)
 
-Progress: [██████████████████████░░] ~55% (18 of ~33 total plans)
+Progress: [███████████████████████░░] ~58% (19 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
+- Total plans completed: 19
 - Average duration: 4 minutes
-- Total execution time: 1.03 hours
+- Total execution time: 1.07 hours
 
 **By Phase:**
 
@@ -32,10 +32,11 @@ Progress: [██████████████████████░
 | 03 | 3 | 20 min | 7 min |
 | 04 | 4 | 23 min | 6 min |
 | 05 | 2 | 5 min | 3 min |
+| 06 | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-03 (2m), 04-04 (15m), 05-01 (2m), 05-02 (3m)
-- Trend: Consistently fast on page creation and navigation updates.
+- Last 5 plans: 04-04 (15m), 05-01 (2m), 05-02 (3m), 06-01 (2m)
+- Trend: Fast execution on infrastructure setup plans.
 
 *Updated after each plan completion*
 
@@ -91,6 +92,10 @@ Recent decisions affecting current work:
 - [05-02]: Client Galleries placed between Services and Contact in desktop nav
 - [05-02]: Mobile nav uses separate bordered section for Client Galleries link
 - [05-02]: Footer uses shorter "Galleries" label for brevity consistency
+- [06-01]: Content config at src/content.config.ts (Astro 5 convention)
+- [06-01]: Category field uses service slugs for cross-linking blog to services
+- [06-01]: 15-day threshold for relative vs absolute dates in formatPostDate
+- [06-01]: Author data module follows services.ts pattern (interface + array + getter)
 
 ### Pending Todos
 
@@ -110,5 +115,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 05-02-PLAN.md (Navigation Updates & Visual Verification) -- Phase 5 complete
+Stopped at: Completed 06-01-PLAN.md (Blog Content Infrastructure) -- Phase 6 plan 1 of 4
 Resume file: None
