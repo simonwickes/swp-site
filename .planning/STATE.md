@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 2 complete -- ready for Phase 3
+**Current focus:** Phase 3 in progress -- service pages foundation complete, gallery integration next
 
 ## Current Position
 
-Phase: 2 of 8 (Landing Page) -- COMPLETE
-Plan: 3 of 3 in current phase (all done)
-Status: Phase complete
-Last activity: 2026-02-10 -- Completed 02-03-PLAN.md (Visual Verification & Phase 2 Sign-off)
+Phase: 3 of 8 (Service Pages & Lightbox)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-02-10 -- Completed 03-01-PLAN.md (Service Foundation)
 
-Progress: [████████░░░░░░░░░░░░] ~21% (7 of ~33 total plans)
+Progress: [████████░░░░░░░░░░░░] ~24% (8 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: 4 minutes
-- Total execution time: 0.50 hours
+- Total execution time: 0.53 hours
 
 **By Phase:**
 
@@ -29,9 +29,10 @@ Progress: [████████░░░░░░░░░░░░] ~21% (7
 |-------|-------|-------|----------|
 | 01 | 4 | 21 min | 5 min |
 | 02 | 3 | 9 min | 3 min |
+| 03 | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-04 (3m), 02-01 (3m), 02-02 (4m), 02-03 (2m)
+- Last 5 plans: 02-01 (3m), 02-02 (4m), 02-03 (2m), 03-01 (2m)
 - Trend: Consistent fast execution
 
 *Updated after each plan completion*
@@ -64,19 +65,24 @@ Recent decisions affecting current work:
 - [02-02]: astro-masonry Masonry with flex gap-4 and breakpointCols for responsive columns
 - [02-02]: CSS-only group-hover overlay pattern for FeaturedImage (zero JS)
 - [02-02]: BaseLayout preloadImage prop for LCP optimization via link rel=preload
+- [03-01]: Shared data module pattern (src/data/services.ts) for DRY service metadata across pages and components
+- [03-01]: ServiceNav uses pill-shaped links with overflow-x-auto hidden scrollbar pattern
+- [03-01]: Placeholder images use per-category unique base colors with varied aspect ratios for masonry testing
 
 ### Pending Todos
 
 - Replace placeholder hero images with real photography when available
 - Replace placeholder featured images with real photography when available
+- Replace placeholder service gallery images with real photography when available
 
 ### Blockers/Concerns
 
 - Content preparation (96-160 curated images + alt text for 8 categories) is the primary timeline risk -- must start during Phase 1
 - Gallery service selection (Pixieset vs Pic-Time) decision needed before Phase 5
+- Pre-existing type error in astro.config.mjs (Vite plugin type mismatch) -- does not affect builds
 
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 02-03-PLAN.md -- Phase 2 complete, ready for Phase 3
+Stopped at: Completed 03-01-PLAN.md -- service foundation ready, proceed to gallery integration (03-02)
 Resume file: None
