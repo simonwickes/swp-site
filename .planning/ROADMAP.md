@@ -110,10 +110,11 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. User can access a client galleries page that explains how gallery access works (password-protected, downloads, proofing)
   2. User can navigate to the third-party gallery service via clearly presented links or buttons
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: TBD
+- [ ] 05-01-PLAN.md -- Gallery data file, Button external link support, galleries page
+- [ ] 05-02-PLAN.md -- Navigation updates (Header + Footer) and visual verification
 
 ---
 
@@ -175,11 +176,11 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | 2. Landing Page | 3/3 | ✓ Complete | 2026-02-10 |
 | 3. Service Pages & Lightbox | 3/3 | ✓ Complete | 2026-02-10 |
 | 4. Contact & Conversion | 4/4 | ✓ Complete | 2026-02-10 |
-| 5. Client Galleries | 0/TBD | Not started | - |
+| 5. Client Galleries | 0/2 | Planning complete | - |
 | 6. Blog Engine | 0/TBD | Not started | - |
 | 7. Blog Discovery & Sharing | 0/TBD | Not started | - |
 | 8. SEO, Transitions & Launch Readiness | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-09*
-*Last updated: 2026-02-10 (Phase 4 complete)*
+*Last updated: 2026-02-10 (Phase 5 planned)*
