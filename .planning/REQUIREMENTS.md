@@ -37,9 +37,9 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **BLOG-02**: User can read individual blog post pages
 - [x] **BLOG-03**: Blog posts support markdown formatting with images
 - [x] **BLOG-04**: User sees post metadata (date, category) on each post
-- [ ] **BLOG-05**: User can search across blog content
-- [ ] **BLOG-06**: User can filter posts by category/tag
-- [ ] **BLOG-07**: User can share blog posts via social share buttons
+- [x] **BLOG-05**: User can search across blog content
+- [x] **BLOG-06**: User can filter posts by category/tag
+- [x] **BLOG-07**: User can share blog posts via social share buttons
 
 ### Client Galleries
 
@@ -116,9 +116,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BLOG-02 | Phase 6: Blog Engine | Complete |
 | BLOG-03 | Phase 6: Blog Engine | Complete |
 | BLOG-04 | Phase 6: Blog Engine | Complete |
-| BLOG-05 | Phase 7: Blog Discovery & Sharing | Pending |
-| BLOG-06 | Phase 7: Blog Discovery & Sharing | Pending |
-| BLOG-07 | Phase 7: Blog Discovery & Sharing | Pending |
+| BLOG-05 | Phase 7: Blog Discovery & Sharing | Complete |
+| BLOG-06 | Phase 7: Blog Discovery & Sharing | Complete |
+| BLOG-07 | Phase 7: Blog Discovery & Sharing | Complete |
 | GALL-01 | Phase 5: Client Galleries | Complete |
 | GALL-02 | Phase 5: Client Galleries | Complete |
 | DSGN-01 | Phase 1: Foundation & Design System | Pending |
