@@ -24,12 +24,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Contact
 
-- [ ] **CONT-01**: User can submit contact form with Name, Email, and Message
-- [ ] **CONT-02**: User can optionally specify event type and date
-- [ ] **CONT-03**: User sees success/error feedback after form submission
-- [ ] **CONT-04**: Simon receives email notification for each form submission
-- [ ] **CONT-05**: User can view FAQ section with common questions
-- [ ] **CONT-06**: User sees expected response time (e.g., "within 24 hours")
+- [x] **CONT-01**: User can submit contact form with Name, Email, and Message
+- [x] **CONT-02**: User can optionally specify event type and date
+- [x] **CONT-03**: User sees success/error feedback after form submission
+- [x] **CONT-04**: Simon receives email notification for each form submission
+- [x] **CONT-05**: User can view FAQ section with common questions
+- [x] **CONT-06**: User sees expected response time (e.g., "within 24 hours")
 
 ### Blog
 
@@ -106,12 +106,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SERV-03 | Phase 3: Service Pages & Lightbox | Pending |
 | SERV-04 | Phase 3: Service Pages & Lightbox | Pending |
 | SERV-05 | Phase 3: Service Pages & Lightbox | Pending |
-| CONT-01 | Phase 4: Contact & Conversion | Pending |
-| CONT-02 | Phase 4: Contact & Conversion | Pending |
-| CONT-03 | Phase 4: Contact & Conversion | Pending |
-| CONT-04 | Phase 4: Contact & Conversion | Pending |
-| CONT-05 | Phase 4: Contact & Conversion | Pending |
-| CONT-06 | Phase 4: Contact & Conversion | Pending |
+| CONT-01 | Phase 4: Contact & Conversion | Complete |
+| CONT-02 | Phase 4: Contact & Conversion | Complete |
+| CONT-03 | Phase 4: Contact & Conversion | Complete |
+| CONT-04 | Phase 4: Contact & Conversion | Complete |
+| CONT-05 | Phase 4: Contact & Conversion | Complete |
+| CONT-06 | Phase 4: Contact & Conversion | Complete |
 | BLOG-01 | Phase 6: Blog Engine | Pending |
 | BLOG-02 | Phase 6: Blog Engine | Pending |
 | BLOG-03 | Phase 6: Blog Engine | Pending |
@@ -138,4 +138,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-09*
-*Last updated: 2026-02-09 after roadmap creation*
+*Last updated: 2026-02-10 after Phase 4 completion*

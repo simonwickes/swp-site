@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 4 in progress -- server action, FAQ, and contact form UI complete, visual verification next
+**Current focus:** Phase 4 complete -- contact form, FAQ, and email notifications verified. Phase 5 next.
 
 ## Current Position
 
-Phase: 4 of 8 (Contact & Conversion)
-Plan: 3 of 4 in current phase (04-01, 04-02, 04-03 complete)
-Status: In progress
-Last activity: 2026-02-10 -- Completed 04-03-PLAN.md (Contact Form UI Component)
+Phase: 4 of 8 complete (Contact & Conversion)
+Plan: 4 of 4 in Phase 4 (all complete)
+Status: Phase 4 complete, Phase 5 not started
+Last activity: 2026-02-10 -- Completed 04-04-PLAN.md (Visual Verification)
 
-Progress: [███████████████░░░░░] ~45% (15 of ~33 total plans)
+Progress: [████████████████████░] ~50% (16 of ~33 total plans)
 
 ## Performance Metrics
 
@@ -30,11 +30,11 @@ Progress: [███████████████░░░░░] ~45% (1
 | 01 | 4 | 21 min | 5 min |
 | 02 | 3 | 9 min | 3 min |
 | 03 | 3 | 20 min | 7 min |
-| 04 | 3 | 8 min | 3 min |
+| 04 | 4 | 23 min | 6 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-03 (15m), 04-02 (3m), 04-01 (3m), 04-03 (2m)
-- Trend: Phase 4 plans executing quickly with no deviations
+- Last 5 plans: 04-01 (3m), 04-02 (3m), 04-03 (2m), 04-04 (15m)
+- Trend: Phase 4 complete. Verification took longer due to human feedback and fixes.
 
 *Updated after each plan completion*
 
@@ -82,6 +82,9 @@ Recent decisions affecting current work:
 - [04-03]: Event type dropdown dynamically generated from services.ts data
 - [04-03]: Client-side action submission via import { actions, isInputError } from 'astro:actions'
 - [04-03]: Inline field errors with data-error attribute pattern
+- [04-04]: Document-level color-scheme CSS (html.dark { color-scheme: dark }) for native form controls
+- [04-04]: FAQ section titles use amber/gold color (text-amber-600) for visual distinction
+- [04-04]: Service Type label (renamed from Event Type) for clearer form UX
 
 ### Pending Todos
 
@@ -95,9 +98,10 @@ Recent decisions affecting current work:
 - Content preparation (96-160 curated images + alt text for 8 categories) is the primary timeline risk -- must start during Phase 1
 - Gallery service selection (Pixieset vs Pic-Time) decision needed before Phase 5
 - Pre-existing type error in astro.config.mjs (Vite plugin type mismatch) -- does not affect builds
+- Native browser dropdown popup on Chrome Mac has light background in dark mode (OS-level rendering limitation, not fixable via CSS)
 
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 04-03-PLAN.md (Contact Form UI Component)
+Stopped at: Completed Phase 4 (Contact & Conversion)
 Resume file: None
