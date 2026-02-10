@@ -10,28 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-09)
 ## Current Position
 
 Phase: 2 of 8 (Landing Page)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-02-09 -- Completed Phase 1 (Foundation & Design System)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-02-10 -- Completed 02-01-PLAN.md (Hero Carousel & UI Primitives)
 
-Progress: [█░░░░░░░░░] ~12% (4 of ~33 total plans)
+Progress: [█████░░░░░] ~15% (5 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 6 minutes
-- Total execution time: 0.38 hours
+- Total plans completed: 5
+- Average duration: 5 minutes
+- Total execution time: 0.40 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 | 4 | 21 min | 5 min |
+| 02 | 1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (14m), 01-02 (3m), 01-03 (1m), 01-04 (3m)
-- Trend: Phase 1 complete in 21 minutes
+- Last 5 plans: 01-02 (3m), 01-03 (1m), 01-04 (3m), 02-01 (3m)
+- Trend: Consistent fast execution
 
 *Updated after each plan completion*
 
@@ -57,10 +58,13 @@ Recent decisions affecting current work:
 - [01-03]: Import images from src/assets/ (not public/) to enable Sharp optimization
 - [01-03]: Image component auto-converts to webp with width constraints
 - [01-03]: Picture component generates avif + webp + jpg multi-format sources
+- [02-01]: astro-swiper uses custom element pattern -- no client:load needed, self-initializing web component
+- [02-01]: getSwiperFromUniqueSelector with uniqueClass prop for programmatic swiper control
+- [02-01]: Solid-color placeholder hero images generated via sharp using surface palette colors
 
 ### Pending Todos
 
-None yet.
+- Replace placeholder hero images with real photography when available
 
 ### Blockers/Concerns
 
@@ -69,6 +73,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-09
-Stopped at: Phase 1 complete, ready for Phase 2 planning
+Last session: 2026-02-10
+Stopped at: Completed 02-01-PLAN.md, ready for 02-02-PLAN.md
 Resume file: None
