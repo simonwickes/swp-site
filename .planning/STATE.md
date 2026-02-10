@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** Potential clients can see Simon's work across all service categories and easily get in touch -- first impressions matter.
-**Current focus:** Phase 3 complete -- ready to begin Phase 4 (Contact & Conversion)
+**Current focus:** Phase 4 in progress -- FAQ page complete, contact form next
 
 ## Current Position
 
-Phase: 3 of 8 (Service Pages & Lightbox) - COMPLETE
-Plan: 3 of 3 in current phase
-Status: Complete
-Last activity: 2026-02-10 -- Completed 03-03-PLAN.md (Visual Verification) with bug fixes
+Phase: 4 of 8 (Contact & Conversion)
+Plan: 2 of 4 in current phase (04-02 complete)
+Status: In progress
+Last activity: 2026-02-10 -- Completed 04-02-PLAN.md (FAQ Data and Page)
 
-Progress: [████████████░░░░░░░░] ~36% (12 of ~33 total plans)
+Progress: [█████████████░░░░░░░] ~39% (13 of ~33 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
+- Total plans completed: 13
 - Average duration: 4 minutes
-- Total execution time: 0.83 hours
+- Total execution time: 0.88 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [████████████░░░░░░░░] ~36% (1
 | 01 | 4 | 21 min | 5 min |
 | 02 | 3 | 9 min | 3 min |
 | 03 | 3 | 20 min | 7 min |
+| 04 | 1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-03 (2m), 03-01 (2m), 03-02 (3m), 03-03 (15m)
-- Trend: Verification plan took longer due to debugging (PhotoSwipe init, theme toggle)
+- Last 5 plans: 03-01 (2m), 03-02 (3m), 03-03 (15m), 04-02 (3m)
+- Trend: FAQ plan executed quickly with no deviations
 
 *Updated after each plan completion*
 
@@ -73,6 +74,8 @@ Recent decisions affecting current work:
 - [03-03]: Scripts without View Transitions must use DOMContentLoaded + immediate execution pattern, not astro:page-load alone
 - [03-03]: Components rendered multiple times must use class selectors, not IDs (e.g., ThemeToggle)
 - [03-03]: bgClickAction changed to "close" per user preference (allows background click to close lightbox)
+- [04-02]: FAQ data module pattern (src/data/faq.ts) following services.ts structure
+- [04-02]: All FAQ questions visible (no accordion) for easy scanning/searching
 
 ### Pending Todos
 
@@ -89,5 +92,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Phase 3 complete -- ready to begin Phase 4 (Contact & Conversion)
+Stopped at: Completed 04-02-PLAN.md (FAQ Data and Page)
 Resume file: None
