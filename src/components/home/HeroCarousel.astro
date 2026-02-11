@@ -9,19 +9,19 @@ import heroSlide4 from "@/assets/images/hero/slide-4.jpg";
 const slides = [
   {
     src: heroSlide1,
-    alt: "Portrait session in golden hour light",
+    alt: "Outdoor portrait photography in golden hour light by Simon Wickes",
   },
   {
     src: heroSlide2,
-    alt: "Dramatic landscape at sunset with rolling hills",
+    alt: "Landscape photography at sunset with rolling hills by Simon Wickes",
   },
   {
     src: heroSlide3,
-    alt: "Candid moment captured during a wedding celebration",
+    alt: "Wedding photography capturing a candid celebration moment by Simon Wickes",
   },
   {
     src: heroSlide4,
-    alt: "Classic car detail shot with warm tones",
+    alt: "Automotive photography with warm tones and classic car detail by Simon Wickes",
   },
 ];
 ---
@@ -170,6 +170,14 @@ const slides = [
       }
     });
   }
+
+  // Pause carousel during page transitions to prevent jank
+  document.addEventListener('astro:before-preparation', () => {
+    const swiperEl = document.getElementById('hero-swiper') as any;
+    if (swiperEl?.swiper?.autoplay) {
+      swiperEl.swiper.autoplay.stop();
+    }
+  });
 
   // Run on initial load
   initHeroCarousel();

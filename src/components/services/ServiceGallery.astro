@@ -128,6 +128,13 @@ const { images, galleryId } = Astro.props;
     });
   }
 
+  // Close lightbox before View Transition navigation
+  document.addEventListener('astro:before-preparation', () => {
+    if (currentLightbox?.pswp) {
+      currentLightbox.pswp.close();
+    }
+  });
+
   // Initialize on page load
   // Use DOMContentLoaded for regular navigation, astro:page-load for View Transitions
   if (document.readyState === "loading") {
