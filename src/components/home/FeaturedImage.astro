@@ -11,11 +11,16 @@ interface Props {
 const { image, alt, category, href } = Astro.props;
 ---
 
-<a href={href} class="group relative block overflow-hidden rounded-lg">
+<a href={href} class="featured-image-wrapper group relative block overflow-hidden rounded-lg">
+  <!-- Skeleton shimmer backdrop (visible while image loads) -->
+  <div class="skeleton-backdrop absolute inset-0 bg-surface-200 dark:bg-surface-800">
+    <div class="skeleton-shimmer h-full w-full"></div>
+  </div>
+
   <Image
     src={image}
     alt={alt}
-    class="w-full transition-transform duration-300 group-hover:scale-105"
+    class="featured-img relative w-full opacity-0 transition-all duration-300 group-hover:scale-105"
     loading="lazy"
     width={600}
     transition:name={`featured-${href.replace(/\//g, '-')}`}
@@ -28,3 +33,92 @@ const { image, alt, category, href } = Astro.props;
     </span>
   </div>
 </a>
+
+<style>
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--color-surface-200) 25%,
+      var(--color-surface-300) 50%,
+      var(--color-surface-200) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  :global(.dark) .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--color-surface-800) 25%,
+      var(--color-surface-700) 50%,
+      var(--color-surface-800) 75%
+    );
+    background-size: 200% 100%;
+  }
+
+  /* Hide skeleton once image is loaded */
+  .featured-img.loaded {
+    opacity: 1;
+  }
+
+  .featured-img.loaded ~ .skeleton-backdrop,
+  .featured-img.loaded + .skeleton-backdrop {
+    display: none;
+  }
+
+  /* When image is loaded, hide the skeleton that comes before it */
+  .featured-image-wrapper:has(.featured-img.loaded) .skeleton-backdrop {
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-shimmer {
+      animation: none;
+      background: var(--color-surface-200);
+    }
+
+    :global(.dark) .skeleton-shimmer {
+      background: var(--color-surface-800);
+    }
+
+    .featured-img {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initFeaturedImages() {
+    const images = document.querySelectorAll('.featured-img');
+
+    images.forEach((img) => {
+      const imgElement = img as HTMLImageElement;
+
+      // If already loaded (cached), show immediately
+      if (imgElement.complete && imgElement.naturalHeight !== 0) {
+        imgElement.classList.add('loaded');
+      } else {
+        // Add load handler
+        imgElement.addEventListener('load', () => {
+          imgElement.classList.add('loaded');
+        }, { once: true });
+      }
+    });
+  }
+
+  // Run on initial load
+  initFeaturedImages();
+
+  // Re-run after View Transitions navigation
+  document.addEventListener('astro:page-load', initFeaturedImages);
+</script>
