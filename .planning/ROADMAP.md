@@ -164,11 +164,13 @@ Plans:
   3. Site includes JSON-LD schema markup for a local photography business that validates in Google's Rich Results Test
   4. All portfolio images across all service pages have descriptive alt text
   5. User experiences smooth animated transitions when navigating between pages
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
+- [ ] 08-01-PLAN.md -- SEO foundation: data module, SEOHead, Analytics, SchemaLocalBusiness, sitemap, robots.txt, BaseLayout integration
+- [ ] 08-02-PLAN.md -- View Transitions: PageLayout fade/persist, FeaturedImage morph, PhotoSwipe/carousel transition safety
+- [ ] 08-03-PLAN.md -- Schema markup: SchemaArticle, SchemaFAQPage, SchemaService integrated into all page types
+- [ ] 08-04-PLAN.md -- Alt text audit and meta description optimization for remaining pages
 
 ## Progress
 
@@ -184,8 +186,8 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | 5. Client Galleries | 2/2 | ✓ Complete | 2026-02-10 |
 | 6. Blog Engine | 4/4 | ✓ Complete | 2026-02-10 |
 | 7. Blog Discovery & Sharing | 3/3 | ✓ Complete | 2026-02-10 |
-| 8. SEO, Transitions & Launch Readiness | 0/TBD | Not started | - |
+| 8. SEO, Transitions & Launch Readiness | 0/4 | Not started | - |
 
 ---
 *Roadmap created: 2026-02-09*
-*Last updated: 2026-02-10 (Phase 7 complete)*
+*Last updated: 2026-02-10 (Phase 8 planned)*
