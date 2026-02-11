@@ -1,0 +1,28 @@
+---
+interface Props {
+  serviceName: string;
+  serviceDescription: string;
+  serviceUrl: string;
+}
+
+const { serviceName, serviceDescription, serviceUrl } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: serviceName + " Photography",
+  description: serviceDescription,
+  url: serviceUrl,
+  provider: {
+    "@type": "LocalBusiness",
+    name: "Simon Wickes Photography",
+    url: "https://simonwickes.com",
+  },
+  areaServed: {
+    "@type": "State",
+    name: "Arizona",
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
