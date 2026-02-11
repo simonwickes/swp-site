@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A photography portfolio and business website for Simon Wickes, showcasing professional photography services across multiple specialties. The site serves as both a portfolio to attract new clients and a delivery mechanism for client work through integrated third-party galleries.
+A photography portfolio and business website for Simon Wickes, featuring 8 service category galleries with PhotoSwipe lightbox, a hero carousel landing page, contact form with email notifications, blog with search and filtering, and full SEO optimization with JSON-LD schema markup. Built as a static Astro site for shared hosting.
 
 ## Core Value
 
@@ -12,20 +12,20 @@ Potential clients can see Simon's work across all service categories and easily 
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Engaging landing page with hero imagery and clear navigation — v1.0
+- ✓ Dedicated service pages for 8 categories with sample galleries — v1.0
+- ✓ Third-party client gallery integration (password-protected, downloads, proofing) — v1.0
+- ✓ Contact form for inquiries — v1.0
+- ✓ Blog for session stories and behind-the-scenes content — v1.0
+- ✓ Blog search functionality — v1.0
+- ✓ Dark mode toggle — v1.0
+- ✓ Responsive design (mobile-first) — v1.0
+- ✓ Social media profile links — v1.0
+- ✓ SEO optimization for local photography business — v1.0
 
 ### Active
 
-- [ ] Engaging landing page with hero imagery and clear navigation
-- [ ] Dedicated service pages for 8 categories with sample galleries
-- [ ] Third-party client gallery integration (password-protected, downloads, proofing)
-- [ ] Contact form for inquiries
-- [ ] Blog for session stories and behind-the-scenes content
-- [ ] Blog search functionality
-- [ ] Dark mode toggle
-- [ ] Responsive design (mobile-first)
-- [ ] Social media profile links
-- [ ] SEO optimization for local photography business
+(None — next milestone requirements defined via /gsd:new-milestone)
 
 ### Out of Scope
 
@@ -34,8 +34,12 @@ Potential clients can see Simon's work across all service categories and easily 
 - E-commerce — no products to sell
 - User accounts — no login needed for site visitors
 - CMS admin UI — using markdown files for simplicity
+- Offline mode — static site with no dynamic data requirements
 
 ## Context
+
+**Shipped v1.0 with 4,425 LOC (TypeScript/Astro/CSS).**
+Tech stack: Astro 5.17, Tailwind v4, Sharp, PhotoSwipe, Fuse.js, Resend, astro-swiper, astro-masonry.
 
 **Services offered (8 categories):**
 1. Outdoor Portraits
@@ -62,6 +66,16 @@ Modern, bold, warm aesthetic with pops of color. The vibe should be approachable
 - No print sales needed
 - Integration: link-out from site to Pic-Time galleries
 
+**Known issues:**
+- Pre-existing type error in astro.config.mjs (Vite plugin type mismatch) — does not affect builds
+- Native browser dropdown has light background in dark mode on Chrome Mac (OS-level limitation)
+
+**Pre-launch items:**
+- Replace placeholder images with real photography
+- Configure Resend API key and CONTACT_EMAIL for production
+- Confirm Pic-Time subdomain URL
+- DNS verification for custom email sender domain
+
 ## Constraints
 
 - **Hosting**: Apache shared hosting (InMotion) — no Node.js runtime, static files only
@@ -73,11 +87,15 @@ Modern, bold, warm aesthetic with pops of color. The vibe should be approachable
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Astro over WordPress | Performance, security, developer control, modern tooling | — Pending |
-| Markdown over Strapi CMS | Shared hosting can't run Node.js; simpler workflow | — Pending |
-| Third-party gallery service | Purpose-built for photographers, saves massive dev time | — Pending |
-| Static site on shared hosting | Uses existing InMotion hosting, no additional server costs | — Pending |
-| Pic-Time for client galleries | Full-featured proofing, password protection, downloads; clean UX | — Pending |
+| Astro over WordPress | Performance, security, developer control, modern tooling | ✓ Good — 592ms build, 17 pages, zero runtime JS overhead |
+| Markdown over Strapi CMS | Shared hosting can't run Node.js; simpler workflow | ✓ Good — content collections work well for blog + services |
+| Third-party gallery service | Purpose-built for photographers, saves massive dev time | ✓ Good — Pic-Time selected, clean link-out integration |
+| Static site on shared hosting | Uses existing InMotion hosting, no additional server costs | ✓ Good — all pages pre-rendered, sitemap generated |
+| Pic-Time for client galleries | Full-featured proofing, password protection, downloads; clean UX | ✓ Good — bridging page pattern works well |
+| Tailwind v4 CSS-first | No config file, @theme directives, cleaner DX | ✓ Good — design tokens in CSS, dark mode via @custom-variant |
+| PhotoSwipe for lightbox | Keyboard + touch + View Transitions compatible | ✓ Good — required cleanup handlers for VT but works well |
+| Resend for email | Simple API, works with Astro Actions | ✓ Good — clean integration, Zod validation |
+| Fuse.js for client-side search | No server needed, works on static hosting | ✓ Good — weighted fuzzy search with JSON index |
 
 ---
-*Last updated: 2026-02-09 after gallery service selection*
+*Last updated: 2026-02-10 after v1.0 milestone*
