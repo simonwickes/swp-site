@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-09)
 ## Current Position
 
 Phase: 8 of 8 (SEO, Transitions & Launch Readiness)
-Plan: 2 of 4 in Phase 8
+Plan: 3 of 4 in Phase 8
 Status: In progress
-Last activity: 2026-02-10 -- Completed 08-02-PLAN.md (Page Transitions)
+Last activity: 2026-02-10 -- Completed 08-03-PLAN.md (Page-Specific Structured Data)
 
-Progress: [█████████████████████████████░] ~93% (25 of 27 total plans)
+Progress: [█████████████████████████████░] ~96% (26 of 27 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 27
+- Total plans completed: 28
 - Average duration: 4 minutes
-- Total execution time: 1.35 hours
+- Total execution time: 1.42 hours
 
 **By Phase:**
 
@@ -34,10 +34,10 @@ Progress: [███████████████████████
 | 05 | 2 | 5 min | 3 min |
 | 06 | 4 | 9 min | 2 min |
 | 07 | 3 | 6 min | 2 min |
-| 08 | 2 | 5 min | 3 min |
+| 08 | 3 | 9 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 07-02 (2m), 07-03 (2m), 08-01 (3m), 08-02 (2m)
+- Last 5 plans: 07-03 (2m), 08-01 (3m), 08-02 (2m), 08-03 (4m)
 - Trend: Consistent fast execution on component-focused plans.
 
 *Updated after each plan completion*
@@ -124,6 +124,10 @@ Recent decisions affecting current work:
 - [08-02]: transition:name uses href-derived string for page-unique FeaturedImage morph
 - [08-02]: astro:before-preparation for pre-transition cleanup (close modals, pause animations)
 - [08-02]: Hero carousel alt text consolidated from 08-04 into 08-02 to avoid file conflicts
+- [08-03]: SchemaArticle uses conditional spread for optional dateModified and image fields
+- [08-03]: SchemaFAQPage imports faq data directly (no props needed)
+- [08-03]: Service schema name appends "Photography" to service title
+- [08-03]: Service meta descriptions use first-sentence extraction pattern
 
 ### Pending Todos
 
@@ -146,5 +150,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 08-02-PLAN.md (Page Transitions) -- Phase 8 plan 2 of 4
+Stopped at: Completed 08-03-PLAN.md (Page-Specific Structured Data) -- Phase 8 plan 3 of 4
 Resume file: None
