@@ -1,5 +1,6 @@
 ---
 import PageLayout from "@layouts/PageLayout.astro";
+import SchemaService from "@components/seo/SchemaService.astro";
 import ServiceHero from "@components/services/ServiceHero.astro";
 import ServiceNav from "@components/services/ServiceNav.astro";
 import ServiceGallery from "@components/services/ServiceGallery.astro";
@@ -7,6 +8,8 @@ import { getServiceBySlug } from "@/data/services";
 import type { ImageMetadata } from "astro";
 
 const service = getServiceBySlug("commercial")!;
+
+const metaDescription = `${service.title} photography by Simon Wickes in Arizona. ${service.description.split('.')[0]}.`;
 
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/images/services/commercial/*.{jpg,jpeg,png,webp}",
@@ -21,10 +24,15 @@ const images = Object.entries(imageModules)
   }));
 ---
 
-<PageLayout title={service.title} description={service.description}>
+<PageLayout title={service.title} description={metaDescription}>
+  <SchemaService
+    serviceName={service.title}
+    serviceDescription={service.description}
+    serviceUrl={`https://simonwickes.com/services/${service.slug}/`}
+  />
   <ServiceNav currentSlug="commercial" />
   <ServiceHero title={service.title} description={service.description} />
-  <section class="mx-auto max-w-7xl px-4 pb-16 md:px-6 md:pb-24">
+  <section class="mx-auto max-w-6xl px-4 pb-16 md:px-6 md:pb-24">
     <ServiceGallery images={images} galleryId="commercial-gallery" />
   </section>
 </PageLayout>
