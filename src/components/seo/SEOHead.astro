@@ -1,0 +1,60 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  article?: {
+    publishedTime: string;
+    author: string;
+  };
+  canonicalUrl?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage = "/og-default.jpg",
+  ogType = "website",
+  article,
+  canonicalUrl,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://simonwickes.com");
+const canonical = canonicalUrl
+  ? new URL(canonicalUrl, siteUrl)
+  : new URL(Astro.url.pathname, siteUrl);
+const ogImageUrl = new URL(ogImage, siteUrl).href;
+const fullTitle =
+  title === "Home" ? "Simon Wickes Photography" : `${title} | Simon Wickes Photography`;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical.href} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonical.href} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Simon Wickes Photography" />
+
+<!-- Twitter/X Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<!-- Article-specific -->
+{
+  article && (
+    <>
+      <meta property="article:published_time" content={article.publishedTime} />
+      <meta property="article:author" content={article.author} />
+    </>
+  )
+}

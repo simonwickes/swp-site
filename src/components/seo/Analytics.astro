@@ -1,0 +1,33 @@
+---
+import { GA_MEASUREMENT_ID } from "@/data/seo";
+---
+
+{
+  GA_MEASUREMENT_ID && (
+    <>
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+      />
+      <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", GA_MEASUREMENT_ID);
+
+        // Re-track page views on View Transition navigation
+        document.addEventListener("astro:page-load", function () {
+          if (typeof gtag === "function") {
+            gtag("event", "page_view", {
+              page_path: window.location.pathname,
+              page_title: document.title,
+            });
+          }
+        });
+      </script>
+    </>
+  )
+}

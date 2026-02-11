@@ -1,0 +1,36 @@
+---
+import { siteInfo, socialProfiles, serviceAreas } from "@/data/seo";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  additionalType: "https://schema.org/Photographer",
+  name: siteInfo.name,
+  url: siteInfo.url,
+  description: siteInfo.description,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: siteInfo.city,
+    addressRegion: siteInfo.state,
+    addressCountry: siteInfo.country,
+  },
+  areaServed: [
+    ...serviceAreas.map((area) => ({
+      "@type": "City" as const,
+      name: area,
+    })),
+    {
+      "@type": "State" as const,
+      name: "Arizona",
+    },
+  ],
+  sameAs: socialProfiles,
+  contactPoint: {
+    "@type": "ContactPoint",
+    url: siteInfo.contactPageUrl,
+  },
+  image: siteInfo.logoUrl,
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
