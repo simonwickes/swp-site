@@ -1,18 +1,31 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "@fontsource-variable/plus-jakarta-sans";
 import "@fontsource-variable/nunito";
 import "../styles/global.css";
+import SEOHead from "@components/seo/SEOHead.astro";
+import Analytics from "@components/seo/Analytics.astro";
+import SchemaLocalBusiness from "@components/seo/SchemaLocalBusiness.astro";
 
 interface Props {
   title: string;
   description?: string;
   preloadImage?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  article?: {
+    publishedTime: string;
+    author: string;
+  };
 }
 
 const {
   title,
   description = "Professional photography by Simon Wickes",
   preloadImage,
+  ogImage,
+  ogType,
+  article,
 } = Astro.props;
 ---
 
@@ -21,9 +34,15 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <title>{title} | Simon Wickes Photography</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <ClientRouter />
+    <SEOHead
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      ogType={ogType}
+      article={article}
+    />
 
     {preloadImage && (
       <link rel="preload" as="image" href={preloadImage} />
@@ -49,11 +68,27 @@ const {
         document.documentElement.style.colorScheme = theme;
       })();
     </script>
+
+    <Analytics />
+    <SchemaLocalBusiness />
   </head>
   <body
     class="flex min-h-screen flex-col bg-bg-light font-body text-text-light dark:bg-bg-dark dark:text-text-dark"
   >
     <slot />
+    <!-- View Transition lifecycle: theme fix + scroll reset -->
+    <script is:inline>
+      document.addEventListener('astro:after-swap', function() {
+        // Re-apply theme after page swap to prevent flash
+        var stored = typeof localStorage !== 'undefined' && localStorage.getItem('theme');
+        var theme = (stored === 'dark' || stored === 'light') ? stored :
+          (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        document.documentElement.style.colorScheme = theme;
+        // Reset scroll to top
+        window.scrollTo({ left: 0, top: 0, behavior: 'instant' });
+      });
+    </script>
     <!-- Enable smooth transitions after initial paint to avoid flash -->
     <script is:inline>
       requestAnimationFrame(function () {
