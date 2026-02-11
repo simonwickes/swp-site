@@ -14,31 +14,28 @@ export const siteInfo: SiteInfo = {
   url: "https://simonwickes.com",
   description:
     "Professional photographer in Arizona specializing in portraits, weddings, commercial, and landscape photography.",
-  city: "Phoenix",
+  city: "Prescott",
   state: "AZ",
   country: "US",
   contactPageUrl: "https://simonwickes.com/contact/",
   logoUrl: "https://simonwickes.com/og-default.jpg",
 };
 
-// TODO: Update these social profile URLs before launch
 export const socialProfiles: string[] = [
-  "https://instagram.com/simonwickes",
-  "https://facebook.com/simonwickesphotography",
+  "https://www.instagram.com/simonwickes",
+  // Add Facebook URL when available
 ];
 
-// TODO: Customize service areas to match actual coverage
 export const serviceAreas: string[] = [
-  "Phoenix",
-  "Scottsdale",
-  "Tempe",
-  "Mesa",
-  "Chandler",
-  "Gilbert",
+  "Prescott",
+  "Prescott Valley",
+  "Dewey",
+  "Sedona",
+  "Flagstaff",
+  "Yavapai County",
 ];
 
-// TODO: Add your GA4 measurement ID (G-XXXXXXXXXX format)
-export const GA_MEASUREMENT_ID: string = "";
+export const GA_MEASUREMENT_ID: string = "G-6F43WS1L0Y";
 
 export function getSiteInfo(): SiteInfo {
   return siteInfo;
