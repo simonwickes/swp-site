@@ -1,4 +1,5 @@
 ---
+import { fade } from "astro:transitions";
 import BaseLayout from "./BaseLayout.astro";
 import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
@@ -7,15 +8,21 @@ interface Props {
   title: string;
   description?: string;
   preloadImage?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  article?: {
+    publishedTime: string;
+    author: string;
+  };
 }
 
-const { title, description, preloadImage } = Astro.props;
+const { title, description, preloadImage, ogImage, ogType, article } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} preloadImage={preloadImage}>
-  <Header />
-  <main class="flex-grow">
+<BaseLayout {title} {description} {preloadImage} {ogImage} {ogType} {article}>
+  <Header transition:persist="site-header" />
+  <main class="flex-grow" transition:animate={fade({ duration: '0.2s' })}>
     <slot />
   </main>
-  <Footer />
+  <Footer transition:persist="site-footer" />
 </BaseLayout>
