@@ -32,7 +32,7 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      filter: (page) => !page.includes("/api/") && !page.includes("/image-test"),
+      filter: (page) => !page.includes("/api/") && !page.includes("/image-test") && !page.includes("/admin"),
       serialize(item) {
         if (item.url.includes("/blog/")) {
           item.changefreq = "weekly";

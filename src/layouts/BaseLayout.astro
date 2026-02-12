@@ -71,6 +71,7 @@ const {
 
     <Analytics />
     <SchemaLocalBusiness />
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body
     class="flex min-h-screen flex-col bg-bg-light font-body text-text-light dark:bg-bg-dark dark:text-text-dark"
@@ -88,6 +89,14 @@ const {
         // Reset scroll to top
         window.scrollTo({ left: 0, top: 0, behavior: 'instant' });
       });
+    </script>
+    <!-- Netlify Identity redirect after login -->
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function(user) {
+          if (!user) { window.netlifyIdentity.on("login", function() { document.location.href = "/admin/"; }); }
+        });
+      }
     </script>
     <!-- Enable smooth transitions after initial paint to avoid flash -->
     <script is:inline>

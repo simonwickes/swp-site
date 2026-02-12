@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/assets/images/blog"
+public_folder: "../../assets/images/blog"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Outdoor Portraits", value: "outdoor-portraits" }
+          - { label: "Weddings", value: "weddings" }
+          - { label: "Commercial", value: "commercial" }
+          - { label: "Landscape", value: "landscape" }
+          - { label: "Cars", value: "cars" }
+          - { label: "Assignments", value: "assignments" }
+          - { label: "Events", value: "events" }
+          - { label: "Live Performances", value: "live-performances" }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Featured Image", name: "featuredImage", widget: "image", required: false }
+      - { label: "Featured Image Alt Text", name: "featuredImageAlt", widget: "string", required: false }
+      - { label: "Gallery URL", name: "galleryUrl", widget: "string", required: false, hint: "Optional Pic-Time gallery link for this session" }
+      - { label: "Author", name: "author", widget: "hidden", default: "simon" }
+      - { label: "Body", name: "body", widget: "markdown" }
