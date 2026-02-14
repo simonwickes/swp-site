@@ -20,6 +20,35 @@ const { title, description, preloadImage, ogImage, ogType, article } = Astro.pro
 ---
 
 <BaseLayout {title} {description} {preloadImage} {ogImage} {ogType} {article}>
+  <div id="dev-banner" class="relative bg-amber-400 px-4 py-2 text-center text-sm font-medium text-amber-950">
+    This site is in active development. Expected completion: late February 2026.
+    <button
+      id="dev-banner-close"
+      class="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 hover:bg-amber-500/40"
+      aria-label="Dismiss banner"
+    >
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <script>
+    function initBanner() {
+      const banner = document.getElementById("dev-banner");
+      const closeBtn = document.getElementById("dev-banner-close");
+      if (!banner || !closeBtn) return;
+      if (sessionStorage.getItem("dev-banner-dismissed")) {
+        banner.remove();
+        return;
+      }
+      closeBtn.addEventListener("click", () => {
+        banner.remove();
+        sessionStorage.setItem("dev-banner-dismissed", "true");
+      });
+    }
+    initBanner();
+    document.addEventListener("astro:after-swap", initBanner);
+  </script>
   <Header transition:persist="site-header" />
   <main class="flex-grow" transition:animate={fade({ duration: '0.2s' })}>
     <slot />
