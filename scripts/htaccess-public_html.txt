@@ -1,0 +1,15 @@
+# Place this .htaccess in public_html/ (the domain root)
+# It rewrites all requests to the swp/ subfolder transparently,
+# so simonwickes.com/services/ serves from public_html/swp/services/
+
+RewriteEngine On
+
+# Don't rewrite if the request already targets swp/
+RewriteCond %{REQUEST_URI} !^/swp/
+
+# Don't rewrite real files/dirs outside swp (e.g., .well-known, cPanel)
+RewriteCond %{REQUEST_URI} !^/\.well-known
+RewriteCond %{REQUEST_URI} !^/cgi-bin
+
+# Rewrite everything else into swp/
+RewriteRule ^(.*)$ /swp/$1 [L]
