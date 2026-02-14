@@ -7,7 +7,9 @@ import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   site: "https://simonwickes.com",
-  adapter: netlify(),
+  adapter: netlify({
+    imageCDN: !process.env.BUILD_FOR_APACHE,
+  }),
 
   build: {
     format: "directory",

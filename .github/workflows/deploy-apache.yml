@@ -24,6 +24,8 @@ jobs:
 
       - name: Build site
         run: npx astro build
+        env:
+          BUILD_FOR_APACHE: "true"
 
       # Remove server-only files before upload
       - name: Clean server artifacts
