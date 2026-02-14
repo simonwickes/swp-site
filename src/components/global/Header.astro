@@ -24,10 +24,10 @@ const serviceGroups: NavGroup[] = [
   {
     heading: "People",
     links: [
-      { label: "Outdoor Portraits", href: "/services/outdoor-portraits/" },
-      { label: "Weddings", href: "/services/weddings/" },
       { label: "Events", href: "/services/events/" },
       { label: "Live Performances", href: "/services/live-performances/" },
+      { label: "Outdoor Portraits", href: "/services/outdoor-portraits/" },
+      { label: "Weddings", href: "/services/weddings/" },
     ],
   },
   {
@@ -37,9 +37,9 @@ const serviceGroups: NavGroup[] = [
   {
     heading: "Things",
     links: [
-      { label: "Commercial", href: "/services/commercial/" },
-      { label: "Cars", href: "/services/cars/" },
       { label: "Assignments", href: "/services/assignments/" },
+      { label: "Cars", href: "/services/cars/" },
+      { label: "Commercial", href: "/services/commercial/" },
     ],
   },
 ];
@@ -112,7 +112,7 @@ function isActive(href: string): boolean {
                     </button>
                     <DropdownItems>
                       <div
-                        class="absolute right-0 top-2 z-50 grid w-[480px] grid-cols-3 gap-6 rounded-lg border border-surface-200 bg-bg-light p-6 shadow-lg dark:border-surface-800 dark:bg-bg-dark"
+                        class="absolute left-0 top-2 z-50 grid w-[560px] grid-cols-3 gap-8 rounded-lg border border-surface-200 bg-bg-light p-6 shadow-lg dark:border-surface-800 dark:bg-bg-dark"
                       >
                         {
                           serviceGroups.map((group) => (
@@ -126,7 +126,7 @@ function isActive(href: string): boolean {
                                     <a
                                       href={link.href}
                                       class:list={[
-                                        "block rounded px-2 py-1.5 text-sm transition-colors hover:text-accent-500",
+                                        "block whitespace-nowrap rounded px-2 py-1.5 text-sm transition-colors hover:text-accent-500",
                                         isActive(link.href)
                                           ? "text-accent-500"
                                           : "text-surface-600 dark:text-surface-400",
@@ -168,6 +168,19 @@ function isActive(href: string): boolean {
                     ]}
                   >
                     Blog
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/faq/"
+                    class:list={[
+                      "rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:text-accent-500",
+                      isActive("/faq/")
+                        ? "text-accent-500"
+                        : "text-surface-600 dark:text-surface-400",
+                    ]}
+                  >
+                    FAQ
                   </a>
                 </li>
                 <li>
@@ -339,6 +352,21 @@ function isActive(href: string): boolean {
         ]}
       >
         Blog
+      </a>
+    </div>
+
+    <!-- FAQ link -->
+    <div class="border-t border-surface-200 pt-4 dark:border-surface-800">
+      <a
+        href="/faq/"
+        class:list={[
+          "block rounded-lg px-3 py-2.5 text-base font-medium transition-colors hover:text-accent-500",
+          isActive("/faq/")
+            ? "text-accent-500"
+            : "text-surface-700 dark:text-surface-300",
+        ]}
+      >
+        FAQ
       </a>
     </div>
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Deploy changes to both Netlify and InMotion.
+# Deploy changes to InMotion (Apache).
 # Commits any staged/unstaged changes in src/assets/images/,
-# pulls CMS changes, and pushes to trigger both deploys.
+# pulls CMS changes, and pushes to trigger the GitHub Action deploy.
 #
 # Usage:
 #   ./scripts/deploy.sh                    # Auto-generates commit message
@@ -62,6 +62,5 @@ echo "Pushing to GitHub..."
 git push origin main
 
 echo ""
-echo "Deployed! Both sites will update within ~2 minutes:"
-echo "  Netlify:  https://swp-site.netlify.app"
-echo "  Apache:   https://simonwickes.com"
+echo "Deployed! Site will update within ~2 minutes:"
+echo "  https://simonwickes.com"

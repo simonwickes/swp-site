@@ -3,6 +3,12 @@ import { services } from "@/data/services";
 ---
 
 <form id="contact-form" class="space-y-6">
+  <!-- Honeypot — hidden from humans, bots will fill it -->
+  <div class="absolute -left-[9999px]" aria-hidden="true">
+    <label for="website">Website</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
   <!-- Name + Email: Two-column on desktop -->
   <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
     <!-- Name field -->
@@ -164,6 +170,8 @@ import { services } from "@/data/services";
 <!-- Success message (replaces form on success) -->
 <div
   id="success-message"
+  role="status"
+  aria-live="polite"
   class="hidden rounded-lg border border-green-200 bg-green-50 p-8 text-center dark:border-green-800 dark:bg-green-950"
 >
   <svg
@@ -180,7 +188,8 @@ import { services } from "@/data/services";
       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
   </svg>
   <h3
-    class="mb-2 font-display text-xl font-bold text-surface-900 dark:text-surface-100"
+    tabindex="-1"
+    class="mb-2 font-display text-xl font-bold text-surface-900 outline-none dark:text-surface-100"
   >
     Message Sent!
   </h3>
@@ -229,6 +238,14 @@ import { services } from "@/data/services";
     });
     errorMsg.classList.add("hidden");
 
+    // Honeypot check — silently reject if filled
+    const honeypot = (form.querySelector("#website") as HTMLInputElement).value;
+    if (honeypot) {
+      form.classList.add("hidden");
+      successMsg.classList.remove("hidden");
+      return;
+    }
+
     // Client-side validation
     const name = (form.querySelector("#name") as HTMLInputElement).value.trim();
     const email = (form.querySelector("#email") as HTMLInputElement).value.trim();
@@ -265,6 +282,7 @@ import { services } from "@/data/services";
       // Success - hide form, show success message
       form.classList.add("hidden");
       successMsg.classList.remove("hidden");
+      successMsg.querySelector("h3")?.focus();
     } catch (error) {
       errorText.textContent = "Something went wrong. Please try again.";
       errorMsg.classList.remove("hidden");

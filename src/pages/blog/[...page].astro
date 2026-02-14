@@ -98,8 +98,6 @@ const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
 </PageLayout>
 
 <script>
-  import Fuse from "fuse.js";
-
   interface PostIndex {
     id: string;
     title: string;
@@ -118,7 +116,7 @@ const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
     };
   }
 
-  let fuse: Fuse<PostIndex>;
+  let fuse: any;
   let allPosts: PostIndex[] = [];
   let categorySlugs: Set<string> = new Set();
 
@@ -146,29 +144,30 @@ const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
       return;
     }
 
-    // Fetch search index and initialize Fuse.js
-    fetch("/api/posts.json")
-      .then((res) => res.json())
-      .then((posts: PostIndex[]) => {
-        allPosts = posts;
+    // Fetch search index and lazy-load Fuse.js together
+    Promise.all([
+      fetch("/api/posts.json").then((res) => res.json()),
+      import("fuse.js").then((m) => m.default),
+    ]).then(([posts, Fuse]: [PostIndex[], any]) => {
+      allPosts = posts;
 
-        // Build set of known category slugs for URL state classification
-        categorySlugs = new Set(posts.map((p) => p.category));
+      // Build set of known category slugs for URL state classification
+      categorySlugs = new Set(posts.map((p: PostIndex) => p.category));
 
-        fuse = new Fuse(allPosts, {
-          keys: [
-            { name: "title", weight: 2 },
-            { name: "excerpt", weight: 1 },
-            { name: "tags", weight: 1.5 },
-          ],
-          threshold: 0.3,
-          includeMatches: true,
-          minMatchCharLength: 2,
-        });
-
-        // Restore state from URL after index is loaded
-        restoreStateFromUrl();
+      fuse = new Fuse(allPosts, {
+        keys: [
+          { name: "title", weight: 2 },
+          { name: "excerpt", weight: 1 },
+          { name: "tags", weight: 1.5 },
+        ],
+        threshold: 0.3,
+        includeMatches: true,
+        minMatchCharLength: 2,
       });
+
+      // Restore state from URL after index is loaded
+      restoreStateFromUrl();
+    });
 
     // Search input handler with 250ms debounce
     const debouncedFilter = debounce(() => applyFilters(), 250);
@@ -455,7 +454,9 @@ const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
       const categoryDisplay = post.categoryTitle || post.category.replace(/-/g, " ");
       const titleHtml = highlightMatch(post.title, query);
 
-      return `<a href="/blog/${post.id}/" class="group block overflow-hidden rounded-lg border border-surface-200 bg-surface-50 transition-all duration-200 hover:border-2 hover:border-accent-500 dark:border-surface-700 dark:bg-surface-800">
+      const safeId = encodeURIComponent(post.id);
+
+      return `<a href="/blog/${safeId}/" class="group block overflow-hidden rounded-lg border border-surface-200 bg-surface-50 transition-all duration-200 hover:border-2 hover:border-accent-500 dark:border-surface-700 dark:bg-surface-800">
         <div class="p-4">
           <span class="mb-2 inline-block rounded-full bg-surface-200 px-2.5 py-0.5 text-xs font-medium text-surface-700 dark:bg-surface-700 dark:text-surface-300">${escapeHtml(categoryDisplay)}</span>
           <h3 class="mb-2 font-display text-lg font-bold text-surface-900 dark:text-surface-100">${titleHtml}</h3>
@@ -465,7 +466,6 @@ const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
     }
   }
 
-  // Initialize on both DOMContentLoaded and astro:page-load for View Transitions safety
-  document.addEventListener("DOMContentLoaded", init);
+  // astro:page-load fires on both initial load and View Transitions navigation
   document.addEventListener("astro:page-load", init);
 </script>

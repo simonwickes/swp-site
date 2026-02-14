@@ -22,7 +22,8 @@ const { image, alt, category, href } = Astro.props;
     alt={alt}
     class="featured-img relative w-full opacity-0 transition-all duration-300 group-hover:scale-105"
     loading="lazy"
-    width={600}
+    widths={[400, 600, 800]}
+    sizes="(max-width: 500px) 100vw, (max-width: 700px) 50vw, (max-width: 1100px) 33vw, 25vw"
     transition:name={`featured-${href.replace(/\//g, '-')}`}
   />
   <div
@@ -70,15 +71,15 @@ const { image, alt, category, href } = Astro.props;
     opacity: 1;
   }
 
-  .featured-img.loaded ~ .skeleton-backdrop,
-  .featured-img.loaded + .skeleton-backdrop {
-    display: none;
-  }
-
-  /* When image is loaded, hide the skeleton that comes before it */
+  /* When image is loaded, hide the skeleton and stop animation */
   .featured-image-wrapper:has(.featured-img.loaded) .skeleton-backdrop {
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.2s ease-out;
+  }
+
+  .featured-image-wrapper:has(.featured-img.loaded) .skeleton-shimmer {
+    animation: none;
   }
 
   @media (prefers-reduced-motion: reduce) {

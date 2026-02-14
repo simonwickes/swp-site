@@ -11,8 +11,8 @@
 #
 # Output: dist-apache/ ready to upload via FTP/SFTP
 #
-# Note: The contact form requires Netlify server functions and will NOT work
-# on Apache. All other features (galleries, blog, navigation) work fine.
+# Note: This script is for manual builds with custom subfolder paths.
+# The GitHub Action handles automated deploys on push to main.
 
 set -euo pipefail
 
@@ -23,54 +23,23 @@ OUTPUT_DIR="$SITE_ROOT/dist-apache"
 echo "Building static site for Apache..."
 [ -n "$SUBFOLDER" ] && echo "Subfolder: /$SUBFOLDER/"
 
-# 1. Create a temporary astro config for static build
+# 1. Create a temporary astro config by copying the real one and injecting base path
 TEMP_CONFIG="$SITE_ROOT/astro.config.apache.mjs"
-cat > "$TEMP_CONFIG" << 'CONFIGEOF'
-// @ts-check
-import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
-import sitemap from "@astrojs/sitemap";
-
-export default defineConfig({
-  site: "https://simonwickes.com",
-  BASEPATH_PLACEHOLDER
-  output: "static",
-  build: {
-    format: "directory",
-  },
-  vite: {
-    plugins: [tailwindcss()],
-  },
-  integrations: [
-    sitemap({
-      filter: (page) => !page.includes("/api/") && !page.includes("/image-test") && !page.includes("/admin"),
-      serialize(item) {
-        if (item.url.includes("/blog/")) {
-          item.changefreq = "weekly";
-          item.priority = 0.7;
-        } else if (item.url.includes("/services/")) {
-          item.changefreq = "monthly";
-          item.priority = 0.8;
-        } else if (item.url === "https://simonwickes.com/") {
-          item.changefreq = "weekly";
-          item.priority = 1.0;
-        }
-        return item;
-      },
-    }),
-  ],
-});
-CONFIGEOF
+cp "$SITE_ROOT/astro.config.mjs" "$TEMP_CONFIG"
 
 if [ -n "$SUBFOLDER" ]; then
-  sed -i '' "s|BASEPATH_PLACEHOLDER|base: \"/$SUBFOLDER\",|" "$TEMP_CONFIG"
-else
-  sed -i '' "s|BASEPATH_PLACEHOLDER||" "$TEMP_CONFIG"
+  # Inject base path after the site: line in the real config
+  sed "s|site: \"https://simonwickes.com\"|site: \"https://simonwickes.com\",\n  base: \"/$SUBFOLDER\"|" \
+    "$SITE_ROOT/astro.config.mjs" > "$TEMP_CONFIG"
 fi
 
-# 2. Build with the static config
+# 2. Build with the temporary config (or original if no subfolder)
 echo "Running Astro build (static output)..."
-npx astro build --config astro.config.apache.mjs 2>&1
+if [ -n "$SUBFOLDER" ]; then
+  npx astro build --config astro.config.apache.mjs 2>&1
+else
+  npx astro build 2>&1
+fi
 
 # 3. Move output
 rm -rf "$OUTPUT_DIR"
@@ -106,47 +75,11 @@ if [ -n "$SUBFOLDER" ]; then
   done
 fi
 
-# 5. Create .htaccess for clean URLs
-cat > "$OUTPUT_DIR/.htaccess" << 'HTEOF'
-# Enable rewrite engine
-RewriteEngine On
+# 5. Copy .htaccess from source (single source of truth for server config)
+cp "$SITE_ROOT/public/.htaccess" "$OUTPUT_DIR/.htaccess"
 
-# Handle clean URLs — serve directory index.html for paths without extensions
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^(.+)$ $1.html [L]
-
-# If path is a directory, serve its index.html
-DirectoryIndex index.html
-
-# Enable gzip compression
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
-</IfModule>
-
-# Cache static assets
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType image/avif "access plus 1 year"
-  ExpiresByType image/jpeg "access plus 1 year"
-  ExpiresByType image/png "access plus 1 year"
-  ExpiresByType text/css "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
-</IfModule>
-
-# Block access to source maps in production
-<FilesMatch "\.map$">
-  Require all denied
-</FilesMatch>
-HTEOF
-
-# 6. Remove server-only files that won't work on Apache
-rm -rf "$OUTPUT_DIR/_worker.js" "$OUTPUT_DIR/.netlify" "$OUTPUT_DIR/_redirects" 2>/dev/null || true
-
-# 7. Clean up temp config
-rm "$TEMP_CONFIG"
+# 6. Clean up temp config if created
+[ -n "$SUBFOLDER" ] && rm -f "$TEMP_CONFIG"
 
 echo ""
 echo "Done! Static build ready at: dist-apache/"
@@ -158,5 +91,4 @@ else
   echo "  Upload the contents of dist-apache/ to the root of your server."
 fi
 echo ""
-echo "Note: The contact form requires Netlify and will not work on Apache."
-echo "      All other features work as static pages."
+echo "All features work as static pages (contact form uses EmailJS client-side)."

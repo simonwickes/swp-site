@@ -16,48 +16,34 @@ graph TB
     subgraph GitHub["GitHub (simonwickes/swp-site)"]
         REPO[Repository<br/>main branch]
         ACTION["GitHub Action<br/>deploy-apache.yml"]
-        OAUTH["OAuth App<br/>Decap CMS auth"]
-    end
-
-    subgraph Netlify["Netlify"]
-        BUILD_N["Netlify Build<br/>Full SSR + Image CDN"]
-        SITE_N["swp-site.netlify.app"]
-        ACTIONS_N["Astro Actions<br/>/_actions/submitContact"]
-        CMS["Decap CMS<br/>/admin/"]
-        OAUTH_PROXY["OAuth Proxy<br/>api.netlify.com/auth/done"]
     end
 
     subgraph InMotion["InMotion Hosting (Apache)"]
         FTP["FTP Server"]
         HTACCESS_ROOT[".htaccess (root)<br/>Rewrites to /swp/"]
         SITE_A["simonwickes.com<br/>Static files in public_html/swp/"]
+        CMS["Decap CMS<br/>/admin/"]
         EXISTING["/resume<br/>/lamvp"]
     end
 
     subgraph External["External Services"]
-        RESEND["Resend<br/>Email delivery"]
+        EMAILJS["EmailJS<br/>Contact form emails"]
         PICTIME["Pic-Time<br/>Client galleries"]
         GA["Google Analytics<br/>G-6F43WS1L0Y"]
     end
 
     CODE -->|git push| REPO
     SCRIPTS -->|git push| REPO
-    REPO -->|webhook| BUILD_N
     REPO -->|trigger| ACTION
-    ACTION -->|"FTP upload<br/>(BUILD_FOR_APACHE=true)"| FTP
+    ACTION -->|"FTP upload"| FTP
     FTP --> SITE_A
-    BUILD_N --> SITE_N
-    SITE_N --> ACTIONS_N
-    SITE_N --> CMS
-    CMS -->|"read/write via API"| REPO
-    CMS -->|"auth flow"| OAUTH
-    OAUTH -->|"callback"| OAUTH_PROXY
-    ACTIONS_N -->|"send email"| RESEND
-    SITE_A -->|"cross-origin POST"| ACTIONS_N
+    SITE_A --> CMS
+    CMS -->|"read/write via GitHub API"| REPO
+    CMS -->|"GitHub PKCE auth"| REPO
+    SITE_A -->|"client-side send"| EMAILJS
     HTACCESS_ROOT -->|"route requests"| SITE_A
     HTACCESS_ROOT -->|"passthrough"| EXISTING
 
-    style Netlify fill:#00c7b7,color:#000
     style InMotion fill:#e67e22,color:#fff
     style GitHub fill:#333,color:#fff
     style External fill:#8e44ad,color:#fff
@@ -71,65 +57,21 @@ graph TB
 sequenceDiagram
     participant D as Developer
     participant G as GitHub
-    participant N as Netlify
     participant A as GitHub Action
     participant I as InMotion (FTP)
 
     D->>G: git push origin main
-
-    par Netlify Deploy
-        G->>N: Webhook trigger
-        N->>N: npm ci
-        N->>N: astro build (imageCDN: true)
-        N->>N: Deploy SSR + static assets
-        Note over N: swp-site.netlify.app live
-    and Apache Deploy
-        G->>A: Action trigger
-        A->>A: npm ci
-        A->>A: astro build (BUILD_FOR_APACHE=true, imageCDN: false)
-        A->>A: rm -rf dist/.netlify dist/_redirects
-        A->>A: cp public/.htaccess dist/.htaccess
-        A->>I: FTP upload dist/ → public_html/swp/
-        Note over I: simonwickes.com live
-    end
-```
-
----
-
-## Build Variants
-
-The site builds differently for each target:
-
-```mermaid
-graph LR
-    subgraph Config["astro.config.mjs"]
-        CHECK{"BUILD_FOR_APACHE?"}
-    end
-
-    CHECK -->|"false (Netlify)"| NETLIFY_BUILD["imageCDN: true<br/>Images via /.netlify/images<br/>SSR Actions enabled<br/>Full server functions"]
-    CHECK -->|"true (Apache)"| APACHE_BUILD["imageCDN: false<br/>Images as static .webp<br/>Actions compile but unused<br/>Static files only"]
-
-    NETLIFY_BUILD --> NETLIFY_OUT["dist/<br/>Server functions + static"]
-    APACHE_BUILD --> APACHE_OUT["dist/<br/>Static HTML + _astro/ assets"]
+    G->>A: Action trigger
+    A->>A: npm ci
+    A->>A: astro build (static output)
+    A->>A: cp public/.htaccess dist/.htaccess
+    A->>I: FTP upload dist/ → public_html/swp/
+    Note over I: simonwickes.com live (~2 min)
 ```
 
 ---
 
 ## Request Flow
-
-### Netlify (swp-site.netlify.app)
-
-```mermaid
-graph LR
-    REQ[Browser Request] --> NETLIFY_CDN[Netlify CDN]
-    NETLIFY_CDN -->|"Static pages"| HTML[Prerendered HTML]
-    NETLIFY_CDN -->|"/_actions/*"| SSR[Netlify Function<br/>Astro Actions]
-    NETLIFY_CDN -->|"/_astro/*"| ASSETS[CSS/JS/Fonts]
-    NETLIFY_CDN -->|"/.netlify/images"| IMG_CDN[Image CDN<br/>On-demand optimization]
-    SSR -->|"submitContact"| RESEND[Resend API]
-    RESEND --> ADMIN_EMAIL[Notification to Simon]
-    RESEND --> USER_EMAIL[Confirmation to User]
-```
 
 ### Apache (simonwickes.com)
 
@@ -137,13 +79,12 @@ graph LR
 graph LR
     REQ[Browser Request] --> ROOT_HT[".htaccess (public_html/)"]
     ROOT_HT -->|"/resume, /lamvp"| EXISTING[Existing Sites]
+    ROOT_HT -->|"www → non-www"| REDIRECT[301 Redirect]
     ROOT_HT -->|"Everything else"| REWRITE["Rewrite to /swp/$1"]
     REWRITE --> SWP_HT[".htaccess (swp/)"]
     SWP_HT -->|"Static files"| FILE[Serve file directly]
     SWP_HT -->|"Clean URLs"| DIR["Serve dir/index.html"]
     SWP_HT -->|"Not found"| ERR[404.html]
-
-    REQ2[Contact Form Submit] -->|"Cross-origin POST"| NETLIFY["swp-site.netlify.app<br/>/_actions/submitContact"]
 ```
 
 ---
@@ -156,7 +97,7 @@ graph LR
 |-----------|-----------|---------|
 | Framework | Astro | 5.17.1 |
 | CSS | Tailwind CSS (v4, CSS-first) | 4.1.18 |
-| Adapter | @astrojs/netlify | latest |
+| Output | Static (no server required) | |
 | Content | Astro Content Collections (glob loader) | built-in |
 | TypeScript | Strict mode | built-in |
 
@@ -169,6 +110,7 @@ graph LR
 | Fuse.js | Client-side blog search | 7.1.0 |
 | astro-masonry | Masonry grid layout | 1.2.2 |
 | date-fns | Date formatting | 4.1.0 |
+| @emailjs/browser | Contact form email sending | 4.4.1 |
 
 ### Fonts
 
@@ -300,44 +242,29 @@ stateDiagram-v2
 ```mermaid
 sequenceDiagram
     participant U as User Browser
-    participant S as Site (Netlify or Apache)
-    participant N as Netlify Actions
-    participant R as Resend API
-    participant SI as Simon's Email
-    participant UE as User's Email
+    participant E as EmailJS API
+    participant S as Simon's Email
 
-    U->>S: Fill form + submit
+    U->>U: Fill form + submit
+    U->>U: Client-side validation (name, email, message)
 
-    alt On Netlify
-        S->>N: actions.submitContact(formData)
-    else On Apache
-        S->>N: fetch("swp-site.netlify.app/_actions/submitContact")
-        Note over S,N: Cross-origin POST<br/>CORS headers in netlify.toml
-    end
-
-    N->>N: Zod validation
     alt Validation fails
-        N-->>S: InputError with field messages
-        S-->>U: Show field-level errors
+        U-->>U: Show field-level errors
     else Validation passes
-        N->>R: Send notification email
-        R->>SI: "New inquiry from [name]"
-        N->>R: Send confirmation email
-        R->>UE: "Thanks for reaching out"
-        N-->>S: Success response
-        S-->>U: Show success message
+        U->>E: emailjs.send(serviceId, templateId, params)
+        E->>S: "New enquiry from [name]"
+        E-->>U: Success response
+        U-->>U: Show success message
     end
 ```
 
-**CORS Configuration** (`netlify.toml`):
-```toml
-[[headers]]
-  for = "/_actions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "https://simonwickes.com"
-    Access-Control-Allow-Methods = "POST, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type"
-```
+**Template parameters sent to EmailJS:**
+| Parameter | Source |
+|-----------|--------|
+| `title` | "New enquiry from " + name |
+| `name` | Form name field |
+| `email` | Form email field |
+| `message` | Form message field |
 
 ---
 
@@ -345,19 +272,20 @@ sequenceDiagram
 
 ```mermaid
 graph LR
-    ADMIN["Decap CMS<br/>/admin/"] -->|"GitHub API"| REPO["GitHub Repo<br/>main branch"]
-    ADMIN -->|"Auth flow"| OAUTH["GitHub OAuth App"]
-    OAUTH -->|"Callback"| PROXY["Netlify OAuth Proxy<br/>api.netlify.com/auth/done"]
-    REPO -->|"New commit"| DEPLOY["Triggers both deploys"]
+    ADMIN["Decap CMS<br/>simonwickes.com/admin/"] -->|"GitHub API"| REPO["GitHub Repo<br/>main branch"]
+    ADMIN -->|"GitHub PKCE auth"| GH["GitHub OAuth"]
+    REPO -->|"New commit"| DEPLOY["Triggers GitHub Action deploy"]
 
     subgraph CMS Config
-        BACKEND["Backend: github<br/>Repo: simonwickes/swp-site<br/>Branch: main"]
+        BACKEND["Backend: github<br/>Repo: simonwickes/swp-site<br/>Branch: main<br/>Auth: PKCE"]
         MEDIA["Media: src/assets/images/blog"]
         COLLECTION["Collection: blog<br/>Folder: src/content/blog"]
     end
 ```
 
 **Config:** `public/admin/config.yml`
+
+PKCE auth flow means the CMS authenticates directly with GitHub — no external OAuth proxy required.
 
 ---
 
@@ -369,7 +297,10 @@ graph TD
 
     REQ --> ROOT_HT["public_html/.htaccess"]
 
-    ROOT_HT --> CHECK1{"URI starts with /swp/?"}
+    ROOT_HT --> CHECK_WWW{"www subdomain?"}
+    CHECK_WWW -->|Yes| REDIR_WWW["301 → simonwickes.com"]
+
+    CHECK_WWW -->|No| CHECK1{"URI starts with /swp/?"}
     CHECK1 -->|Yes| PASS1[Skip rewrite]
 
     CHECK1 -->|No| CHECK2{"URI starts with<br/>/resume or /lamvp?"}
@@ -399,7 +330,7 @@ graph TD
 
 | File | Purpose |
 |------|---------|
-| `astro.config.mjs` | Astro config: adapter, sitemap, env schema, Tailwind |
+| `astro.config.mjs` | Astro config: sitemap, Tailwind |
 | `src/styles/global.css` | Tailwind v4 theme: colors, fonts, custom variants |
 | `src/content.config.ts` | Blog collection schema (Zod) |
 | `src/data/services.ts` | Service definitions (slug, title, description) |
@@ -407,7 +338,6 @@ graph TD
 | `public/admin/config.yml` | Decap CMS backend, media, collection fields |
 | `public/.htaccess` | Apache config for swp/ subfolder (clean URLs, caching) |
 | `scripts/htaccess-public_html.txt` | Template for InMotion root .htaccess |
-| `netlify.toml` | CORS headers for cross-origin contact form |
 | `.github/workflows/deploy-apache.yml` | GitHub Action: build + FTP to InMotion |
 | `scripts/deploy.sh` | One-command deploy (pull, stage, commit, push) |
 | `scripts/add-images.sh` | Image management (replace gallery/hero/featured) |
@@ -419,4 +349,3 @@ graph TD
 | Endpoint | Type | Purpose |
 |----------|------|---------|
 | `/api/posts.json` | GET (prerendered) | Blog search data (id, title, category, tags, excerpt) |
-| `/_actions/submitContact` | POST (SSR) | Contact form submission (Netlify only) |

@@ -118,14 +118,6 @@ const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
     });
   }
 
-  // Initialize on page load
-  // Use DOMContentLoaded for regular navigation, astro:page-load for View Transitions
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initShareButtons);
-  } else {
-    initShareButtons();
-  }
-
-  // Also listen for astro:page-load (View Transitions support)
+  // astro:page-load fires on both initial load and View Transitions navigation
   document.addEventListener("astro:page-load", initShareButtons);
 </script>

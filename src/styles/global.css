@@ -26,9 +26,9 @@
   --color-surface-100: #f5f0eb;
   --color-surface-200: #ebe3da;
   --color-surface-300: #d6cabe;
-  --color-surface-400: #b5a596;
-  --color-surface-500: #978775;
-  --color-surface-600: #7a6b5b;
+  --color-surface-400: #8a7a6a;
+  --color-surface-500: #736352;
+  --color-surface-600: #5e5044;
   --color-surface-700: #5c504a;
   --color-surface-800: #3a322e;
   --color-surface-900: #262120;
@@ -51,10 +51,23 @@ html.dark {
 }
 
 /* Smooth theme transitions (applied after initial load to prevent flash) */
-html.theme-ready,
-html.theme-ready *,
-html.theme-ready *::before,
-html.theme-ready *::after {
+html.theme-ready body,
+html.theme-ready header,
+html.theme-ready footer,
+html.theme-ready main,
+html.theme-ready nav,
+html.theme-ready section,
+html.theme-ready div,
+html.theme-ready a,
+html.theme-ready p,
+html.theme-ready h1,
+html.theme-ready h2,
+html.theme-ready h3,
+html.theme-ready span,
+html.theme-ready button,
+html.theme-ready input,
+html.theme-ready select,
+html.theme-ready textarea {
   transition:
     background-color 0.2s ease,
     color 0.2s ease,

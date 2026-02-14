@@ -41,7 +41,8 @@ const { images, galleryId } = Astro.props;
               alt={item.alt}
               class="w-full transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
-              width={600}
+              widths={[400, 600, 800]}
+              sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           </a>
         </div>
@@ -135,15 +136,6 @@ const { images, galleryId } = Astro.props;
     }
   });
 
-  // Initialize on page load
-  // Use DOMContentLoaded for regular navigation, astro:page-load for View Transitions
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initServiceGallery);
-  } else {
-    // DOM already ready, initialize immediately
-    initServiceGallery();
-  }
-
-  // Also listen for astro:page-load (View Transitions support)
+  // astro:page-load fires on both initial load and View Transitions navigation
   document.addEventListener("astro:page-load", initServiceGallery);
 </script>

@@ -20,6 +20,12 @@ const { title, description, preloadImage, ogImage, ogType, article } = Astro.pro
 ---
 
 <BaseLayout {title} {description} {preloadImage} {ogImage} {ogType} {article}>
+  <a
+    href="#main"
+    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-accent-500 focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+  >
+    Skip to main content
+  </a>
   <div id="dev-banner" class="relative bg-amber-400 px-4 py-2 text-center text-sm font-medium text-amber-950">
     This site is in active development. Expected completion: late February 2026.
     <button
@@ -50,7 +56,7 @@ const { title, description, preloadImage, ogImage, ogType, article } = Astro.pro
     document.addEventListener("astro:after-swap", initBanner);
   </script>
   <Header transition:persist="site-header" />
-  <main class="flex-grow" transition:animate={fade({ duration: '0.2s' })}>
+  <main id="main" class="flex-grow" transition:animate={fade({ duration: '0.2s' })}>
     <slot />
   </main>
   <Footer transition:persist="site-footer" />

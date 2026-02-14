@@ -9,7 +9,8 @@ This guide covers everything you need to manage your photography site at **simon
 1. [Adding Images](#adding-images)
 2. [Writing Blog Posts](#writing-blog-posts)
 3. [Deploying Changes](#deploying-changes)
-4. [Infrastructure Reference](#infrastructure-reference)
+4. [Contact Form](#contact-form)
+5. [Infrastructure Reference](#infrastructure-reference)
 
 ---
 
@@ -85,8 +86,8 @@ You have two ways to create and edit blog posts.
 
 ### Option A: Decap CMS (browser-based)
 
-1. Go to **https://swp-site.netlify.app/admin/**
-2. Click "Login with GitHub" and authorize
+1. Go to **https://simonwickes.com/admin/**
+2. Click "Login with GitHub" and authorize via GitHub's PKCE flow
 3. Click **New Blog Posts**
 4. Fill in the fields:
    - **Title** - Post title
@@ -99,7 +100,7 @@ You have two ways to create and edit blog posts.
    - **Body** - Write your post content in markdown
 5. Click **Publish** (or Save Draft to come back later)
 
-The post will auto-deploy to both sites within ~2 minutes.
+The post will auto-deploy within ~2 minutes.
 
 ### Option B: Create a markdown file directly
 
@@ -156,11 +157,11 @@ The deploy script does this automatically.
 
 ### Automatic deployment
 
-Every push to the `main` branch triggers:
-- **Netlify** rebuilds the full site (with SSR contact form)
-- **GitHub Action** builds a static version and FTP uploads to InMotion
+Every push to the `main` branch triggers a **GitHub Action** that:
+1. Builds the static site with Astro
+2. Uploads it via FTP to InMotion hosting
 
-Both complete within ~2 minutes.
+The deploy completes within ~2 minutes.
 
 ### One-command deploy
 
@@ -175,17 +176,29 @@ This script:
 1. Pulls latest CMS changes (in case you posted from the browser)
 2. Stages all changed files
 3. Commits with an auto-generated or custom message
-4. Pushes to GitHub (triggering both deploys)
+4. Pushes to GitHub (triggering the deploy)
 
-### What deploys where
+---
 
-| Feature | Netlify (swp-site.netlify.app) | Apache (simonwickes.com) |
-|---------|-------------------------------|--------------------------|
-| All pages | Yes | Yes |
-| Images | Via Netlify CDN | Static .webp files |
-| Contact form | Full server-side (Resend) | Posts to Netlify cross-origin |
-| Blog CMS | /admin/ available | Not available (use Netlify URL) |
-| SSL | Automatic | Via InMotion |
+## Contact Form
+
+The contact form at `/contact/` uses **EmailJS** to send emails directly from the browser. No server required.
+
+### How it works
+
+1. User fills in the form (name, email, message)
+2. Client-side validation checks required fields
+3. EmailJS sends the email via your configured service
+4. You receive the enquiry at your email address
+
+### EmailJS configuration
+
+The credentials are in `src/components/contact/ContactForm.astro`:
+- **Service ID:** `service_qvjo8vq`
+- **Template ID:** `template_bnq8oml`
+- **Public Key:** `QeJTMZYCoupaJT3D4`
+
+To manage your EmailJS account (change templates, view logs, etc.), log in at [emailjs.com](https://www.emailjs.com/).
 
 ---
 
@@ -200,15 +213,8 @@ GitHub repo (simonwickes/swp-site)
   |
   |-- push to main
   |
-  +---> Netlify (auto-builds)
-  |       - Full SSR site with Astro Actions
-  |       - Contact form via Resend email API
-  |       - Decap CMS admin panel
-  |       - Image optimization via Netlify CDN
-  |       - URL: swp-site.netlify.app
-  |
   +---> GitHub Action (deploy-apache.yml)
-          - Builds static version (imageCDN disabled)
+          - Builds static site with Astro
           - FTP uploads to InMotion
           - URL: simonwickes.com
 ```
@@ -218,29 +224,13 @@ GitHub repo (simonwickes/swp-site)
 - **Repo:** github.com/simonwickes/swp-site
 - **Branch:** main
 
-### Netlify Setup
-
-- **Site:** swp-site.netlify.app
-- **Build command:** `astro build` (auto-detected)
-- **Publish directory:** `dist`
-- **Environment variables required:**
-  - `RESEND_API_KEY` - API key from resend.com for sending contact form emails
-  - `CONTACT_EMAIL` - Email address that receives contact form submissions
-- **OAuth provider:** GitHub (for Decap CMS authentication)
-  - Configured under Site Settings > Access & Identity > OAuth
-
-### GitHub OAuth App (for Decap CMS)
-
-- **Location:** github.com/settings/developers > OAuth Apps
-- **Authorization callback URL:** `https://api.netlify.com/auth/done`
-- **Client ID and Secret** are configured in Netlify's OAuth settings
-
 ### InMotion / Apache Setup
 
 - **Hosting:** InMotion shared hosting (cPanel)
 - **Site files location:** `public_html/swp/`
 - **Root .htaccess:** `public_html/.htaccess` rewrites all requests into `swp/` subfolder
   - Excludes `/resume` and `/lamvp` (existing sites on the same domain)
+  - Redirects `www.simonwickes.com` to `simonwickes.com`
   - Source template: `scripts/htaccess-public_html.txt`
 - **Inner .htaccess:** `public_html/swp/.htaccess` handles clean URLs, caching, security headers
   - Deployed automatically from `public/.htaccess`
@@ -260,12 +250,11 @@ These are configured at github.com/simonwickes/swp-site/settings/secrets/actions
 
 | File | Purpose |
 |------|---------|
-| `astro.config.mjs` | Main Astro config (adapter, sitemap, env vars) |
+| `astro.config.mjs` | Main Astro config (sitemap, Tailwind) |
 | `public/admin/config.yml` | Decap CMS configuration (fields, categories) |
 | `public/.htaccess` | Apache config deployed into swp/ subfolder |
 | `scripts/htaccess-public_html.txt` | Template for InMotion's root .htaccess |
-| `netlify.toml` | CORS headers for cross-origin contact form |
-| `.github/workflows/deploy-apache.yml` | GitHub Action for FTP deploy to InMotion |
+| `.github/workflows/deploy-apache.yml` | GitHub Action: build + FTP to InMotion |
 | `src/data/services.ts` | Service categories and descriptions |
 | `src/data/gallery.ts` | Pic-Time gallery URL |
 
@@ -293,18 +282,19 @@ If you want to add a new service type:
 - Hard-refresh the browser (Cmd+Shift+R)
 
 **Blog post not appearing:**
-- If posted via CMS: wait ~2 minutes for both deploys
+- If posted via CMS: wait ~2 minutes for the deploy
 - If posted via file: run `./scripts/deploy.sh`
 - Pull latest to your local: `git pull origin main`
 
 **CMS login not working:**
-- Go to swp-site.netlify.app/admin/ (not simonwickes.com/admin/)
-- Ensure GitHub OAuth App is still configured in Netlify's OAuth settings
-- Check that the callback URL is `https://api.netlify.com/auth/done`
+- Visit `simonwickes.com/admin/` and authorize with GitHub
+- CMS uses GitHub PKCE auth (no third-party OAuth proxy needed)
+- Ensure your GitHub account has write access to the `simonwickes/swp-site` repo
 
-**Contact form not working on simonwickes.com:**
-- The form posts cross-origin to Netlify. Check that `netlify.toml` has the CORS headers
-- Verify `RESEND_API_KEY` and `CONTACT_EMAIL` are set in Netlify environment variables
+**Contact form not working:**
+- Check the browser console for errors
+- Verify your EmailJS account is active at emailjs.com
+- The free tier allows 200 emails/month
 
 **Deploy script errors:**
 - `non-fast-forward` rejection: The CMS pushed commits you don't have locally. Run `git pull origin main --rebase` then try again

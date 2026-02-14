@@ -18,7 +18,6 @@
     "astro": "^5.17.1",
     "astro-masonry": "^1.2.2",
     "astro-navbar": "^2.4.0",
-    "astro-swiper": "^1.4.0",
     "date-fns": "^4.1.0",
     "fuse.js": "^7.1.0",
     "photoswipe": "^5.4.4",

@@ -33,6 +33,7 @@ const slides = [
 >
   <swiper-container
     id="hero-swiper"
+    init="false"
     class="h-full w-full"
     loop="true"
     autoplay-delay="4500"
@@ -106,10 +107,18 @@ const slides = [
 </section>
 
 <script>
-  import { register } from "swiper/element/bundle";
+  import { register } from "swiper/element";
+  import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
-  // Register Swiper web components
+  // Register Swiper web components with only needed modules
   register();
+
+  // Inject modules into swiper element
+  const swiperInit = document.getElementById("hero-swiper") as any;
+  if (swiperInit) {
+    Object.assign(swiperInit, { modules: [Autoplay, Navigation, Pagination] });
+    swiperInit.initialize?.();
+  }
 
   function initHeroCarousel() {
     const swiperEl = document.getElementById("hero-swiper") as any;

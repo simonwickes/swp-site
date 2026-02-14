@@ -24,6 +24,8 @@ ErrorDocument 404 /404.html
 # Cache static assets
 <IfModule mod_expires.c>
   ExpiresActive On
+  ExpiresDefault "access plus 0 seconds"
+  ExpiresByType text/html "access plus 5 minutes"
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/avif "access plus 1 year"
   ExpiresByType image/jpeg "access plus 1 year"
@@ -39,6 +41,9 @@ ErrorDocument 404 /404.html
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://api.emailjs.com https://unpkg.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://api.emailjs.com https://www.google-analytics.com; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
 </IfModule>
 
 # Block access to source maps
