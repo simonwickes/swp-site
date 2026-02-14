@@ -4,6 +4,10 @@
 
 RewriteEngine On
 
+# Redirect www to non-www (canonical URL)
+RewriteCond %{HTTP_HOST} ^www\.simonwickes\.com$ [NC]
+RewriteRule ^(.*)$ https://simonwickes.com/$1 [R=301,L]
+
 # Don't rewrite if the request already targets swp/
 RewriteCond %{REQUEST_URI} !^/swp/
 
