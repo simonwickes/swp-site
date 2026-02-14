@@ -192,10 +192,9 @@ import { services } from "@/data/services";
 <script>
   import emailjs from "@emailjs/browser";
 
-  // TODO: Replace these with your EmailJS credentials
-  const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
-  const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-  const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+  const EMAILJS_SERVICE_ID = "service_qvjo8vq";
+  const EMAILJS_TEMPLATE_ID = "template_bnq8oml";
+  const EMAILJS_PUBLIC_KEY = "QeJTMZYCoupaJT3D4";
 
   emailjs.init(EMAILJS_PUBLIC_KEY);
 
@@ -250,12 +249,6 @@ import { services } from "@/data/services";
     }
     if (hasError) return;
 
-    // Resolve event type
-    const eventType = eventTypeSelect.value;
-    const eventTypeOther = (form.querySelector("#eventTypeOther") as HTMLInputElement)?.value || "";
-    const resolvedEventType = eventType === "other" ? eventTypeOther : eventType || "Not specified";
-    const eventDate = (form.querySelector("#eventDate") as HTMLInputElement).value || "Not specified";
-
     // Disable submit button, show spinner
     submitBtn.disabled = true;
     btnText.classList.add("hidden");
@@ -263,10 +256,9 @@ import { services } from "@/data/services";
 
     try {
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        from_name: name,
-        from_email: email,
-        event_type: resolvedEventType,
-        event_date: eventDate,
+        title: "New enquiry from " + name,
+        name: name,
+        email: email,
         message: message,
       });
 
