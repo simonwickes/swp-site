@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: simonwickes/swp-site
   branch: main
 
 media_folder: "src/assets/images/blog"
