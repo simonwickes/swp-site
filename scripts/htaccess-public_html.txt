@@ -7,7 +7,11 @@ RewriteEngine On
 # Don't rewrite if the request already targets swp/
 RewriteCond %{REQUEST_URI} !^/swp/
 
-# Don't rewrite real files/dirs outside swp (e.g., .well-known, cPanel)
+# Don't rewrite existing sites
+RewriteCond %{REQUEST_URI} !^/resume
+RewriteCond %{REQUEST_URI} !^/lamvp
+
+# Don't rewrite system paths
 RewriteCond %{REQUEST_URI} !^/\.well-known
 RewriteCond %{REQUEST_URI} !^/cgi-bin
 
