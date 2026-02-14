@@ -1,31 +1,15 @@
 // @ts-check
-import { defineConfig, envField } from "astro/config";
+import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
-import netlify from "@astrojs/netlify";
 
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   site: "https://simonwickes.com",
-  adapter: netlify({
-    imageCDN: !process.env.BUILD_FOR_APACHE,
-  }),
+  output: "static",
 
   build: {
     format: "directory",
-  },
-
-  env: {
-    schema: {
-      RESEND_API_KEY: envField.string({
-        context: "server",
-        access: "secret",
-      }),
-      CONTACT_EMAIL: envField.string({
-        context: "server",
-        access: "secret",
-      }),
-    },
   },
 
   vite: {

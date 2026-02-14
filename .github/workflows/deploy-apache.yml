@@ -7,11 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      # Dummy values — server actions compile but won't run on Apache.
-      # Real values are in Netlify env vars where the actions actually execute.
-      RESEND_API_KEY: "placeholder"
-      CONTACT_EMAIL: "placeholder@example.com"
     steps:
       - uses: actions/checkout@v4
 
@@ -24,19 +19,12 @@ jobs:
 
       - name: Build site
         run: npx astro build
-        env:
-          BUILD_FOR_APACHE: "true"
-
-      # Remove server-only files before upload
-      - name: Clean server artifacts
-        run: |
-          rm -rf dist/.netlify dist/_redirects 2>/dev/null || true
 
       # Copy .htaccess into dist for Apache
       - name: Add .htaccess
         run: cp public/.htaccess dist/.htaccess
 
-      # Upload prerendered pages to InMotion via FTP
+      # Upload static site to InMotion via FTP
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -47,5 +35,4 @@ jobs:
           server-dir: ${{ secrets.FTP_PATH }}
           dangerous-clean-slate: false
           exclude: |
-            **/.netlify/**
             **/.DS_Store

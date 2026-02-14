@@ -190,12 +190,14 @@ import { services } from "@/data/services";
 </div>
 
 <script>
-  import { actions, isInputError } from "astro:actions";
+  import emailjs from "@emailjs/browser";
 
-  // Netlify URL for cross-origin form submission (when hosted on Apache)
-  const NETLIFY_ORIGIN = "https://swp-site.netlify.app";
-  const isNetlify = window.location.hostname.includes("netlify.app");
-  const API_URL = isNetlify ? "" : NETLIFY_ORIGIN;
+  // TODO: Replace these with your EmailJS credentials
+  const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+  const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+  const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
 
   const form = document.getElementById("contact-form") as HTMLFormElement;
   const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
@@ -218,23 +220,6 @@ import { services } from "@/data/services";
     }
   });
 
-  // Submit via Astro Actions (Netlify) or API endpoint (Apache)
-  async function submitForm(formData: FormData) {
-    if (isNetlify) {
-      return actions.submitContact(formData);
-    }
-    // Cross-origin POST to Netlify API endpoint (has CORS headers)
-    const res = await fetch(`${API_URL}/api/contact/`, {
-      method: "POST",
-      body: formData,
-    });
-    const json = await res.json();
-    if (!res.ok || json.error) {
-      return { data: null, error: json.error || { message: "Submission failed" } };
-    }
-    return { data: json, error: null };
-  }
-
   // Handle form submission
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -243,43 +228,58 @@ import { services } from "@/data/services";
     document.querySelectorAll(".field-error").forEach((el) => {
       el.textContent = "";
     });
-
-    // Hide general error message
     errorMsg.classList.add("hidden");
+
+    // Client-side validation
+    const name = (form.querySelector("#name") as HTMLInputElement).value.trim();
+    const email = (form.querySelector("#email") as HTMLInputElement).value.trim();
+    const message = (form.querySelector("#message") as HTMLTextAreaElement).value.trim();
+
+    let hasError = false;
+    if (!name) {
+      document.querySelector('[data-error="name"]')!.textContent = "Name is required";
+      hasError = true;
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.querySelector('[data-error="email"]')!.textContent = "Please enter a valid email address";
+      hasError = true;
+    }
+    if (!message || message.length < 10) {
+      document.querySelector('[data-error="message"]')!.textContent = "Please include a message (at least 10 characters)";
+      hasError = true;
+    }
+    if (hasError) return;
+
+    // Resolve event type
+    const eventType = eventTypeSelect.value;
+    const eventTypeOther = (form.querySelector("#eventTypeOther") as HTMLInputElement)?.value || "";
+    const resolvedEventType = eventType === "other" ? eventTypeOther : eventType || "Not specified";
+    const eventDate = (form.querySelector("#eventDate") as HTMLInputElement).value || "Not specified";
 
     // Disable submit button, show spinner
     submitBtn.disabled = true;
     btnText.classList.add("hidden");
     btnSpinner.classList.remove("hidden");
 
-    // Submit to action
-    const formData = new FormData(form);
-    const { data, error } = await submitForm(formData);
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: name,
+        from_email: email,
+        event_type: resolvedEventType,
+        event_date: eventDate,
+        message: message,
+      });
 
-    // Re-enable button
-    submitBtn.disabled = false;
-    btnText.classList.remove("hidden");
-    btnSpinner.classList.add("hidden");
-
-    if (error) {
-      if (isNetlify && isInputError(error)) {
-        // Show field-level errors
-        for (const [fieldName, messages] of Object.entries((error as any).fields || {})) {
-          const errorEl = document.querySelector(`[data-error="${fieldName}"]`);
-          if (errorEl && (messages as string[])?.length > 0) {
-            errorEl.textContent = (messages as string[])[0];
-          }
-        }
-      } else {
-        // Show general error message
-        errorText.textContent =
-          (error as any).message || "Something went wrong. Please try again.";
-        errorMsg.classList.remove("hidden");
-      }
-    } else {
       // Success - hide form, show success message
       form.classList.add("hidden");
       successMsg.classList.remove("hidden");
+    } catch (error) {
+      errorText.textContent = "Something went wrong. Please try again.";
+      errorMsg.classList.remove("hidden");
+    } finally {
+      submitBtn.disabled = false;
+      btnText.classList.remove("hidden");
+      btnSpinner.classList.add("hidden");
     }
   });
 </script>

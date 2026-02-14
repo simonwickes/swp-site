@@ -2,6 +2,8 @@ backend:
   name: github
   repo: simonwickes/swp-site
   branch: main
+  auth_type: pkce
+  app_id: simonwickes/swp-site
 
 media_folder: "src/assets/images/blog"
 public_folder: "../../assets/images/blog"
