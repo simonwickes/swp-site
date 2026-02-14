@@ -113,8 +113,7 @@ fi
 COUNT=0
 if [ "$TARGET" = "featured" ]; then
   # Featured images keep descriptive names — copy as-is
-  for img in "$SOURCE"/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP} 2>/dev/null; do
-    [ -f "$img" ] || continue
+  for img in $(find "$SOURCE" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | sort); do
     BASENAME=$(basename "$img")
     cp "$img" "$DEST/$BASENAME"
     COUNT=$((COUNT + 1))
