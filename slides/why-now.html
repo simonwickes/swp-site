@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Now? — Life &amp; After</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple-deep: #6B2680;
+      --purple-mid: #8B3FA0;
+      --purple-light: #A85DBF;
+      --purple-soft: #E8D5F0;
+      --purple-wash: #F5EEF8;
+      --lavender-bg: #EDE2F4;
+      --charcoal: #2D2D3A;
+      --body-text: #4A4A5A;
+      --muted: #7A7A8A;
+      --white: #FFFFFF;
+      --slide-w: 1280px;
+      --slide-h: 720px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #F0ECF3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Nunito Sans', sans-serif;
+    }
+
+    .slide {
+      width: var(--slide-w);
+      height: var(--slide-h);
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(107, 38, 128, 0.12);
+    }
+
+    /* Subtle top accent bar */
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--purple-deep), var(--purple-light), var(--purple-soft));
+    }
+
+    /* Header area */
+    .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 48px 64px 0;
+    }
+
+    .slide-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--charcoal);
+      letter-spacing: -0.5px;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--purple-mid);
+      letter-spacing: 1px;
+      position: relative;
+    }
+
+    .logo .ampersand {
+      color: var(--purple-light);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* Separator */
+    .separator {
+      margin: 24px 64px 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--purple-soft), transparent 70%);
+    }
+
+    /* Content columns */
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      padding: 40px 64px 0;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* Circular icon */
+    .icon-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--lavender-bg) 0%, var(--purple-soft) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .icon-circle::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(107, 38, 128, 0.1);
+    }
+
+    .icon-circle svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    /* Column heading */
+    .col-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--purple-deep);
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+
+    /* Bullet list */
+    .bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .bullets li {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--body-text);
+      padding-left: 20px;
+      position: relative;
+      font-weight: 400;
+    }
+
+    .bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple-mid), var(--purple-light));
+    }
+
+    .bullets li strong {
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+    .bullets li .aside {
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    /* Bottom decorative element */
+    .bottom-accent {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bottom-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .bottom-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--purple-soft);
+    }
+
+    .bottom-dots span.active {
+      width: 20px;
+      border-radius: 3px;
+      background: var(--purple-mid);
+    }
+  </style>
+</head>
+<body>
+
+<div class="slide">
+  <!-- Header -->
+  <div class="header">
+    <h1 class="slide-title">Why Now?</h1>
+    <div class="logo">Life <span class="ampersand">&amp;</span> After</div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- Two-column content -->
+  <div class="content">
+
+    <!-- LEFT COLUMN: Technology -->
+    <div class="column">
+      <div class="icon-circle">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Cloud + code icon -->
+          <path d="M10 22h16c3.3 0 6-2.7 6-6 0-3-2.2-5.5-5.1-5.9C26.2 7.2 23.3 5 20 5c-4 0-7.3 3-7.9 6.8C9.3 12.3 7 14.9 7 18c0 2.2 1.3 4 3 4z" stroke="#6B2680" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="rgba(107,38,128,0.08)"/>
+          <path d="M14 18l-2.5 2.5L14 23" stroke="#8B3FA0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 18l2.5 2.5L22 23" stroke="#8B3FA0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M19 17l-2 7" stroke="#A85DBF" stroke-width="1.8" stroke-linecap="round"/>
+          <!-- Small nodes/dots for network feel -->
+          <circle cx="7" cy="28" r="1.5" fill="#A85DBF"/>
+          <circle cx="12" cy="30" r="1" fill="#E8D5F0"/>
+          <circle cx="29" cy="28" r="1.5" fill="#A85DBF"/>
+          <circle cx="24" cy="30" r="1" fill="#E8D5F0"/>
+          <path d="M7 28l5 2M29 28l-5 2" stroke="#E8D5F0" stroke-width="0.8"/>
+        </svg>
+      </div>
+
+      <h2 class="col-heading">Technological Evolution<br>Is an Enabler</h2>
+
+      <ul class="bullets">
+        <li><strong>Open Source, Cloud, Frameworks, AI</strong></li>
+        <li>Easier, faster, less expensive than ever to develop solutions <span class="aside">(makes B2C offering viable)</span></li>
+      </ul>
+    </div>
+
+    <!-- RIGHT COLUMN: Industry -->
+    <div class="column">
+      <div class="icon-circle">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Building / growth chart hybrid -->
+          <!-- Building silhouette -->
+          <rect x="6" y="14" width="8" height="17" rx="1" stroke="#6B2680" stroke-width="1.8" fill="rgba(107,38,128,0.08)"/>
+          <rect x="8" y="17" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <rect x="11" y="17" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <rect x="8" y="21" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <rect x="11" y="21" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <!-- Taller building -->
+          <rect x="16" y="8" width="8" height="23" rx="1" stroke="#6B2680" stroke-width="1.8" fill="rgba(107,38,128,0.05)"/>
+          <rect x="18" y="11" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <rect x="21" y="11" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <rect x="18" y="15" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <rect x="21" y="15" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <rect x="18" y="19" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <rect x="21" y="19" width="1.5" height="2" rx="0.3" fill="#A85DBF"/>
+          <!-- Upward arrow / trend -->
+          <path d="M27 26l3-8" stroke="#8B3FA0" stroke-width="2" stroke-linecap="round"/>
+          <path d="M30 18l0.5-3.5L27 15" stroke="#8B3FA0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Ground line -->
+          <path d="M4 31h28" stroke="#E8D5F0" stroke-width="1.2"/>
+        </svg>
+      </div>
+
+      <h2 class="col-heading">Industry Is Ripe<br>for Modernization</h2>
+
+      <ul class="bullets">
+        <li>Family business funeral homes/networks struggle to keep up with technology</li>
+        <li>Recent acquisitions <span class="aside">(e.g. &mdash; Cake 09/24, Everplans 10/24)</span> and market entrants <span class="aside">(Eazewell 2025)</span> demonstrate exit opportunities and market trends</li>
+        <li>AI gradually being incorporated into newer solutions <span class="aside">(TributeOS 09/25)</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Bottom slide indicator -->
+  <div class="bottom-accent">
+    <div class="bottom-dots">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span class="active"></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
