@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Apache manual build output
 dist-apache/
+
+# Source portfolio images (imported via add-images script)
+Portfolio/
