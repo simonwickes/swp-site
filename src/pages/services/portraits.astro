@@ -7,12 +7,12 @@ import ServiceGallery from "@components/services/ServiceGallery.astro";
 import { getServiceBySlug } from "@/data/services";
 import type { ImageMetadata } from "astro";
 
-const service = getServiceBySlug("cars")!;
+const service = getServiceBySlug("portraits")!;
 
 const metaDescription = `${service.title} photography by Simon Wickes in Arizona. ${service.description.split('.')[0]}.`;
 
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/services/cars/*.{jpg,jpeg,png,webp}",
+  "/src/assets/images/services/portraits/*.{jpg,jpeg,png,webp}",
   { eager: true }
 );
 
@@ -30,9 +30,9 @@ const images = Object.entries(imageModules)
     serviceDescription={service.description}
     serviceUrl={`https://simonwickes.com/services/${service.slug}/`}
   />
-  <ServiceNav currentSlug="cars" />
+  <ServiceNav currentSlug="portraits" />
   <ServiceHero title={service.title} description={service.description} />
   <section class="mx-auto max-w-6xl px-4 pb-16 md:px-6 md:pb-24">
-    <ServiceGallery images={images} galleryId="cars-gallery" />
+    <ServiceGallery images={images} galleryId="portraits-gallery" />
   </section>
 </PageLayout>

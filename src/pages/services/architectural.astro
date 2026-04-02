@@ -7,12 +7,12 @@ import ServiceGallery from "@components/services/ServiceGallery.astro";
 import { getServiceBySlug } from "@/data/services";
 import type { ImageMetadata } from "astro";
 
-const service = getServiceBySlug("live-performances")!;
+const service = getServiceBySlug("architectural")!;
 
 const metaDescription = `${service.title} photography by Simon Wickes in Arizona. ${service.description.split('.')[0]}.`;
 
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/services/live-performances/*.{jpg,jpeg,png,webp}",
+  "/src/assets/images/services/architectural/*.{jpg,jpeg,png,webp}",
   { eager: true }
 );
 
@@ -30,9 +30,9 @@ const images = Object.entries(imageModules)
     serviceDescription={service.description}
     serviceUrl={`https://simonwickes.com/services/${service.slug}/`}
   />
-  <ServiceNav currentSlug="live-performances" />
+  <ServiceNav currentSlug="architectural" />
   <ServiceHero title={service.title} description={service.description} />
   <section class="mx-auto max-w-6xl px-4 pb-16 md:px-6 md:pb-24">
-    <ServiceGallery images={images} galleryId="live-performances-gallery" />
+    <ServiceGallery images={images} galleryId="architectural-gallery" />
   </section>
 </PageLayout>

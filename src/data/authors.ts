@@ -9,7 +9,7 @@ export const authors: Author[] = [
   {
     id: "simon",
     name: "Simon Wickes",
-    bio: "Professional photographer based in Arizona, specializing in outdoor portraits, weddings, and commercial photography.",
+    bio: "Professional photographer based in Arizona, specializing in portraits, weddings, and architectural photography.",
   },
 ];
 

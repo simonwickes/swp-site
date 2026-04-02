@@ -1,7 +1,7 @@
 ---
 title: "Golden Hour Magic at Papago Park"
 date: 2026-02-08
-category: outdoor-portraits
+category: portraits
 tags: ["Arizona", "golden hour", "family"]
 author: simon
 ---

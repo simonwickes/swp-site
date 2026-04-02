@@ -20,14 +20,12 @@ Images live in `src/assets/images/` with subfolders for each purpose:
 
 | Folder | Purpose | Notes |
 |--------|---------|-------|
-| `services/outdoor-portraits/` | Outdoor Portraits gallery | Numbered 01.jpg, 02.jpg, etc. |
-| `services/weddings/` | Weddings gallery | |
-| `services/commercial/` | Commercial gallery | |
-| `services/landscape/` | Landscape gallery | |
-| `services/cars/` | Cars gallery | |
+| `services/architectural/` | Architectural gallery | Numbered 01.jpg, 02.jpg, etc. |
 | `services/assignments/` | Assignments gallery | |
 | `services/events/` | Events gallery | |
-| `services/live-performances/` | Live Performances gallery | |
+| `services/portraits/` | Portraits gallery | |
+| `services/travel/` | Travel gallery | |
+| `services/weddings/` | Weddings gallery | |
 | `hero/` | Homepage carousel | Exactly 4 images (slide-1 through slide-4) |
 | `featured/` | Homepage featured grid | Named by category (e.g. wedding-1.jpg) |
 | `blog/` | Blog post images | Uploaded via Decap CMS |
@@ -45,8 +43,8 @@ The easiest way to add images is with the script:
 # Replace all wedding photos with images from a folder on your Mac
 ./scripts/add-images.sh services/weddings ~/Photos/wedding-shoot/
 
-# Replace outdoor portraits
-./scripts/add-images.sh services/outdoor-portraits ~/Desktop/portrait-edits/
+# Replace portraits
+./scripts/add-images.sh services/portraits ~/Desktop/portrait-edits/
 ```
 
 **Replace hero carousel** (must provide exactly 4 images):
@@ -92,7 +90,7 @@ You have two ways to create and edit blog posts.
 4. Fill in the fields:
    - **Title** - Post title
    - **Publish Date** - Select the date (YYYY-MM-DD)
-   - **Category** - Choose from: Outdoor Portraits, Weddings, Commercial, Landscape, Cars, Assignments, Events, Live Performances
+   - **Category** - Choose from: Architectural, Assignments, Events, Portraits, Travel, Weddings
    - **Tags** - Optional, comma-separated (e.g. "Downtown, Golden Hour")
    - **Featured Image** - Optional, upload a photo for the post header
    - **Featured Image Alt Text** - Describe the image for accessibility
@@ -110,7 +108,7 @@ Create a new `.md` file in `src/content/blog/`:
 ---
 title: "Golden Hour at Papago Park"
 date: 2026-03-15
-category: outdoor-portraits
+category: portraits
 tags:
   - Arizona
   - golden hour
@@ -129,7 +127,7 @@ Your post content goes here. You can use **bold**, *italic*,
 Write as much or as little as you like.
 ```
 
-**Valid categories:** `outdoor-portraits`, `weddings`, `commercial`, `landscape`, `cars`, `assignments`, `events`, `live-performances`
+**Valid categories:** `architectural`, `assignments`, `events`, `portraits`, `travel`, `weddings`
 
 Then deploy:
 ```bash

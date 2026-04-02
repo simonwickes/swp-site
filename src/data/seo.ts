@@ -13,7 +13,7 @@ export const siteInfo: SiteInfo = {
   name: "Simon Wickes Photography",
   url: "https://simonwickes.com",
   description:
-    "Professional photographer in Arizona specializing in portraits, weddings, commercial, and landscape photography.",
+    "Professional photographer in Arizona specializing in portraits, weddings, architectural, and travel photography.",
   city: "Prescott",
   state: "AZ",
   country: "US",

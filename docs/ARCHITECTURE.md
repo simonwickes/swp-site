@@ -149,14 +149,12 @@ Defined in `src/data/services.ts`. Each service has a slug, title, description, 
 
 | Slug | Title |
 |------|-------|
-| outdoor-portraits | Outdoor Portraits |
-| weddings | Weddings |
-| commercial | Commercial |
-| landscape | Landscape |
-| cars | Cars |
+| architectural | Architectural |
 | assignments | Assignments |
 | events | Events |
-| live-performances | Live Performances |
+| portraits | Portraits |
+| travel | Travel |
+| weddings | Weddings |
 
 ### Image Organization
 
@@ -165,14 +163,12 @@ src/assets/images/
 ├── hero/              # 4 carousel slides (slide-1 through slide-4)
 ├── featured/          # Homepage grid (named by category)
 ├── services/
-│   ├── outdoor-portraits/   # Numbered 01.jpg, 02.jpg, ...
-│   ├── weddings/
-│   ├── commercial/
-│   ├── landscape/
-│   ├── cars/
+│   ├── architectural/   # Numbered 01.jpg, 02.jpg, ...
 │   ├── assignments/
 │   ├── events/
-│   └── live-performances/
+│   ├── portraits/
+│   ├── travel/
+│   └── weddings/
 ├── blog/              # CMS-uploaded post images
 └── test/              # Test images
 ```
