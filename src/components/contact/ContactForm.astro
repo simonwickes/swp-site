@@ -24,10 +24,11 @@ import { services } from "@/data/services";
         id="name"
         name="name"
         required
+        aria-describedby="name-error"
         class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
         placeholder="Your name"
       />
-      <p data-error="name" class="field-error mt-1 text-sm text-red-500"></p>
+      <p id="name-error" data-error="name" class="field-error mt-1 text-sm text-red-500"></p>
     </div>
 
     <!-- Email field -->
@@ -43,10 +44,11 @@ import { services } from "@/data/services";
         id="email"
         name="email"
         required
+        aria-describedby="email-error"
         class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
         placeholder="your@email.com"
       />
-      <p data-error="email" class="field-error mt-1 text-sm text-red-500"></p>
+      <p id="email-error" data-error="email" class="field-error mt-1 text-sm text-red-500"></p>
     </div>
   </div>
 
@@ -61,13 +63,14 @@ import { services } from "@/data/services";
     <select
       id="eventType"
       name="eventType"
+      aria-describedby="eventType-error"
       class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 pr-10 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
     >
       <option value="">Select a service type...</option>
       {[...services].sort((a, b) => a.title.localeCompare(b.title)).map((service) => <option value={service.title}>{service.title}</option>)}
       <option value="other">Other</option>
     </select>
-    <p data-error="eventType" class="field-error mt-1 text-sm text-red-500"></p>
+    <p id="eventType-error" data-error="eventType" class="field-error mt-1 text-sm text-red-500"></p>
   </div>
 
   <!-- Service Type Other (hidden by default) -->
@@ -82,10 +85,12 @@ import { services } from "@/data/services";
       type="text"
       id="eventTypeOther"
       name="eventTypeOther"
+      aria-describedby="eventTypeOther-error"
       class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
       placeholder="What type of service?"
     />
     <p
+      id="eventTypeOther-error"
       data-error="eventTypeOther"
       class="field-error mt-1 text-sm text-red-500"
     >
@@ -104,10 +109,11 @@ import { services } from "@/data/services";
       type="text"
       id="eventDate"
       name="eventDate"
+      aria-describedby="eventDate-error"
       class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
       placeholder="e.g., March 15, 2026"
     />
-    <p data-error="eventDate" class="field-error mt-1 text-sm text-red-500"></p>
+    <p id="eventDate-error" data-error="eventDate" class="field-error mt-1 text-sm text-red-500"></p>
   </div>
 
   <!-- Message -->
@@ -124,9 +130,10 @@ import { services } from "@/data/services";
       required
       rows="5"
       minlength="10"
+      aria-describedby="message-error"
       class="w-full rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-surface-900 transition-colors focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100"
       placeholder="Tell me about your project or event..."></textarea>
-    <p data-error="message" class="field-error mt-1 text-sm text-red-500"></p>
+    <p id="message-error" data-error="message" class="field-error mt-1 text-sm text-red-500"></p>
   </div>
 
   <!-- General error message -->
@@ -285,6 +292,13 @@ import { services } from "@/data/services";
           eventDate: eventDate || "Not specified",
           message: message,
         });
+
+        // Track successful submission
+        if (window.gtag) {
+          window.gtag("event", "contact_form_submit", {
+            service_type: eventType || "Not specified",
+          });
+        }
 
         // Success - hide form, show success message
         form.classList.add("hidden");

@@ -3,6 +3,7 @@ import { fade } from "astro:transitions";
 import BaseLayout from "./BaseLayout.astro";
 import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
+import CookieConsent from "../components/global/CookieConsent.astro";
 
 interface Props {
   title: string;
@@ -77,4 +78,5 @@ const { title, description, preloadImage, ogImage, ogType, article } =
     <slot />
   </main>
   <Footer transition:persist="site-footer" />
+  <CookieConsent />
 </BaseLayout>
