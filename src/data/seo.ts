@@ -13,7 +13,7 @@ export const siteInfo: SiteInfo = {
   name: "Simon Wickes Photography",
   url: "https://simonwickes.com",
   description:
-    "Professional photographer in Arizona specializing in portraits, weddings, architectural, and travel photography.",
+    "Professional photographer based in Prescott, Arizona, serving Yavapai and Coconino counties. Specializing in portraits, weddings, architectural, and travel photography.",
   city: "Prescott",
   state: "AZ",
   country: "US",
@@ -33,6 +33,7 @@ export const serviceAreas: string[] = [
   "Sedona",
   "Flagstaff",
   "Yavapai County",
+  "Coconino County",
 ];
 
 export const GA_MEASUREMENT_ID: string = "G-6F43WS1L0Y";
