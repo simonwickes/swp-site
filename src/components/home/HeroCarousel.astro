@@ -109,25 +109,33 @@ const slides = [
 <script>
   import { register } from "swiper/element";
   import { Autoplay, Navigation, Pagination } from "swiper/modules";
+  import type Swiper from "swiper";
+
+  interface SwiperHTMLElement extends HTMLElement {
+    swiper?: Swiper;
+    initialize?: () => void;
+    modules?: unknown[];
+  }
 
   // Register Swiper web components with only needed modules
   register();
 
   // Inject modules into swiper element
-  const swiperInit = document.getElementById("hero-swiper") as any;
+  const swiperInit = document.getElementById("hero-swiper") as SwiperHTMLElement | null;
   if (swiperInit) {
     Object.assign(swiperInit, { modules: [Autoplay, Navigation, Pagination] });
     swiperInit.initialize?.();
   }
 
   function initHeroCarousel() {
-    const swiperEl = document.getElementById("hero-swiper") as any;
+    const el = document.getElementById("hero-swiper") as SwiperHTMLElement | null;
     const pauseBtn = document.getElementById("hero-pause-btn");
     const pauseIcon = document.getElementById("hero-pause-icon");
     const playIcon = document.getElementById("hero-play-icon");
 
-    if (!swiperEl || !pauseBtn || !pauseIcon || !playIcon) return;
+    if (!el || !pauseBtn || !pauseIcon || !playIcon) return;
 
+    const swiperEl: SwiperHTMLElement = el;
     let isPaused = false;
 
     // Check reduced motion preference
@@ -182,7 +190,7 @@ const slides = [
 
   // Pause carousel during page transitions to prevent jank
   document.addEventListener('astro:before-preparation', () => {
-    const swiperEl = document.getElementById('hero-swiper') as any;
+    const swiperEl = document.getElementById('hero-swiper') as SwiperHTMLElement | null;
     if (swiperEl?.swiper?.autoplay) {
       swiperEl.swiper.autoplay.stop();
     }
