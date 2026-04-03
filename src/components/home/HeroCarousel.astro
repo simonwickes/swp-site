@@ -120,14 +120,14 @@ const slides = [
   // Register Swiper web components with only needed modules
   register();
 
-  // Inject modules into swiper element
-  const swiperInit = document.getElementById("hero-swiper") as SwiperHTMLElement | null;
-  if (swiperInit) {
-    Object.assign(swiperInit, { modules: [Autoplay, Navigation, Pagination] });
-    swiperInit.initialize?.();
-  }
-
   function initHeroCarousel() {
+    // Inject modules and initialize swiper element
+    const swiperInit = document.getElementById("hero-swiper") as SwiperHTMLElement | null;
+    if (swiperInit && !swiperInit.swiper) {
+      Object.assign(swiperInit, { modules: [Autoplay, Navigation, Pagination] });
+      swiperInit.initialize?.();
+    }
+
     const el = document.getElementById("hero-swiper") as SwiperHTMLElement | null;
     const pauseBtn = document.getElementById("hero-pause-btn");
     const pauseIcon = document.getElementById("hero-pause-icon");
@@ -196,11 +196,8 @@ const slides = [
     }
   });
 
-  // Run on initial load
-  initHeroCarousel();
-
-  // Re-run on Astro view transitions
-  document.addEventListener("astro:after-swap", initHeroCarousel);
+  // Run on initial load and after View Transitions navigation
+  document.addEventListener("astro:page-load", initHeroCarousel);
 </script>
 
 <style>
