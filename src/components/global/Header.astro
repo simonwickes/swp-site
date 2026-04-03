@@ -378,6 +378,9 @@ function isActive(href: string): boolean {
       panel!.setAttribute("aria-hidden", "false");
       overlay!.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+      // Focus the close button when menu opens
+      const closeBtn = document.getElementById("mobile-menu-close");
+      closeBtn?.focus();
     }
 
     function closeMenu() {
@@ -389,6 +392,8 @@ function isActive(href: string): boolean {
       panel!.setAttribute("aria-hidden", "true");
       overlay!.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      // Restore focus to toggle button
+      document.getElementById("mobile-menu-toggle")?.focus();
     }
 
     // Clone to remove old listeners
@@ -414,10 +419,30 @@ function isActive(href: string): boolean {
       link.addEventListener("click", closeMenu);
     });
 
-    // Close on Escape key
+    // Keyboard handling: Escape to close, Tab trap
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !panel.classList.contains("translate-x-full")) {
+      if (panel.classList.contains("translate-x-full")) return;
+
+      if (e.key === "Escape") {
         closeMenu();
+        return;
+      }
+
+      // Focus trap: cycle Tab within panel
+      if (e.key === "Tab") {
+        const focusable = panel.querySelectorAll<HTMLElement>(
+          'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     });
   }
