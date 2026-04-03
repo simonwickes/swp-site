@@ -69,7 +69,21 @@ const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
 </div>
 
 <script>
+  function trackShare(method: string) {
+    if (typeof (window as any).gtag === "function") {
+      (window as any).gtag("event", "share", { method });
+    }
+  }
+
   function initShareButtons() {
+    // Track X and Facebook share link clicks
+    document.querySelectorAll<HTMLAnchorElement>(".share-btn[href]").forEach((link) => {
+      link.addEventListener("click", () => {
+        const label = link.getAttribute("aria-label") ?? "";
+        trackShare(label.replace("Share on ", ""));
+      });
+    });
+
     // Instagram buttons - copy URL to clipboard
     document.querySelectorAll("[data-share-instagram]").forEach((btn) => {
       const button = btn as HTMLButtonElement;
@@ -78,6 +92,7 @@ const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
       button.parentNode?.replaceChild(newBtn, button);
 
       newBtn.addEventListener("click", async () => {
+        trackShare("Instagram");
         const url = newBtn.getAttribute("data-share-url") ?? "";
         try {
           await navigator.clipboard.writeText(url);
@@ -101,6 +116,7 @@ const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
       button.parentNode?.replaceChild(newBtn, button);
 
       newBtn.addEventListener("click", async () => {
+        trackShare("Copy Link");
         const url = newBtn.getAttribute("data-share-url") ?? "";
         try {
           await navigator.clipboard.writeText(url);

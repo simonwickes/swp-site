@@ -293,6 +293,13 @@ import { services } from "@/data/services";
           message: message,
         });
 
+        // Track successful submission
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "contact_form_submit", {
+            service_type: eventType || "Not specified",
+          });
+        }
+
         // Success - hide form, show success message
         form.classList.add("hidden");
         successMsg.classList.remove("hidden");
