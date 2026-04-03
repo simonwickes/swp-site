@@ -33,7 +33,7 @@ export const faqItems: FAQItem[] = [
   {
     question: "Do you travel for shoots?",
     answer:
-      "Absolutely. I cover the local area and am available for destination work across the UK and beyond. Travel costs are discussed upfront and included in your quote so there are no surprises.",
+      "Absolutely. I cover Yavapai and Coconino counties and am available for destination work across Arizona and beyond. Travel costs are discussed upfront and included in your quote so there are no surprises.",
     category: "booking",
   },
   {

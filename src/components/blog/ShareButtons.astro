@@ -70,8 +70,8 @@ const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
 
 <script>
   function trackShare(method: string) {
-    if (typeof (window as any).gtag === "function") {
-      (window as any).gtag("event", "share", { method });
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "share", { method });
     }
   }
 

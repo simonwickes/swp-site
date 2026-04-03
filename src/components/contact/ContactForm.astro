@@ -294,8 +294,8 @@ import { services } from "@/data/services";
         });
 
         // Track successful submission
-        if (typeof (window as any).gtag === "function") {
-          (window as any).gtag("event", "contact_form_submit", {
+        if (window.gtag) {
+          window.gtag("event", "contact_form_submit", {
             service_type: eventType || "Not specified",
           });
         }
