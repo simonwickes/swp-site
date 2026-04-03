@@ -144,38 +144,53 @@ const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))].sort();
       return;
     }
 
-    // Fetch search index and lazy-load Fuse.js together
-    Promise.all([
-      fetch("/api/posts.json").then((res) => res.json()),
-      import("fuse.js").then((m) => m.default),
-    ]).then(([posts, Fuse]: [PostIndex[], { new (list: PostIndex[], options: object): typeof fuse }]) => {
-      allPosts = posts;
+    let indexReady = false;
 
-      // Build set of known category slugs for URL state classification
-      categorySlugs = new Set(posts.map((p: PostIndex) => p.category));
+    function loadSearchIndex() {
+      if (indexReady) return;
+      indexReady = true;
+      Promise.all([
+        fetch("/api/posts.json").then((res) => res.json()),
+        import("fuse.js").then((m) => m.default),
+      ]).then(([posts, Fuse]: [PostIndex[], { new (list: PostIndex[], options: object): typeof fuse }]) => {
+        allPosts = posts;
 
-      fuse = new Fuse(allPosts, {
-        keys: [
-          { name: "title", weight: 2 },
-          { name: "excerpt", weight: 1 },
-          { name: "tags", weight: 1.5 },
-        ],
-        threshold: 0.3,
-        includeMatches: true,
-        minMatchCharLength: 2,
+        // Build set of known category slugs for URL state classification
+        categorySlugs = new Set(posts.map((p: PostIndex) => p.category));
+
+        fuse = new Fuse(allPosts, {
+          keys: [
+            { name: "title", weight: 2 },
+            { name: "excerpt", weight: 1 },
+            { name: "tags", weight: 1.5 },
+          ],
+          threshold: 0.3,
+          includeMatches: true,
+          minMatchCharLength: 2,
+        });
+
+        // Restore state from URL after index is loaded
+        restoreStateFromUrl();
       });
+    }
 
-      // Restore state from URL after index is loaded
-      restoreStateFromUrl();
-    });
+    // Load search index on first interaction or if URL has search params
+    const hasSearchParams = new URLSearchParams(window.location.search).has("q")
+      || new URLSearchParams(window.location.search).has("category")
+      || new URLSearchParams(window.location.search).has("tag");
+    if (hasSearchParams) {
+      loadSearchIndex();
+    }
 
     // Search input handler with 250ms debounce
     const debouncedFilter = debounce(() => applyFilters(), 250);
+    searchInput.addEventListener("focus", loadSearchIndex, { once: true });
     searchInput.addEventListener("input", debouncedFilter);
 
     // Filter pill click handlers
     filterPills.forEach((pill) => {
       pill.addEventListener("click", () => {
+        loadSearchIndex();
         const filter = pill.getAttribute("data-filter");
 
         if (filter === "all") {

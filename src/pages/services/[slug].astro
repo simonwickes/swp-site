@@ -4,19 +4,28 @@ import SchemaService from "@components/seo/SchemaService.astro";
 import ServiceHero from "@components/services/ServiceHero.astro";
 import ServiceNav from "@components/services/ServiceNav.astro";
 import ServiceGallery from "@components/services/ServiceGallery.astro";
-import { getServiceBySlug } from "@/data/services";
+import { services, getServiceBySlug } from "@/data/services";
 import type { ImageMetadata } from "astro";
 
-const service = getServiceBySlug("architectural")!;
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug } }));
+}
 
-const metaDescription = `${service.title} photography by Simon Wickes in Arizona. ${service.description.split('.')[0]}.`;
+const { slug } = Astro.params;
+const service = getServiceBySlug(slug)!;
 
-const imageModules = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/services/architectural/*.{jpg,jpeg,png,webp}",
+const metaDescription = `${service.title} photography by Simon Wickes in Arizona. ${service.description.split(".")[0]}.`;
+
+// Glob all service images; Astro requires a static string literal here
+const allImageModules = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/services/**/*.{jpg,jpeg,png,webp}",
   { eager: true }
 );
 
-const images = Object.entries(imageModules)
+// Filter to current service's directory and sort
+const prefix = `/src/assets/images/services/${slug}/`;
+const images = Object.entries(allImageModules)
+  .filter(([path]) => path.startsWith(prefix))
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([_, mod]) => ({
     image: mod.default,
@@ -30,9 +39,9 @@ const images = Object.entries(imageModules)
     serviceDescription={service.description}
     serviceUrl={`https://simonwickes.com/services/${service.slug}/`}
   />
-  <ServiceNav currentSlug="architectural" />
+  <ServiceNav currentSlug={slug} />
   <ServiceHero title={service.title} description={service.description} />
   <section class="mx-auto max-w-6xl px-4 pb-16 md:px-6 md:pb-24">
-    <ServiceGallery images={images} galleryId="architectural-gallery" />
+    <ServiceGallery images={images} galleryId={`${slug}-gallery`} />
   </section>
 </PageLayout>
