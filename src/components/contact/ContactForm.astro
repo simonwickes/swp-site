@@ -205,91 +205,101 @@ import { services } from "@/data/services";
   const EMAILJS_TEMPLATE_ID = "template_bnq8oml";
   const EMAILJS_PUBLIC_KEY = "QeJTMZYCoupaJT3D4";
 
-  emailjs.init(EMAILJS_PUBLIC_KEY);
+  function initContactForm() {
+    const form = document.getElementById("contact-form") as HTMLFormElement | null;
+    if (!form) return;
 
-  const form = document.getElementById("contact-form") as HTMLFormElement;
-  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
-  const btnText = document.getElementById("btn-text")!;
-  const btnSpinner = document.getElementById("btn-spinner")!;
-  const successMsg = document.getElementById("success-message")!;
-  const errorMsg = document.getElementById("error-message")!;
-  const errorText = document.getElementById("error-text")!;
-  const eventTypeSelect = document.getElementById(
-    "eventType"
-  ) as HTMLSelectElement;
-  const otherWrapper = document.getElementById("other-type-wrapper")!;
+    emailjs.init(EMAILJS_PUBLIC_KEY);
 
-  // Toggle "Other" text input visibility
-  eventTypeSelect.addEventListener("change", () => {
-    if (eventTypeSelect.value === "other") {
-      otherWrapper.classList.remove("hidden");
-    } else {
-      otherWrapper.classList.add("hidden");
-    }
-  });
+    const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
+    const btnText = document.getElementById("btn-text")!;
+    const btnSpinner = document.getElementById("btn-spinner")!;
+    const successMsg = document.getElementById("success-message")!;
+    const errorMsg = document.getElementById("error-message")!;
+    const errorText = document.getElementById("error-text")!;
+    const eventTypeSelect = document.getElementById("eventType") as HTMLSelectElement;
+    const otherWrapper = document.getElementById("other-type-wrapper")!;
 
-  // Handle form submission
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    // Clear all field errors
-    document.querySelectorAll(".field-error").forEach((el) => {
-      el.textContent = "";
+    // Toggle "Other" text input visibility
+    eventTypeSelect.addEventListener("change", () => {
+      if (eventTypeSelect.value === "other") {
+        otherWrapper.classList.remove("hidden");
+      } else {
+        otherWrapper.classList.add("hidden");
+      }
     });
-    errorMsg.classList.add("hidden");
 
-    // Honeypot check — silently reject if filled
-    const honeypot = (form.querySelector("#website") as HTMLInputElement).value;
-    if (honeypot) {
-      form.classList.add("hidden");
-      successMsg.classList.remove("hidden");
-      return;
-    }
+    // Handle form submission
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    // Client-side validation
-    const name = (form.querySelector("#name") as HTMLInputElement).value.trim();
-    const email = (form.querySelector("#email") as HTMLInputElement).value.trim();
-    const message = (form.querySelector("#message") as HTMLTextAreaElement).value.trim();
-
-    let hasError = false;
-    if (!name) {
-      document.querySelector('[data-error="name"]')!.textContent = "Name is required";
-      hasError = true;
-    }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      document.querySelector('[data-error="email"]')!.textContent = "Please enter a valid email address";
-      hasError = true;
-    }
-    if (!message || message.length < 10) {
-      document.querySelector('[data-error="message"]')!.textContent = "Please include a message (at least 10 characters)";
-      hasError = true;
-    }
-    if (hasError) return;
-
-    // Disable submit button, show spinner
-    submitBtn.disabled = true;
-    btnText.classList.add("hidden");
-    btnSpinner.classList.remove("hidden");
-
-    try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        title: "New enquiry from " + name,
-        name: name,
-        email: email,
-        message: message,
+      // Clear all field errors
+      document.querySelectorAll(".field-error").forEach((el) => {
+        el.textContent = "";
       });
+      errorMsg.classList.add("hidden");
 
-      // Success - hide form, show success message
-      form.classList.add("hidden");
-      successMsg.classList.remove("hidden");
-      successMsg.querySelector("h3")?.focus();
-    } catch (error) {
-      errorText.textContent = "Something went wrong. Please try again.";
-      errorMsg.classList.remove("hidden");
-    } finally {
-      submitBtn.disabled = false;
-      btnText.classList.remove("hidden");
-      btnSpinner.classList.add("hidden");
-    }
-  });
+      // Honeypot check — silently reject if filled
+      const honeypot = (form.querySelector("#website") as HTMLInputElement).value;
+      if (honeypot) {
+        form.classList.add("hidden");
+        successMsg.classList.remove("hidden");
+        return;
+      }
+
+      // Client-side validation
+      const name = (form.querySelector("#name") as HTMLInputElement).value.trim();
+      const email = (form.querySelector("#email") as HTMLInputElement).value.trim();
+      const message = (form.querySelector("#message") as HTMLTextAreaElement).value.trim();
+      const eventType = eventTypeSelect.value === "other"
+        ? (form.querySelector("#eventTypeOther") as HTMLInputElement).value.trim()
+        : eventTypeSelect.value;
+      const eventDate = (form.querySelector("#eventDate") as HTMLInputElement).value.trim();
+
+      let hasError = false;
+      if (!name) {
+        document.querySelector('[data-error="name"]')!.textContent = "Name is required";
+        hasError = true;
+      }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.querySelector('[data-error="email"]')!.textContent = "Please enter a valid email address";
+        hasError = true;
+      }
+      if (!message || message.length < 10) {
+        document.querySelector('[data-error="message"]')!.textContent = "Please include a message (at least 10 characters)";
+        hasError = true;
+      }
+      if (hasError) return;
+
+      // Disable submit button, show spinner
+      submitBtn.disabled = true;
+      btnText.classList.add("hidden");
+      btnSpinner.classList.remove("hidden");
+
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          title: "New enquiry from " + name,
+          name: name,
+          email: email,
+          eventType: eventType || "Not specified",
+          eventDate: eventDate || "Not specified",
+          message: message,
+        });
+
+        // Success - hide form, show success message
+        form.classList.add("hidden");
+        successMsg.classList.remove("hidden");
+        successMsg.querySelector("h3")?.focus();
+      } catch (error) {
+        errorText.textContent = "Something went wrong. Please try again.";
+        errorMsg.classList.remove("hidden");
+      } finally {
+        submitBtn.disabled = false;
+        btnText.classList.remove("hidden");
+        btnSpinner.classList.add("hidden");
+      }
+    });
+  }
+
+  document.addEventListener("astro:page-load", initContactForm);
 </script>
