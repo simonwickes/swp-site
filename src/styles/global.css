@@ -88,6 +88,37 @@ html.theme-ready textarea {
     background-color 0.2s ease;
 }
 
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html.theme-ready body,
+  html.theme-ready header,
+  html.theme-ready footer,
+  html.theme-ready main,
+  html.theme-ready nav,
+  html.theme-ready section,
+  html.theme-ready div,
+  html.theme-ready a,
+  html.theme-ready p,
+  html.theme-ready h1,
+  html.theme-ready h2,
+  html.theme-ready h3,
+  html.theme-ready span,
+  html.theme-ready button,
+  html.theme-ready input,
+  html.theme-ready select,
+  html.theme-ready textarea {
+    transition: none;
+  }
+
+  #mobile-menu-panel {
+    transition: none;
+  }
+
+  #mobile-menu-overlay {
+    transition: none;
+  }
+}
+
 /* PhotoSwipe overrides -- immersive lightbox experience */
 
 /* Solid black background */
