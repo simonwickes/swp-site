@@ -1,0 +1,56 @@
+---
+// CookieConsent.astro
+// Lightweight GDPR cookie consent banner. Blocks GA until user accepts.
+---
+
+<div
+  id="cookie-consent"
+  class="fixed bottom-0 left-0 right-0 z-50 hidden border-t border-surface-200 bg-bg-light p-4 shadow-lg dark:border-surface-800 dark:bg-bg-dark"
+  role="dialog"
+  aria-label="Cookie consent"
+>
+  <div class="mx-auto flex max-w-4xl flex-col items-center gap-3 sm:flex-row sm:justify-between">
+    <p class="text-sm text-surface-600 dark:text-surface-400">
+      This site uses cookies for analytics to improve your experience.
+    </p>
+    <div class="flex gap-2">
+      <button
+        id="cookie-reject"
+        class="rounded-lg border border-surface-300 px-4 py-2 text-sm font-medium text-surface-600 transition-colors hover:bg-surface-100 dark:border-surface-700 dark:text-surface-400 dark:hover:bg-surface-800"
+      >
+        Decline
+      </button>
+      <button
+        id="cookie-accept"
+        class="rounded-lg bg-accent-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-600 dark:bg-accent-400 dark:text-surface-950 dark:hover:bg-accent-300"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var consent = localStorage.getItem("cookie-consent");
+    if (consent === null) {
+      document.getElementById("cookie-consent")?.classList.remove("hidden");
+    }
+
+    function hideBanner() {
+      document.getElementById("cookie-consent")?.classList.add("hidden");
+    }
+
+    document.getElementById("cookie-accept")?.addEventListener("click", function () {
+      localStorage.setItem("cookie-consent", "accepted");
+      hideBanner();
+      // Load GA now that consent is given
+      if (window.__loadAnalytics) window.__loadAnalytics();
+    });
+
+    document.getElementById("cookie-reject")?.addEventListener("click", function () {
+      localStorage.setItem("cookie-consent", "rejected");
+      hideBanner();
+    });
+  })();
+</script>

@@ -4,30 +4,44 @@ import { GA_MEASUREMENT_ID } from "@/data/seo";
 
 {
   GA_MEASUREMENT_ID && (
-    <>
-      <script
-        is:inline
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-      />
-      <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
+    <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      function loadGA() {
+        if (document.getElementById("ga-script")) return;
+        var s = document.createElement("script");
+        s.id = "ga-script";
+        s.async = true;
+        s.src =
+          "https://www.googletagmanager.com/gtag/js?id=" + GA_MEASUREMENT_ID;
+        document.head.appendChild(s);
         gtag("js", new Date());
         gtag("config", GA_MEASUREMENT_ID);
+      }
 
-        // Re-track page views on View Transition navigation
-        document.addEventListener("astro:page-load", function () {
-          if (typeof gtag === "function") {
-            gtag("event", "page_view", {
-              page_path: window.location.pathname,
-              page_title: document.title,
-            });
-          }
-        });
-      </script>
-    </>
+      // Expose loader for cookie consent banner
+      window.__loadAnalytics = loadGA;
+
+      // Only load GA if consent was previously given
+      if (localStorage.getItem("cookie-consent") === "accepted") {
+        loadGA();
+      }
+
+      // Re-track page views on View Transition navigation
+      document.addEventListener("astro:page-load", function () {
+        if (
+          typeof gtag === "function" &&
+          localStorage.getItem("cookie-consent") === "accepted"
+        ) {
+          gtag("event", "page_view", {
+            page_path: window.location.pathname,
+            page_title: document.title,
+          });
+        }
+      });
+    </script>
   )
 }
